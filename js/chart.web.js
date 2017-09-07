@@ -6167,7 +6167,7 @@
 	  created: function created() {
 	    var env = this.$getConfig().env;
 	    modal.confirm({
-	      message: env.deviceWidth,
+	      message: document.body.clientWidth,
 	      duration: 0.4,
 	      okTitle: "确定",
 	      cancelTitle: "取消"
