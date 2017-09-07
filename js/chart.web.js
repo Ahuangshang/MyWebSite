@@ -6169,7 +6169,11 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-	  return _c('scroller', [_c('div', [_c('image', {
+	  return _c('scroller', [_c('div', {
+	    staticStyle: {
+	      "width": "750px"
+	    }
+	  }, [_c('image', {
 	    staticStyle: {
 	      "width": "750px",
 	      "height": "469px"
