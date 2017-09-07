@@ -6140,6 +6140,8 @@
 	//
 	//
 
+	//  var buiweex = require("bui-weex");
+	var modal = weex.requireModule('modal');
 	exports.default = {
 	  props: {
 	    title: {
@@ -6161,6 +6163,17 @@
 	    content_5: {
 	      default: "        《白露》（唐：杜甫）\n" + "        白露团甘子，清晨散马蹄。\n" + "        圃开连石树，船渡入江溪。\n" + "        凭几看鱼乐，回鞭急鸟栖。\n" + "        渐知秋实美，幽径恐多蹊。\n" + "\n" + "        《秋露》（唐·雍陶）\n" + "        白露暧秋色，月明清漏中。\n" + "        痕沾珠箔重，点落玉盘空。\n" + "        竹动时惊鸟，莎寒暗滴虫。\n" + "        满园生永夜，渐欲与霜同。\n" + "\n" + "        《南湖晚秋》 （唐·白居易）\n" + "        八月白露降，湖中水方老。\n" + "        旦夕秋风多，衰荷半倾倒。\n" + "        手攀青枫树，足蹋黄芦草。\n" + "        惨澹老容颜，冷落秋怀抱。\n" + "        有兄在淮楚，有弟在蜀道。\n" + "        万里何时来，烟波白浩浩。\n" + "\n" + "        《杂诗》 (魏晋·左思)\n" + "        秋风何冽冽，白露为朝霜。\n" + "        柔条旦夕劲，绿叶日夜黄。\n" + "        明月出云崖，皦皦流素光。\n" + "        披轩临前庭，嗷嗷晨雁翔。\n" + "        高志局四海，块然守空堂。\n" + "        壮齿不恒居，岁暮常慨慷。\n" + "\n" + "        《月夜忆舍弟》（唐杜甫）\n" + "        戍鼓断人行，边秋一雁声。\n" + "        露从今夜白，月是故乡明。\n" + "        有弟皆分散，无家问死生。\n" + "        寄书长不达，况乃未休兵。\n" + "\n" + "        《衰荷》（唐·白居易）\n" + "        白露凋花花不残，凉风吹叶叶初乾。\n" + "        无人解爱萧条境，更绕衰丛一匝看。\n" + "\n" + "        《蒹葭》 出自《诗经·国风·秦风》\n" + "        蒹葭苍苍，白露为霜。所谓伊人，在水一方。溯洄从之，道阻且长。溯游从之，宛在水中央。\n" + "        蒹葭萋萋，白露未晞。所谓伊人，在水之湄。溯洄从之，道阻且跻。溯游从之，宛在水中坻。\n" + "        蒹葭采采，白露未已。所谓伊人，在水之涘。溯洄从之，道阻且右。溯游从之，宛在水中沚。"
 	    }
+	  },
+	  created: function created() {
+	    var env = this.$getConfig().env;
+	    modal.confirm({
+	      message: env.deviceWidth,
+	      duration: 0.4,
+	      okTitle: "确定",
+	      cancelTitle: "取消"
+	    }, function (value) {
+	      callback && callback(value);
+	    });
 	  }
 	};
 
@@ -6169,13 +6182,9 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-	  return _c('scroller', [_c('div', {
+	  return _c('scroller', [_c('div', [_c('image', {
 	    staticStyle: {
-	      "flex": "1"
-	    }
-	  }, [_c('image', {
-	    staticStyle: {
-	      "flex": "1",
+	      "width": "750px",
 	      "height": "469px"
 	    },
 	    attrs: {
