@@ -6171,11 +6171,11 @@
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
 	  return _c('scroller', [_c('div', {
 	    staticStyle: {
-	      "width": "750px"
+	      "flex": "1"
 	    }
 	  }, [_c('image', {
 	    staticStyle: {
-	      "width": "750px",
+	      "flex": "1",
 	      "height": "469px"
 	    },
 	    attrs: {
