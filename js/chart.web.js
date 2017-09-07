@@ -6167,13 +6167,23 @@
 	  created: function created() {
 	    var env = this.$getConfig().env;
 	    modal.confirm({
-	      message: document.body.clientWidth,
+	      message: env.platform,
 	      duration: 0.4,
 	      okTitle: "确定",
 	      cancelTitle: "取消"
 	    }, function (value) {
 	      callback && callback(value);
 	    });
+	    if (env.platform.toLocaleLowerCase() == 'web') {
+	      modal.confirm({
+	        message: document.body.clientWidth,
+	        duration: 0.4,
+	        okTitle: "确定",
+	        cancelTitle: "取消"
+	      }, function (value) {
+	        callback && callback(value);
+	      });
+	    }
 	  }
 	};
 
