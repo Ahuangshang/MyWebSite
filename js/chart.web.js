@@ -6144,6 +6144,12 @@
 	var modal = weex.requireModule('modal');
 	exports.default = {
 	  props: {
+	    img_1_w: {
+	      default: 750
+	    },
+	    img_1_h: {
+	      default: 469
+	    },
 	    title: {
 	      default: "        白露是农历二十四节气中的第十五个节气，当太阳到达黄经165度时为白露。因天气渐转凉，夜晚水汽遇冷，凝结在地面和叶子上，清晨会看见晶莹剔透的露珠，故名白露。"
 	    },
@@ -6166,17 +6172,21 @@
 	  },
 	  created: function created() {
 	    var env = this.$getConfig().env;
-	    modal.confirm({
-	      message: env.platform,
-	      duration: 0.4,
-	      okTitle: "确定",
-	      cancelTitle: "取消"
-	    }, function (value) {
-	      callback && callback(value);
-	    });
+	    //      modal.confirm({
+	    //        message: env.platform,
+	    //        duration: 0.4,
+	    //        okTitle: "确定",
+	    //        cancelTitle: "取消",
+	    //      }, function (value) {
+	    //        callback && callback(value);
+	    //      });
 	    if (env.platform.toLocaleLowerCase() == 'web') {
+	      var clientWidth = document.body.clientWidth;
+	      var ratio = clientWidth / 750;
+	      this.img_1_w = clientWidth + "px";
+	      this.img_1_h = ratio * 469 + "px";
 	      modal.confirm({
-	        message: document.body.clientWidth,
+	        message: this.img_1_h,
 	        duration: 0.4,
 	        okTitle: "确定",
 	        cancelTitle: "取消"
@@ -6193,10 +6203,10 @@
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
 	  return _c('scroller', [_c('div', [_c('image', {
-	    staticStyle: {
-	      "width": "750px",
-	      "height": "469px"
-	    },
+	    style: ({
+	      width: _vm.img_1_w,
+	      height: _vm.img_1_h
+	    }),
 	    attrs: {
 	      "src": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1504758238532&di=8c41baad497ffe306a83448eb62f34e1&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2Fb%2F573be124602a4.jpg"
 	    }
@@ -6227,6 +6237,7 @@
 	      "line-height": "55px"
 	    }
 	  }, [_vm._v(_vm._s(_vm.content_1))]), _vm._v(" "), _c('image', {
+	    staticClass: "img_2",
 	    staticStyle: {
 	      "width": "750px",
 	      "height": "520px"
@@ -6248,6 +6259,7 @@
 	      "line-height": "55px"
 	    }
 	  }, [_vm._v(_vm._s(_vm.content_2))]), _vm._v(" "), _c('image', {
+	    staticClass: "img_3",
 	    staticStyle: {
 	      "width": "750px",
 	      "height": "489px"
@@ -6269,6 +6281,7 @@
 	      "line-height": "55px"
 	    }
 	  }, [_vm._v(_vm._s(_vm.content_3))]), _vm._v(" "), _c('image', {
+	    staticClass: "img_4",
 	    staticStyle: {
 	      "width": "750px",
 	      "height": "490px"
@@ -6290,6 +6303,7 @@
 	      "line-height": "55px"
 	    }
 	  }, [_vm._v(_vm._s(_vm.content_4))]), _vm._v(" "), _c('image', {
+	    staticClass: "img_5",
 	    staticStyle: {
 	      "width": "750px",
 	      "height": "370px"
