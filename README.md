@@ -1,37 +1,16 @@
-## Welcome to GitHub Pages
+## 欢迎来到我的个人网页
 
-You can use the [editor on GitHub](https://github.com/Ahuangshang/MyWebsite/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+在这里你可以看到我的一些最新学习作品，你也可以和我沟通，联系方式：QueenLiLIQueenQueenLi@outlook.com。
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+如果你有什么更好的建议和学习交流，请加入QQ群：262960201和我们交流。
 
-### Markdown
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
+![](http://static9.photo.sina.com.cn/orignal/4af8a5e8856933841a998)
+### 说明
 
-# Header 1
-## Header 2
-### Header 3
+第一次建立自己的网页，是不是很激动，如果你也想有个自己的网站，赶紧行动起来吧。
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Ahuangshang/MyWebsite/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+![](http://img06.tooopen.com/images/20161020/tooopen_sy_182448393274.jpg)
