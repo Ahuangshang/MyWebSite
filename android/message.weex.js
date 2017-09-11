@@ -5966,7 +5966,9 @@
 	    "height": 200,
 	    "justifyContent": "center",
 	    "borderBottomWidth": 1,
-	    "borderColor": "#dddddd"
+	    "borderColor": "#dddddd",
+	    "backgroundColor": "#ffffff",
+	    "backgroundColor:active": "#aeaeae"
 	  },
 	  "item-title": {
 	    "fontSize": 40,
@@ -5975,11 +5977,11 @@
 	  "item-content": {
 	    "marginTop": 5,
 	    "fontSize": 32,
-	    "color": "#aeaeae"
+	    "color": "#31A9A5"
 	  },
 	  "item-time": {
 	    "fontSize": 32,
-	    "color": "#aeaeae",
+	    "color": "#31A9A5",
 	    "textAlign": "right"
 	  }
 	}
@@ -6039,8 +6041,6 @@
 	//
 	//
 	//
-	//
-	//
 
 	exports.default = {
 	  data: function data() {
@@ -6051,7 +6051,6 @@
 	        content: "白露是农历二十四节气中的第十五个节气，当太阳到达黄经165度时为白露。",
 	        time: "2017-09-07"
 	      }],
-	      bgColor: "#ffffff",
 	      title: "",
 	      content: "",
 	      time: ""
@@ -6080,9 +6079,6 @@
 	      }
 	    }, [_c('div', {
 	      staticClass: ["item"],
-	      style: {
-	        backgroundColor: _vm.bgColor
-	      },
 	      on: {
 	        "click": function($event) {
 	          _vm.click(i)
