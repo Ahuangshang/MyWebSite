@@ -8,5 +8,5 @@ gen/
 *.iml
 local.properties
 .DS_Store 
-*.apk
+
 
