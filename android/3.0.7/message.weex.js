@@ -5963,16 +5963,15 @@
 	    "paddingBottom": 25,
 	    "paddingLeft": 35,
 	    "paddingRight": 35,
-	    "height": 200,
+	    "minHeight": 200,
 	    "justifyContent": "center",
 	    "borderBottomWidth": 1,
 	    "borderColor": "#dddddd",
-	    "backgroundColor": "#ffffff",
 	    "backgroundColor:active": "#aeaeae"
 	  },
 	  "item-title": {
 	    "fontSize": 40,
-	    "color": "#555555"
+	    "color": "#606060"
 	  },
 	  "item-content": {
 	    "marginTop": 5,
@@ -6043,6 +6042,8 @@
 	//
 	//
 	//
+	//
+	//
 
 	exports.default = {
 	  data: function data() {
@@ -6051,9 +6052,14 @@
 	        viewName: "bailu.weex.js",
 	        title: "白露",
 	        content: "白露是农历二十四节气中的第十五个节气，当太阳到达黄经165度时为白露。",
-	        time: "2017-09-07",
-	        shareUrl: "https://ahuangshang.github.io/MyWebsite/html/bailu.html"
+	        time: "2017-09-07"
+	      }, {
+	        viewName: "jiuyiba.weex.js",
+	        title: "国耻日",
+	        content: "九一八事变（又称奉天事变、柳条湖事件）是日本在中国东北蓄意制造并发动的一场侵华战争，是日本帝国主义侵华的开端。",
+	        time: "2017-09-18"
 	      }],
+	      bgColor: "#ffffff",
 	      title: "",
 	      content: "",
 	      time: ""
@@ -6063,7 +6069,7 @@
 
 	  methods: {
 	    click: function click(i) {
-	      weex.requireModule('event').openView(this.datas[i].viewName, this.datas[i].title, this.datas[i].shareUrl);
+	      weex.requireModule('event').openView(this.datas[i].viewName, this.datas[i].title);
 	    }
 	  }
 	};
@@ -6082,6 +6088,9 @@
 	      }
 	    }, [_c('div', {
 	      staticClass: ["item"],
+	      style: {
+	        backgroundColor: _vm.bgColor
+	      },
 	      on: {
 	        "click": function($event) {
 	          _vm.click(i)
