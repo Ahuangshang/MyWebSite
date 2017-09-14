@@ -6137,7 +6137,7 @@
 
 
 	// module
-	exports.push([module.id, "\n.item[data-v-93cd8a60] {\n    padding-top: 25px;\n    padding-bottom: 25px;\n    padding-left: 35px;\n    padding-right: 35px;\n    min-height: 200px;\n    justify-content: center;\n    /*margin-bottom: 1px; FUTURE */\n    border-bottom-width: 1px;\n    border-color: #dddddd;\n}\n.item[data-v-93cd8a60]:active {\n    background-color: #aeaeae;\n}\n.item-title[data-v-93cd8a60] {\n    font-size: 40px;\n    color: #606060;\n}\n.item-content[data-v-93cd8a60] {\n    margin-top: 5px;\n    font-size: 32px;\n    color: #31A9A5;\n}\n.item-time[data-v-93cd8a60] {\n    font-size: 32px;\n    color: #31A9A5;\n    text-align: right;\n}\n", ""]);
+	exports.push([module.id, "\n.item[data-v-93cd8a60] {\n    padding-top: 25px;\n    padding-bottom: 25px;\n    padding-left: 35px;\n    padding-right: 35px;\n    min-height: 200px;\n    justify-content: center;\n    /*margin-bottom: 1px; FUTURE */\n    border-bottom-width: 1px;\n    border-color: #dddddd;\n}\n.item[data-v-93cd8a60]:active {\n    background-color: #aeaeae;\n}\n.item-title[data-v-93cd8a60] {\n    font-size: 40px;\n    color: #303030;\n}\n.item-content[data-v-93cd8a60] {\n    margin-top: 5px;\n    font-size: 32px;\n    color: #31A9A5;\n}\n.item-time[data-v-93cd8a60] {\n    font-size: 32px;\n    color: #31A9A5;\n    text-align: right;\n}\n", ""]);
 
 	// exports
 
@@ -6201,6 +6201,8 @@
 	//
 	//
 	//
+	//
+	//
 
 	exports.default = {
 	  data: function data() {
@@ -6209,12 +6211,14 @@
 	        viewName: "bailu.weex.js",
 	        title: "白露",
 	        content: "白露是农历二十四节气中的第十五个节气，当太阳到达黄经165度时为白露。",
-	        time: "2017-09-07"
+	        time: "2017-09-07",
+	        shareUrl: "https://ahuangshang.github.io/MyWebsite/html/bailu.html"
 	      }, {
 	        viewName: "jiuyiba.weex.js",
 	        title: "国耻日",
 	        content: "九一八事变（又称奉天事变、柳条湖事件）是日本在中国东北蓄意制造并发动的一场侵华战争，是日本帝国主义侵华的开端。",
-	        time: "2017-09-18"
+	        time: "2017-09-18",
+	        shareUrl: "https://ahuangshang.github.io/MyWebsite/html/jiuyiba.html"
 	      }],
 	      bgColor: "#ffffff",
 	      title: "",
@@ -6226,7 +6230,7 @@
 
 	  methods: {
 	    click: function click(i) {
-	      weex.requireModule('event').openView(this.datas[i].viewName, this.datas[i].title);
+	      weex.requireModule('event').openView(this.datas[i].viewName, this.datas[i].title, this.datas[i].shareUrl);
 	    }
 	  }
 	};
