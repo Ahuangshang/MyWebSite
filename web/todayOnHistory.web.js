@@ -347,7 +347,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-actionsheet.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-actionsheet.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-actionsheet.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -845,7 +845,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-mask.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-mask.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-mask.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1020,7 +1020,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-button.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-button.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-button.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1162,7 +1162,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-checkbox.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-checkbox.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-checkbox.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1355,7 +1355,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-dialog.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-dialog.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-dialog.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1531,7 +1531,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-dropdown.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-dropdown.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-dropdown.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -1827,7 +1827,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-header.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-header.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-header.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -2092,7 +2092,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-icon.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-icon.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-icon.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -2815,7 +2815,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-image.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-image.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-image.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -2961,7 +2961,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-lazy-render.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-lazy-render.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-lazy-render.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -3158,7 +3158,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-load.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-load.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-load.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -3313,7 +3313,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-panel.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-panel.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-panel.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -3471,7 +3471,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-radio.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-radio.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-radio.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -3666,7 +3666,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-searchbar-center.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-searchbar-center.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-searchbar-center.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -3948,7 +3948,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-searchbar-left.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-searchbar-left.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-searchbar-left.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -4222,7 +4222,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-slider-bar.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-slider-bar.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-slider-bar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -4439,7 +4439,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-switch.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-switch.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-switch.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -4584,7 +4584,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-tabbar.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -4810,7 +4810,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-item.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-item.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-tabbar-item.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -4935,7 +4935,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-item-a.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-item-a.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-tabbar-item-a.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -5040,7 +5040,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-scroll.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-scroll.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-tabbar-scroll.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -5200,7 +5200,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-scroll-item.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-scroll-item.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-tabbar-scroll-item.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -5411,7 +5411,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tip.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tip.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-tip.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -5530,7 +5530,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-video.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-video.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-video.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -5641,7 +5641,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-content.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-content.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-content.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -5715,7 +5715,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-content-scroll.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-content-scroll.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-content-scroll.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -5793,7 +5793,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-image-slider.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-image-slider.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] bui-image-slider.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -6003,7 +6003,7 @@
 	  /* cssModules */
 	  null
 	)
-	Component.options.__file = "D:\\workeSpace\\rili_weex\\src\\views\\todayOnHistory.vue"
+	Component.options.__file = "D:\\workSpace\\weex\\rili_weex\\src\\views\\todayOnHistory.vue"
 	if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 	if (Component.options.functional) {console.error("[vue-loader] todayOnHistory.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -6030,7 +6030,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	//
 	//
@@ -6055,109 +6055,108 @@
 	var mtd = __webpack_require__(147);
 
 	exports.default = {
-	  data: function data() {
-	    return {
-	      ss: "测试页面",
-	      title: "",
-	      content: "",
-	      year: "",
-	      picUrl: [],
-	      dealPicUrl: [],
-	      img_w: 0,
-	      contentMargin: 16,
-	      tex_size_1: 30,
-	      tex_size_2: 35,
-	      title_size: 50,
-	      topMargin: 40,
-	      line_height: 55
-	    };
-	  },
+	    data: function data() {
+	        return {
+	            ss: "测试页面",
+	            title: "",
+	            content: "",
+	            year: "",
+	            picUrl: [],
+	            dealPicUrl: [],
+	            img_w: 0,
+	            contentMargin: 16,
+	            tex_size_1: 30,
+	            tex_size_2: 35,
+	            title_size: 50,
+	            topMargin: 40,
+	            line_height: 55
+	        };
+	    },
 
-	  methods: {
-	    testWeb: function testWeb(eid, type, callback) {
-	      return stream.fetch({
-	        method: 'GET',
-	        type: type,
-	        url: 'http://v.juhe.cn/todayOnhistory/queryDetail.php?e_id=' + eid + '&key=4b38076dc77166f1d610d1697315c07d'
-	      }, callback);
-	    },
-	    getOptions: function getOptions() {
-	      var _this = this;
+	    methods: {
+	        testWeb: function testWeb(eid, type, callback) {
+	            return stream.fetch({
+	                method: 'GET',
+	                type: type,
+	                url: 'http://v.juhe.cn/todayOnhistory/queryDetail.php?e_id=' + eid + '&key=4b38076dc77166f1d610d1697315c07d'
+	            }, callback);
+	        },
+	        getOptions: function getOptions() {
+	            var _this = this;
 
-	      var env = this.$getConfig().env;
-	      if (env.platform.toLocaleLowerCase() == 'web') {
-	        var bundleUrl = this.$getConfig().bundleUrl;
-	        var urlParams = mtd.parseQueryString(bundleUrl);
-	        this.year = urlParams.year;
-	        this.testWeb(urlParams.e_id, 'jsonp', function (res) {
-	          _this.dealBack(JSON.stringify(res));
-	        });
-	      } else {
-	        this.year = this.$getConfig().year;
-	        this.testWeb(this.$getConfig().e_id, 'json', function (res) {
-	          _this.dealBack(JSON.stringify(res));
-	        });
-	      }
-	    },
-	    dealBack: function dealBack(e) {
-	      var data = JSON.parse(e).data;
-	      var result = data.result;
-	      this.title = result[0].title;
-	      this.content = result[0].content;
-	      this.picUrl = result[0].picUrl;
-	      var that = this;
-	      this.getDealList(function (res) {
-	        that.dealPicUrl = res;
-	        that.ss = that.dealPicUrl;
-	      });
-	    },
-	    /**
-	     * 获取显示图片的高度
-	     * @param ratio
-	     */
-	    getShowImgHeight: function getShowImgHeight(ratio) {
-	      var env = this.$getConfig().env;
-	      if (env.platform.toLocaleLowerCase() == 'web') {
-	        var clientWidth = document.body.clientWidth;
-	        return ratio == 0 ? 0 : clientWidth / ratio;
-	      }
-	      return 0;
-	    },
-	    getDealList: function getDealList(callback) {
-	      var that = this;
-	      var env = this.$getConfig().env;
-	      if (env.platform.toLocaleLowerCase() == 'web') {
-	        var dealPicUrl = [];
-	        this.picUrl.map(function (item) {
-	          console.log(item.url);
-	          mtd.checkPicurl(item.url, function (res) {
-	            dealPicUrl.push({
-	              height: res + "px",
-	              title: res == 0 ? "" : item.pic_title || "王朝黄历--历史上的今天",
-	              url: item.url
+	            var env = this.$getConfig().env;
+	            if (env.platform.toLocaleLowerCase() == 'web') {
+	                var bundleUrl = this.$getConfig().bundleUrl;
+	                var urlParams = mtd.parseQueryString(bundleUrl);
+	                this.year = urlParams.year;
+	                this.testWeb(urlParams.e_id, 'jsonp', function (res) {
+	                    _this.dealBack(JSON.stringify(res));
+	                });
+	            } else {
+	                this.year = this.$getConfig().year;
+	                this.testWeb(this.$getConfig().e_id, 'json', function (res) {
+	                    _this.dealBack(JSON.stringify(res));
+	                });
+	            }
+	        },
+	        dealBack: function dealBack(e) {
+	            var data = JSON.parse(e).data;
+	            var result = data.result;
+	            this.title = result[0].title;
+	            this.content = result[0].content;
+	            this.picUrl = result[0].picUrl;
+	            var that = this;
+	            this.getDealList(function (res) {
+	                that.dealPicUrl = res;
 	            });
-	          });
-	        });
-	        return callback(dealPicUrl);
-	      }
-	    }
-	  },
+	        },
+	        /**
+	         * 获取显示图片的高度
+	         * @param ratio
+	         */
+	        getShowImgHeight: function getShowImgHeight(ratio) {
+	            var env = this.$getConfig().env;
+	            if (env.platform.toLocaleLowerCase() == 'web') {
+	                var clientWidth = document.body.clientWidth;
+	                return ratio == 0 ? 0 : clientWidth / ratio;
+	            }
+	            return 0;
+	        },
+	        getDealList: function getDealList(callback) {
+	            var that = this;
+	            var env = this.$getConfig().env;
+	            if (env.platform.toLocaleLowerCase() == 'web') {
+	                var dealPicUrl = [];
+	                this.picUrl.map(function (item) {
+	                    console.log(item.url);
+	                    mtd.checkPicurl(item.url, function (res) {
+	                        dealPicUrl.push({
+	                            height: res + "px",
+	                            title: res == 0 ? "" : item.pic_title || "王朝黄历--历史上的今天",
+	                            url: item.url.substring(item.url.indexOf(":") + 1, item.url.length)
+	                        });
+	                    });
+	                });
+	                return callback(dealPicUrl);
+	            }
+	        }
+	    },
 
-	  created: function created() {
-	    this.getOptions();
-	    var env = this.$getConfig().env;
-	    if (env.platform.toLocaleLowerCase() == 'web') {
-	      var clientWidth = document.body.clientWidth;
-	      this.img_w = clientWidth;
-	      var ratio = clientWidth / 750;
-	      this.contentMargin = ratio * this.contentMargin + "px";
-	      this.tex_size_1 = ratio * this.tex_size_1 + "px";
-	      this.tex_size_2 = ratio * this.tex_size_2 + "px";
-	      this.topMargin = ratio * this.topMargin + "px";
-	      this.line_height = ratio * this.line_height + "px";
-	      this.title_size = ratio * this.title_size + "px";
+	    created: function created() {
+	        this.getOptions();
+	        var env = this.$getConfig().env;
+	        if (env.platform.toLocaleLowerCase() == 'web') {
+	            var clientWidth = document.body.clientWidth;
+	            this.img_w = clientWidth;
+	            var ratio = clientWidth / 750;
+	            this.contentMargin = ratio * this.contentMargin + "px";
+	            this.tex_size_1 = ratio * this.tex_size_1 + "px";
+	            this.tex_size_2 = ratio * this.tex_size_2 + "px";
+	            this.topMargin = ratio * this.topMargin + "px";
+	            this.line_height = ratio * this.line_height + "px";
+	            this.title_size = ratio * this.title_size + "px";
+	        }
 	    }
-	  }
 	};
 
 /***/ }),
