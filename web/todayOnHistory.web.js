@@ -6133,7 +6133,7 @@
 	                        dealPicUrl.push({
 	                            height: res + "px",
 	                            title: res == 0 ? "" : item.pic_title || "王朝黄历--历史上的今天",
-	                            url: item.url.substring(item.url.indexOf(":") + 1, item.url.length)
+	                            url: item.url
 	                        });
 	                    });
 	                });
