@@ -48,11 +48,11 @@
 
 	'use strict';
 
-	var _chart = __webpack_require__(131);
+	var _message = __webpack_require__(114);
 
-	var _chart2 = _interopRequireDefault(_chart);
+	var _message2 = _interopRequireDefault(_message);
 
-	var _mixins = __webpack_require__(130);
+	var _mixins = __webpack_require__(4);
 
 	var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -60,15 +60,41 @@
 
 	Vue.mixin(_mixins2.default);
 
-	_chart2.default.el = '#root';
+	_message2.default.el = '#root';
 
-	new Vue(_chart2.default);
+	new Vue(_message2.default);
 
 /***/ }),
 /* 1 */,
 /* 2 */,
 /* 3 */,
-/* 4 */,
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var navigator = weex.requireModule('navigator');
+
+	var buiweex = __webpack_require__(5);
+	var mixins = {
+	    data: function data() {
+	        return {};
+	    },
+	    components: {
+	        'bui-header': buiweex.buiHeader,
+	        'bui-icon': buiweex.buiIcon,
+	        'bui-button': buiweex.buiButton,
+	        'bui-image': buiweex.buiImage
+	    },
+	    methods: {}
+	};
+
+	exports.default = mixins;
+
+/***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -99,17 +125,17 @@
 	    "buiSearchbarCenter": __webpack_require__(58),
 	    "buiSearchbarLeft": __webpack_require__(63),
 	    "buiSliderBar": __webpack_require__(68),
-	    "buiSwitch": __webpack_require__(73),
-	    "buiTabbar": __webpack_require__(77),
-	    "buiTabbarItem": __webpack_require__(80),
-	    "buiTabbarItemA" :__webpack_require__(84) ,
-	    "buiTabbarScroll": __webpack_require__(87),
-	    "buiTabbarScrollItem": __webpack_require__(90),
-	    "buiTip": __webpack_require__(95),
-	    "buiVideo": __webpack_require__(99),
-	    "buiContent": __webpack_require__(102),
-	    "buiContentScroll": __webpack_require__(105),
-	    "buiImageSlider": __webpack_require__(108),
+	    "buiSwitch": __webpack_require__(72),
+	    "buiTabbar": __webpack_require__(76),
+	    "buiTabbarItem": __webpack_require__(79),
+	    "buiTabbarItemA" :__webpack_require__(83) ,
+	    "buiTabbarScroll": __webpack_require__(86),
+	    "buiTabbarScrollItem": __webpack_require__(89),
+	    "buiTip": __webpack_require__(94),
+	    "buiVideo": __webpack_require__(98),
+	    "buiContent": __webpack_require__(101),
+	    "buiContentScroll": __webpack_require__(104),
+	    "buiImageSlider": __webpack_require__(107),
 
 	    "toast": function (msg) {
 	        modal.toast({
@@ -277,10 +303,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-actionsheet.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-actionsheet.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-6053d379"
+	__vue_options__._scopeId = "data-v-efd6fafc"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -374,87 +400,87 @@
 
 	var animation = weex.requireModule('animation');
 	module.exports = {
-	  props: {
-	    title: {
-	      default: "请选择操作"
-	    },
-	    items: {
-	      type: Array
-	    },
-	    show: {
-	      type: Boolean,
-	      default: false
-	    },
-	    button: {
-	      default: "取消"
-	    }
-	  },
-	  computed: {
-	    "bottom": function bottom() {
-	      //根据下拉菜单内容计算bottom距离
-	      var length = this.items.length;
-	      var len = (length + 1) * 100 + 80;
-	      console.log(len);
-	      return len;
-	    }
-	  },
-	  components: {
-	    'bui-mask': __webpack_require__(9)
-	  },
-	  methods: {
-	    //动画操作
-	    animationFn: function animationFn(el, translate, timing, fn) {
-	      animation.transition(el, {
-	        styles: {
-	          transform: translate,
-	          transformOrigin: 'center center'
+	    props: {
+	        title: {
+	            default: "请选择操作"
 	        },
-	        duration: 200, //ms
-	        timingFunction: timing,
-	        delay: 0 //ms
-	      }, function () {
-	        fn && fn();
-	      });
+	        items: {
+	            type: Array
+	        },
+	        show: {
+	            type: Boolean,
+	            default: false
+	        },
+	        button: {
+	            default: "取消"
+	        }
 	    },
-	    //打开上拉菜单
-	    "open": function open() {
-	      console.log("open" + this.bottom);
-	      var _this = this;
-	      var el = _this.$refs.actionsheetBox;
-	      var translate = 'translate(0px, -' + (_this.bottom + 20) + 'px, 0px)';
-	      _this.animationFn(el, translate, 'ease-in');
+	    computed: {
+	        "bottom": function bottom() {
+	            //根据下拉菜单内容计算bottom距离
+	            var length = this.items.length;
+	            var len = (length + 1) * 100 + 80;
+	            console.log(len);
+	            return len;
+	        }
 	    },
-	    //点击mask遮罩层
-	    "layoutClick": function layoutClick() {
-	      var _this = this;
-	      var el = this.$refs.actionsheetBox;
-	      var translate = 'translate(0px, ' + (_this.bottom + 20) + 'px, 0px)';
-	      _this.animationFn(el, translate, 'ease-in', function () {
-	        _this.show = false;
-	        _this.$emit("close");
-	      });
+	    components: {
+	        'bui-mask': __webpack_require__(9)
 	    },
-	    //上拉菜单项点击事件
-	    "actionsheetItemClick": function actionsheetItemClick(item) {
-	      var _this = this;
-	      var el = this.$refs.actionsheetBox;
-	      var translate = 'translate(0px, ' + (_this.bottom + 20) + 'px, 0px)';
-	      _this.animationFn(el, translate, 'ease-in', function () {
-	        _this.show = false;
-	        _this.$emit('itemClick', item);
-	      });
-	    },
-	    //上拉菜单按钮点击事件
-	    "actionsheetBtnClick": function actionsheetBtnClick() {
-	      var _this = this;
-	      var el = this.$refs.actionsheetBox;
-	      var translate = 'translate(0px, ' + (_this.bottom + 20) + 'px, 0px)';
-	      _this.animationFn(el, translate, 'ease-in', function () {
-	        _this.show = false;
-	        _this.$emit('btnClick');
-	      });
+	    methods: {
+	        //动画操作
+	        animationFn: function animationFn(el, translate, timing, fn) {
+	            animation.transition(el, {
+	                styles: {
+	                    transform: translate,
+	                    transformOrigin: 'center center'
+	                },
+	                duration: 200, //ms
+	                timingFunction: timing,
+	                delay: 0 //ms
+	            }, function () {
+	                fn && fn();
+	            });
+	        },
+	        //打开上拉菜单
+	        "open": function open() {
+	            console.log("open" + this.bottom);
+	            var _this = this;
+	            var el = _this.$refs.actionsheetBox;
+	            var translate = 'translate(0px, -' + (_this.bottom + 20) + 'px, 0px)';
+	            _this.animationFn(el, translate, 'ease-in');
+	        },
+	        //点击mask遮罩层
+	        "layoutClick": function layoutClick() {
+	            var _this = this;
+	            var el = this.$refs.actionsheetBox;
+	            var translate = 'translate(0px, ' + (_this.bottom + 20) + 'px, 0px)';
+	            _this.animationFn(el, translate, 'ease-in', function () {
+	                _this.show = false;
+	                _this.$emit("close");
+	            });
+	        },
+	        //上拉菜单项点击事件
+	        "actionsheetItemClick": function actionsheetItemClick(item) {
+	            var _this = this;
+	            var el = this.$refs.actionsheetBox;
+	            var translate = 'translate(0px, ' + (_this.bottom + 20) + 'px, 0px)';
+	            _this.animationFn(el, translate, 'ease-in', function () {
+	                _this.show = false;
+	                _this.$emit('itemClick', item);
+	            });
+	        },
+	        //上拉菜单按钮点击事件
+	        "actionsheetBtnClick": function actionsheetBtnClick() {
+	            var _this = this;
+	            var el = this.$refs.actionsheetBox;
+	            var translate = 'translate(0px, ' + (_this.bottom + 20) + 'px, 0px)';
+	            _this.animationFn(el, translate, 'ease-in', function () {
+	                _this.show = false;
+	                _this.$emit('btnClick');
+	            });
+	        }
 	    }
-	  }
 	};
 
 /***/ }),
@@ -484,10 +510,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-mask.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-mask.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-00198e0c"
+	__vue_options__._scopeId = "data-v-3991c723"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -629,10 +655,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-button.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-button.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-28729952"
+	__vue_options__._scopeId = "data-v-367e2eae"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -784,10 +810,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-checkbox.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-checkbox.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-7a04db63"
+	__vue_options__._scopeId = "data-v-5bfcb0fa"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -978,10 +1004,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-dialog.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-dialog.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-7ef51730"
+	__vue_options__._scopeId = "data-v-7cd3c3bf"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -1176,10 +1202,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-dropdown.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-dropdown.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-4aa02cb1"
+	__vue_options__._scopeId = "data-v-2c980248"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -1457,10 +1483,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-header.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-header.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-ee1ba1a6"
+	__vue_options__._scopeId = "data-v-45407e84"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -1759,7 +1785,7 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-icon.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-icon.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 	__vue_options__.style = __vue_options__.style || {}
@@ -2481,7 +2507,7 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-image.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-image.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 	__vue_options__.style = __vue_options__.style || {}
@@ -2626,10 +2652,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-lazy-render.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-lazy-render.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-17e88d9f"
+	__vue_options__._scopeId = "data-v-3fa93ca8"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -2799,10 +2825,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-load.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-load.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-5db5bf06"
+	__vue_options__._scopeId = "data-v-d1a40fc6"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -2945,10 +2971,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-panel.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-panel.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-9f1b7dd8"
+	__vue_options__._scopeId = "data-v-b3fdaa46"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -3116,10 +3142,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-radio.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-radio.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-620b10ea"
+	__vue_options__._scopeId = "data-v-76ed3d58"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -3313,10 +3339,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-searchbar-center.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-searchbar-center.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-a13bfed2"
+	__vue_options__._scopeId = "data-v-0f124f2e"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -3695,10 +3721,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-searchbar-left.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-searchbar-left.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-5ac0a46e"
+	__vue_options__._scopeId = "data-v-3b1e93c0"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -4051,14 +4077,12 @@
 	/* styles */
 	__vue_styles__.push(__webpack_require__(69)
 	)
-	__vue_styles__.push(__webpack_require__(70)
-	)
 
 	/* script */
-	__vue_exports__ = __webpack_require__(71)
+	__vue_exports__ = __webpack_require__(70)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(72)
+	var __vue_template__ = __webpack_require__(71)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -4070,10 +4094,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-slider-bar.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-slider-bar.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-2535fcc7"
+	__vue_options__._scopeId = "data-v-688ec89e"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -4098,7 +4122,7 @@
 	    "top": 0,
 	    "bottom": 0,
 	    "backgroundColor": "#ffffff",
-	    "padding": 0,
+	    "padding": 30,
 	    "flexDirection": "column"
 	  },
 	  "bui-left-slider-bar-box": {
@@ -4120,35 +4144,10 @@
 
 /***/ }),
 /* 70 */
-/***/ (function(module, exports) {
-
-	module.exports = {
-	  "button": {
-	    "backgroundColor": "#ff503f",
-	    "fontSize": 40,
-	    "color": "#ffffff",
-	    "height": 80,
-	    "paddingTop": 15,
-	    "textAlign": "center"
-	  }
-	}
-
-/***/ }),
-/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
-	//
 	//
 	//
 	//
@@ -4251,7 +4250,7 @@
 	};
 
 /***/ }),
-/* 72 */
+/* 71 */
 /***/ (function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -4270,35 +4269,28 @@
 	        _vm.onSwipe($event)
 	      }
 	    }
-	  }, [_c('text', {
-	    staticClass: ["bui-slider-title"]
-	  }, [_vm._v(_vm._s(_vm.type == 'left' ? '左' : '右') + "侧滑动栏题")]), _c('div', {
+	  }, [_c('div', {
 	    staticClass: ["bui-slider-content"]
-	  }, [_c('scroller', [_vm._t("default")], 2)]), _c('text', {
-	    staticClass: ["button"],
-	    on: {
-	      "click": _vm.confirm
-	    }
-	  }, [_vm._v("确定")])]) : _vm._e()], 1)
+	  }, [_c('scroller', [_vm._t("default")], 2)])]) : _vm._e()], 1)
 	},staticRenderFns: []}
 	module.exports.render._withStripped = true
 
 /***/ }),
-/* 73 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = []
 
 	/* styles */
-	__vue_styles__.push(__webpack_require__(74)
+	__vue_styles__.push(__webpack_require__(73)
 	)
 
 	/* script */
-	__vue_exports__ = __webpack_require__(75)
+	__vue_exports__ = __webpack_require__(74)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(76)
+	var __vue_template__ = __webpack_require__(75)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -4310,10 +4302,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-switch.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-switch.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-033f4f58"
+	__vue_options__._scopeId = "data-v-8aa2b0aa"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -4328,7 +4320,7 @@
 
 
 /***/ }),
-/* 74 */
+/* 73 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -4369,7 +4361,7 @@
 	}
 
 /***/ }),
-/* 75 */
+/* 74 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -4412,7 +4404,7 @@
 	};
 
 /***/ }),
-/* 76 */
+/* 75 */
 /***/ (function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -4434,17 +4426,17 @@
 	module.exports.render._withStripped = true
 
 /***/ }),
-/* 77 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = []
 
 	/* script */
-	__vue_exports__ = __webpack_require__(78)
+	__vue_exports__ = __webpack_require__(77)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(79)
+	var __vue_template__ = __webpack_require__(78)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -4456,7 +4448,7 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-tabbar.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 	__vue_options__.style = __vue_options__.style || {}
@@ -4473,7 +4465,7 @@
 
 
 /***/ }),
-/* 78 */
+/* 77 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -4617,7 +4609,7 @@
 	};
 
 /***/ }),
-/* 79 */
+/* 78 */
 /***/ (function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -4655,21 +4647,21 @@
 	module.exports.render._withStripped = true
 
 /***/ }),
-/* 80 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = []
 
 	/* styles */
-	__vue_styles__.push(__webpack_require__(81)
+	__vue_styles__.push(__webpack_require__(80)
 	)
 
 	/* script */
-	__vue_exports__ = __webpack_require__(82)
+	__vue_exports__ = __webpack_require__(81)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(83)
+	var __vue_template__ = __webpack_require__(82)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -4681,10 +4673,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-item.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-item.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-208e659c"
+	__vue_options__._scopeId = "data-v-17797c3b"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -4699,7 +4691,7 @@
 
 
 /***/ }),
-/* 81 */
+/* 80 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -4709,7 +4701,7 @@
 	}
 
 /***/ }),
-/* 82 */
+/* 81 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -4742,7 +4734,7 @@
 	};
 
 /***/ }),
-/* 83 */
+/* 82 */
 /***/ (function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -4754,17 +4746,17 @@
 	module.exports.render._withStripped = true
 
 /***/ }),
-/* 84 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = []
 
 	/* script */
-	__vue_exports__ = __webpack_require__(85)
+	__vue_exports__ = __webpack_require__(84)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(86)
+	var __vue_template__ = __webpack_require__(85)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -4776,7 +4768,7 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-item-a.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-item-a.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 	__vue_options__.style = __vue_options__.style || {}
@@ -4793,7 +4785,7 @@
 
 
 /***/ }),
-/* 85 */
+/* 84 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -4837,7 +4829,7 @@
 	};
 
 /***/ }),
-/* 86 */
+/* 85 */
 /***/ (function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -4854,21 +4846,21 @@
 	module.exports.render._withStripped = true
 
 /***/ }),
-/* 87 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = []
 
 	/* styles */
-	__vue_styles__.push(__webpack_require__(88)
+	__vue_styles__.push(__webpack_require__(87)
 	)
 
 	/* script */
-	__vue_exports__ = __webpack_require__(89)
+	__vue_exports__ = __webpack_require__(88)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(94)
+	var __vue_template__ = __webpack_require__(93)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -4880,10 +4872,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-scroll.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-scroll.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-9f2eb3a8"
+	__vue_options__._scopeId = "data-v-2a8c9216"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -4898,7 +4890,7 @@
 
 
 /***/ }),
-/* 88 */
+/* 87 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -4973,7 +4965,7 @@
 	}
 
 /***/ }),
-/* 89 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5026,7 +5018,7 @@
 	        return {};
 	    },
 	    components: {
-	        tabitem: __webpack_require__(90)
+	        tabitem: __webpack_require__(89)
 	    },
 	    created: function created() {
 	        this.select(this.selectedIndex);
@@ -5055,21 +5047,21 @@
 	};
 
 /***/ }),
-/* 90 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = []
 
 	/* styles */
-	__vue_styles__.push(__webpack_require__(91)
+	__vue_styles__.push(__webpack_require__(90)
 	)
 
 	/* script */
-	__vue_exports__ = __webpack_require__(92)
+	__vue_exports__ = __webpack_require__(91)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(93)
+	var __vue_template__ = __webpack_require__(92)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -5081,10 +5073,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-scroll-item.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tabbar-scroll-item.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-52bdcf78"
+	__vue_options__._scopeId = "data-v-0b781d1b"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -5099,7 +5091,7 @@
 
 
 /***/ }),
-/* 91 */
+/* 90 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -5174,7 +5166,7 @@
 	}
 
 /***/ }),
-/* 92 */
+/* 91 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -5217,7 +5209,7 @@
 	};
 
 /***/ }),
-/* 93 */
+/* 92 */
 /***/ (function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5245,7 +5237,7 @@
 	module.exports.render._withStripped = true
 
 /***/ }),
-/* 94 */
+/* 93 */
 /***/ (function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5296,21 +5288,21 @@
 	module.exports.render._withStripped = true
 
 /***/ }),
-/* 95 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = []
 
 	/* styles */
-	__vue_styles__.push(__webpack_require__(96)
+	__vue_styles__.push(__webpack_require__(95)
 	)
 
 	/* script */
-	__vue_exports__ = __webpack_require__(97)
+	__vue_exports__ = __webpack_require__(96)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(98)
+	var __vue_template__ = __webpack_require__(97)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -5322,10 +5314,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-tip.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-tip.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-66e8122b"
+	__vue_options__._scopeId = "data-v-fcee4b98"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -5340,7 +5332,7 @@
 
 
 /***/ }),
-/* 96 */
+/* 95 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -5386,7 +5378,7 @@
 	}
 
 /***/ }),
-/* 97 */
+/* 96 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -5412,7 +5404,7 @@
 	};
 
 /***/ }),
-/* 98 */
+/* 97 */
 /***/ (function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5425,17 +5417,17 @@
 	module.exports.render._withStripped = true
 
 /***/ }),
-/* 99 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = []
 
 	/* script */
-	__vue_exports__ = __webpack_require__(100)
+	__vue_exports__ = __webpack_require__(99)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(101)
+	var __vue_template__ = __webpack_require__(100)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -5447,7 +5439,7 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-video.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-video.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 	__vue_options__.style = __vue_options__.style || {}
@@ -5464,7 +5456,7 @@
 
 
 /***/ }),
-/* 100 */
+/* 99 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -5504,7 +5496,7 @@
 	};
 
 /***/ }),
-/* 101 */
+/* 100 */
 /***/ (function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5535,17 +5527,17 @@
 	module.exports.render._withStripped = true
 
 /***/ }),
-/* 102 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = []
 
 	/* script */
-	__vue_exports__ = __webpack_require__(103)
+	__vue_exports__ = __webpack_require__(102)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(104)
+	var __vue_template__ = __webpack_require__(103)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -5557,7 +5549,7 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-content.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-content.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 	__vue_options__.style = __vue_options__.style || {}
@@ -5574,7 +5566,7 @@
 
 
 /***/ }),
-/* 103 */
+/* 102 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -5595,7 +5587,7 @@
 	};
 
 /***/ }),
-/* 104 */
+/* 103 */
 /***/ (function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5608,17 +5600,17 @@
 	module.exports.render._withStripped = true
 
 /***/ }),
-/* 105 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = []
 
 	/* script */
-	__vue_exports__ = __webpack_require__(106)
+	__vue_exports__ = __webpack_require__(105)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(107)
+	var __vue_template__ = __webpack_require__(106)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -5630,7 +5622,7 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-content-scroll.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-content-scroll.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 	__vue_options__.style = __vue_options__.style || {}
@@ -5647,7 +5639,7 @@
 
 
 /***/ }),
-/* 106 */
+/* 105 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -5668,7 +5660,7 @@
 	};
 
 /***/ }),
-/* 107 */
+/* 106 */
 /***/ (function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5681,21 +5673,21 @@
 	module.exports.render._withStripped = true
 
 /***/ }),
-/* 108 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = []
 
 	/* styles */
-	__vue_styles__.push(__webpack_require__(109)
+	__vue_styles__.push(__webpack_require__(108)
 	)
 
 	/* script */
-	__vue_exports__ = __webpack_require__(110)
+	__vue_exports__ = __webpack_require__(109)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(111)
+	var __vue_template__ = __webpack_require__(110)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -5707,10 +5699,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\node_modules\\bui-weex\\src\\components\\bui-image-slider.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\node_modules\\bui-weex\\src\\components\\bui-image-slider.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-237ee133"
+	__vue_options__._scopeId = "data-v-1857d96c"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -5725,7 +5717,7 @@
 
 
 /***/ }),
-/* 109 */
+/* 108 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -5743,7 +5735,7 @@
 	}
 
 /***/ }),
-/* 110 */
+/* 109 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -5828,7 +5820,7 @@
 	};
 
 /***/ }),
-/* 111 */
+/* 110 */
 /***/ (function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5865,66 +5857,24 @@
 	module.exports.render._withStripped = true
 
 /***/ }),
+/* 111 */,
 /* 112 */,
 /* 113 */,
-/* 114 */,
-/* 115 */,
-/* 116 */,
-/* 117 */,
-/* 118 */,
-/* 119 */,
-/* 120 */,
-/* 121 */,
-/* 122 */,
-/* 123 */,
-/* 124 */,
-/* 125 */,
-/* 126 */,
-/* 127 */,
-/* 128 */,
-/* 129 */,
-/* 130 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	var navigator = weex.requireModule('navigator');
-
-	var buiweex = __webpack_require__(5);
-	var mixins = {
-	    data: function data() {
-	        return {};
-	    },
-	    components: {
-	        'bui-header': buiweex.buiHeader,
-	        'bui-icon': buiweex.buiIcon,
-	        'bui-button': buiweex.buiButton,
-	        'bui-image': buiweex.buiImage
-	    },
-	    methods: {}
-	};
-
-	exports.default = mixins;
-
-/***/ }),
-/* 131 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = []
 
 	/* styles */
-	__vue_styles__.push(__webpack_require__(132)
+	__vue_styles__.push(__webpack_require__(115)
 	)
 
 	/* script */
-	__vue_exports__ = __webpack_require__(133)
+	__vue_exports__ = __webpack_require__(116)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(134)
+	var __vue_template__ = __webpack_require__(117)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -5936,10 +5886,10 @@
 	if (typeof __vue_options__ === "function") {
 	  __vue_options__ = __vue_options__.options
 	}
-	__vue_options__.__file = "D:\\workeSpace\\MyBuiWeex\\src\\views\\chart.vue"
+	__vue_options__.__file = "D:\\workSpace\\weex\\rili_weex\\src\\views\\message.vue"
 	__vue_options__.render = __vue_template__.render
 	__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-	__vue_options__._scopeId = "data-v-a1251a36"
+	__vue_options__._scopeId = "data-v-017a3065"
 	__vue_options__.style = __vue_options__.style || {}
 	__vue_styles__.forEach(function (module) {
 	  for (var name in module) {
@@ -5954,7 +5904,7 @@
 
 
 /***/ }),
-/* 132 */
+/* 115 */
 /***/ (function(module, exports) {
 
 	module.exports = {
@@ -5963,16 +5913,15 @@
 	    "paddingBottom": 25,
 	    "paddingLeft": 35,
 	    "paddingRight": 35,
-	    "height": 200,
+	    "minHeight": 200,
 	    "justifyContent": "center",
 	    "borderBottomWidth": 1,
 	    "borderColor": "#dddddd",
-	    "backgroundColor": "#ffffff",
 	    "backgroundColor:active": "#aeaeae"
 	  },
 	  "item-title": {
 	    "fontSize": 40,
-	    "color": "#555555"
+	    "color": "#303030"
 	  },
 	  "item-content": {
 	    "marginTop": 5,
@@ -5987,7 +5936,7 @@
 	}
 
 /***/ }),
-/* 133 */
+/* 116 */
 /***/ (function(module, exports) {
 
 	"use strict";
@@ -6041,16 +5990,36 @@
 	//
 	//
 	//
+	//
+	//
+	//
+	//
+	//
+	//
 
 	exports.default = {
 	  data: function data() {
 	    return {
 	      datas: [{
-	        viewName: "bailu.weex.js",
+	        viewName: "mid-autumn-festival",
+	        title: "中秋节",
+	        content: "中秋节自古便有祭月、赏月、拜月、吃月饼、赏桂花、饮桂花酒等习俗，流传至今，久经不息。中秋节以月之圆兆人之团圆，为寄托思念故乡，思念亲人之情，祈盼丰收、幸福，成为丰富多彩、弥足珍贵的文化遗产。中秋节与端午节、春节、清明节并称为中国四大传统节日。",
+	        time: "2017-10-04",
+	        shareUrl: "https://ahuangshang.github.io/MyWebsite/html/mid-Autumn-festival.html"
+	      }, {
+	        viewName: "jiuyiba",
+	        title: "国耻日",
+	        content: "九一八事变（又称奉天事变、柳条湖事件）是日本在中国东北蓄意制造并发动的一场侵华战争，是日本帝国主义侵华的开端。",
+	        time: "2017-09-18",
+	        shareUrl: "https://ahuangshang.github.io/MyWebsite/html/jiuyiba.html"
+	      }, {
+	        viewName: "bailu",
 	        title: "白露",
 	        content: "白露是农历二十四节气中的第十五个节气，当太阳到达黄经165度时为白露。",
-	        time: "2017-09-07"
+	        time: "2017-09-07",
+	        shareUrl: "https://ahuangshang.github.io/MyWebsite/html/bailu.html"
 	      }],
+	      bgColor: "#ffffff",
 	      title: "",
 	      content: "",
 	      time: ""
@@ -6060,13 +6029,13 @@
 
 	  methods: {
 	    click: function click(i) {
-	      weex.requireModule('event').openView(this.datas[i].viewName, this.datas[i].title);
+	      weex.requireModule('event').openView(this.datas[i].viewName, this.datas[i].title, this.datas[i].shareUrl);
 	    }
 	  }
 	};
 
 /***/ }),
-/* 134 */
+/* 117 */
 /***/ (function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -6079,6 +6048,9 @@
 	      }
 	    }, [_c('div', {
 	      staticClass: ["item"],
+	      style: {
+	        backgroundColor: _vm.bgColor
+	      },
 	      on: {
 	        "click": function($event) {
 	          _vm.click(i)
