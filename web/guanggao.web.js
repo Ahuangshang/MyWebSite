@@ -6109,6 +6109,8 @@
 	//
 	//
 	//
+	//
+	//
 
 	//  var buiweex = require("bui-weex");
 	var modal = weex.requireModule('modal');
@@ -6141,7 +6143,7 @@
 	            default: 50
 	        },
 	        tex_size_1: {
-	            default: 35
+	            default: 30
 	        },
 	        tex_size_2: {
 	            default: 35
@@ -6150,7 +6152,7 @@
 	            default: 40
 	        },
 	        line_height: {
-	            default: 110
+	            default: 90
 	        },
 	        line_height2: {
 	            default: 55
@@ -6172,7 +6174,7 @@
 	            default: "那么在金秋十月里，"
 	        },
 	        content_5: {
-	            default: "除了赏月、吃月饼，看遍祖国大好河山这些事情外，"
+	            default: "除了赏月、吃月饼，走遍大地神州这些事情外，"
 	        },
 	        content_6: {
 	            default: "还有什么可以做的吗？ "
@@ -6218,6 +6220,9 @@
 	        },
 	        content_20: {
 	            default: "微信搜索17620002901，或者扫描下方二维码添加好友即可参与活动。"
+	        },
+	        content_21: {
+	            default: "温馨提示：每位用户只能领取一次奖励哦~"
 	        }
 	    },
 	    created: function created() {
@@ -6549,7 +6554,7 @@
 	      "color": "#f45531"
 	    },
 	    style: ({
-	      fontSize: _vm.tex_size_2,
+	      fontSize: _vm.tex_size_1,
 	      marginTop: _vm.topMargin,
 	      margin: _vm.contentMargin,
 	      lineHeight: _vm.line_height2
@@ -6559,7 +6564,7 @@
 	      "color": "#f45531"
 	    },
 	    style: ({
-	      fontSize: _vm.tex_size_2,
+	      fontSize: _vm.tex_size_1,
 	      marginTop: _vm.topMargin,
 	      margin: _vm.contentMargin,
 	      lineHeight: _vm.line_height2
@@ -6569,7 +6574,7 @@
 	      "color": "#f45531"
 	    },
 	    style: ({
-	      fontSize: _vm.tex_size_2,
+	      fontSize: _vm.tex_size_1,
 	      marginTop: _vm.topMargin,
 	      margin: _vm.contentMargin,
 	      lineHeight: _vm.line_height
@@ -6579,7 +6584,7 @@
 	      "color": "#f45531"
 	    },
 	    style: ({
-	      fontSize: _vm.tex_size_2,
+	      fontSize: _vm.tex_size_1,
 	      marginTop: _vm.topMargin,
 	      margin: _vm.contentMargin,
 	      lineHeight: _vm.line_height2
@@ -6589,7 +6594,7 @@
 	      "color": "#f45531"
 	    },
 	    style: ({
-	      fontSize: _vm.tex_size_2,
+	      fontSize: _vm.tex_size_1,
 	      marginTop: _vm.topMargin,
 	      margin: _vm.contentMargin,
 	      lineHeight: _vm.line_height2
@@ -6599,7 +6604,7 @@
 	      "color": "#f45531"
 	    },
 	    style: ({
-	      fontSize: _vm.tex_size_2,
+	      fontSize: _vm.tex_size_1,
 	      marginTop: _vm.topMargin,
 	      margin: _vm.contentMargin,
 	      lineHeight: _vm.line_height
@@ -6609,7 +6614,7 @@
 	      "color": "#f45531"
 	    },
 	    style: ({
-	      fontSize: _vm.tex_size_2,
+	      fontSize: _vm.tex_size_1,
 	      marginTop: _vm.topMargin,
 	      margin: _vm.contentMargin,
 	      lineHeight: _vm.line_height2
@@ -6619,7 +6624,7 @@
 	      "color": "#f45531"
 	    },
 	    style: ({
-	      fontSize: _vm.tex_size_2,
+	      fontSize: _vm.tex_size_1,
 	      marginTop: _vm.topMargin,
 	      margin: _vm.contentMargin,
 	      lineHeight: _vm.line_height2
@@ -6639,7 +6644,17 @@
 	    attrs: {
 	      "src": "https://ahuangshang.github.io/MyWebsite/img/ad3.jpg"
 	    }
-	  })])])])])
+	  })]), _vm._v(" "), _c('text', {
+	    staticStyle: {
+	      "color": "#1D67F4"
+	    },
+	    style: ({
+	      fontSize: _vm.tex_size_1,
+	      marginTop: _vm.topMargin,
+	      margin: _vm.contentMargin,
+	      lineHeight: _vm.line_height2
+	    })
+	  }, [_vm._v(_vm._s(_vm.content_21))])])])])
 	},staticRenderFns: []}
 	module.exports.render._withStripped = true
 	if (false) {
