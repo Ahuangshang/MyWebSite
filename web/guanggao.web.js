@@ -6111,6 +6111,21 @@
 	//
 	//
 	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//
 
 	//  var buiweex = require("bui-weex");
 	var modal = weex.requireModule('modal');
@@ -6136,6 +6151,9 @@
 	        img_5_h: {
 	            default: 362
 	        },
+	        img_6_h: {
+	            default: 250
+	        },
 	        contentMargin: {
 	            default: 16
 	        },
@@ -6147,6 +6165,9 @@
 	        },
 	        tex_size_2: {
 	            default: 35
+	        },
+	        tex_size_3: {
+	            default: 15
 	        },
 	        topMargin: {
 	            default: 40
@@ -6198,7 +6219,7 @@
 	            default: "为了给老铁们一个福利满满的双节，"
 	        },
 	        content_13: {
-	            default: "本帅专门为大家准备了开业活动！"
+	            default: "本帅专门为大家准备了开业大酬宾！"
 	        },
 	        content_14: {
 	            default: "一起庆祝李唐科技开业，领取福利吧~"
@@ -6213,16 +6234,19 @@
 	            default: "活动奖励"
 	        },
 	        content_18: {
-	            default: "视频网站VIP"
+	            default: "腾讯视频、爱奇艺、优酷、合一等各大视频网站VIP任你选！"
 	        },
 	        content_19: {
 	            default: "参与方式"
 	        },
 	        content_20: {
-	            default: "微信搜索17620002901，或者扫描下方二维码添加好友即可参与活动。"
+	            default: "微信搜索17620002901，或者扫描下方二维码添加好友并发送你想要的视频网站Vip的名字即可获取。例如发送：腾讯视频。我们会在两个工作日内发放你想要的视频网站的Vip帐号，数量有限，先到先得！"
 	        },
 	        content_21: {
 	            default: "温馨提示：每位用户只能领取一次奖励哦~"
+	        },
+	        content_22: {
+	            default: "特别说明：\n        奖品照片仅供参考，一切以实际发放为准；\n        获得奖品的用户，我们会在两个工作日内联系您的微信，请保持微信正常联系，逾期未回复我们将视为自动放弃；\n       本活动最终解释权归李唐科技所有。"
 	        }
 	    },
 	    created: function created() {
@@ -6236,9 +6260,11 @@
 	            this.img_3_h = ratio * this.img_3_h + "px";
 	            this.img_4_h = ratio * this.img_4_h + "px";
 	            this.img_5_h = ratio * this.img_5_h + "px";
+	            this.img_6_h = ratio * this.img_6_h + "px";
 	            this.contentMargin = ratio * this.contentMargin + "px";
 	            this.tex_size_1 = ratio * this.tex_size_1 + "px";
 	            this.tex_size_2 = ratio * this.tex_size_2 + "px";
+	            this.tex_size_3 = ratio * this.tex_size_3 + "px";
 	            this.topMargin = ratio * this.topMargin + "px";
 	            this.line_height = ratio * this.line_height + "px";
 	            this.line_height2 = ratio * this.line_height2 + "px";
@@ -6599,7 +6625,58 @@
 	      margin: _vm.contentMargin,
 	      lineHeight: _vm.line_height2
 	    })
-	  }, [_vm._v(_vm._s(_vm.content_18))]), _vm._v(" "), _c('text', {
+	  }, [_vm._v(_vm._s(_vm.content_18))]), _vm._v(" "), _c('div', {
+	    staticStyle: {
+	      "justify-content": "center",
+	      "flex-direction": "row"
+	    },
+	    style: ({
+	      width: _vm.img_w
+	    })
+	  }, [_c('image', {
+	    style: ({
+	      width: _vm.img_4_h,
+	      height: _vm.img_6_h
+	    }),
+	    attrs: {
+	      "src": "https://ahuangshang.github.io/MyWebsite/img/ad_qq.png"
+	    }
+	  }), _vm._v(" "), _c('image', {
+	    style: ({
+	      width: _vm.img_4_h,
+	      height: _vm.img_6_h,
+	      marginLeft: _vm.contentMargin
+	    }),
+	    attrs: {
+	      "src": "https://ahuangshang.github.io/MyWebsite/img/ad_aqy.png"
+	    }
+	  })]), _vm._v(" "), _c('div', {
+	    staticStyle: {
+	      "justify-content": "center",
+	      "flex-direction": "row"
+	    },
+	    style: ({
+	      width: _vm.img_w,
+	      marginTop: _vm.contentMargin
+	    })
+	  }, [_c('image', {
+	    style: ({
+	      width: _vm.img_4_h,
+	      height: _vm.img_6_h
+	    }),
+	    attrs: {
+	      "src": "https://ahuangshang.github.io/MyWebsite/img/ad_yk.png"
+	    }
+	  }), _vm._v(" "), _c('image', {
+	    style: ({
+	      width: _vm.img_4_h,
+	      height: _vm.img_6_h,
+	      marginLeft: _vm.contentMargin
+	    }),
+	    attrs: {
+	      "src": "https://ahuangshang.github.io/MyWebsite/img/ad_hy.png"
+	    }
+	  })]), _vm._v(" "), _c('text', {
 	    staticStyle: {
 	      "color": "#f45531"
 	    },
@@ -6654,7 +6731,17 @@
 	      margin: _vm.contentMargin,
 	      lineHeight: _vm.line_height2
 	    })
-	  }, [_vm._v(_vm._s(_vm.content_21))])])])])
+	  }, [_vm._v(_vm._s(_vm.content_21))]), _vm._v(" "), _c('text', {
+	    staticStyle: {
+	      "color": "#020402"
+	    },
+	    style: ({
+	      fontSize: _vm.tex_size_3,
+	      marginTop: _vm.topMargin,
+	      margin: _vm.contentMargin,
+	      lineHeight: _vm.tex_size_2
+	    })
+	  }, [_vm._v(_vm._s(_vm.content_22))])])])])
 	},staticRenderFns: []}
 	module.exports.render._withStripped = true
 	if (false) {
