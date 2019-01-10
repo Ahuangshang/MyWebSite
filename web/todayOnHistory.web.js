@@ -65,7 +65,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 71);
+/******/ 	return __webpack_require__(__webpack_require__.s = 74);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -186,6 +186,88 @@ module.exports = function normalizeComponent (
   }
 }
 
+
+/***/ }),
+
+/***/ 102:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('text', {
+    staticStyle: _vm.$processStyle({
+      "color": "#555555"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(_vm.tex_size_1),
+      marginTop: _vm.font(_vm.contentMargin),
+      margin: _vm.font(_vm.contentMargin),
+      lineHeight: _vm.font(_vm.line_height)
+    })),
+    attrs: {
+      "value": _vm.year
+    }
+  }), _vm._v(" "), _c('text', {
+    staticStyle: _vm.$processStyle({
+      "color": "#000000",
+      "justify-content": "center",
+      "text-align": "center"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(_vm.title_size),
+      marginTop: _vm.font(_vm.contentMargin),
+      marginBottom: _vm.font(_vm.contentMargin),
+      lineHeight: _vm.font(_vm.line_height)
+    })),
+    attrs: {
+      "value": _vm.title
+    }
+  }), _vm._v(" "), _c('list', _vm._l((_vm.dealPicUrl), function(item) {
+    return _c('cell', [_c('image', {
+      staticStyle: _vm.$processStyle(undefined),
+      style: (_vm.$processStyle({
+        width: _vm.img_w,
+        height: item.height
+      })),
+      attrs: {
+        "src": item.url,
+        "placeholder": ""
+      }
+    }), _vm._v(" "), _c('text', {
+      staticStyle: _vm.$processStyle({
+        "color": "#555555",
+        "justify-content": "center",
+        "text-align": "center"
+      }),
+      style: (_vm.$processStyle({
+        fontSize: _vm.font(_vm.tex_size_1),
+        lineHeight: _vm.font(_vm.line_height)
+      })),
+      attrs: {
+        "value": item.title
+      }
+    })])
+  })), _vm._v(" "), _c('text', {
+    staticStyle: _vm.$processStyle({
+      "color": "#0a0a0a"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(_vm.tex_size_2),
+      marginTop: _vm.font(_vm.topMargin),
+      lineHeight: _vm.font(_vm.line_height),
+      margin: _vm.font(_vm.contentMargin)
+    })),
+    attrs: {
+      "value": _vm.content
+    }
+  })], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-ee9f9b5e", module.exports)
+  }
+}
 
 /***/ }),
 
@@ -425,15 +507,15 @@ if (module.exports.isweb()) {
 
 /***/ }),
 
-/***/ 45:
+/***/ 46:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(59),
+  __webpack_require__(61),
   /* template */
-  __webpack_require__(97),
+  __webpack_require__(102),
   /* styles */
   null,
   /* scopeId */
@@ -466,7 +548,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 59:
+/***/ 61:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -580,13 +662,13 @@ exports.default = {
 
 /***/ }),
 
-/***/ 71:
+/***/ 74:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _todayOnHistory = __webpack_require__(45);
+var _todayOnHistory = __webpack_require__(46);
 
 var _todayOnHistory2 = _interopRequireDefault(_todayOnHistory);
 
@@ -601,88 +683,6 @@ Vue.mixin(_mixins2.default);
 _todayOnHistory2.default.el = '#root';
 
 new Vue(_todayOnHistory2.default);
-
-/***/ }),
-
-/***/ 97:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#555555"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.contentMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.year
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#000000",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.title_size),
-      marginTop: _vm.font(_vm.contentMargin),
-      marginBottom: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.title
-    }
-  }), _vm._v(" "), _c('list', _vm._l((_vm.dealPicUrl), function(item) {
-    return _c('cell', [_c('image', {
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle({
-        width: _vm.img_w,
-        height: item.height
-      })),
-      attrs: {
-        "src": item.url,
-        "placeholder": ""
-      }
-    }), _vm._v(" "), _c('text', {
-      staticStyle: _vm.$processStyle({
-        "color": "#555555",
-        "justify-content": "center",
-        "text-align": "center"
-      }),
-      style: (_vm.$processStyle({
-        fontSize: _vm.font(_vm.tex_size_1),
-        lineHeight: _vm.font(_vm.line_height)
-      })),
-      attrs: {
-        "value": item.title
-      }
-    })])
-  })), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#0a0a0a"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.topMargin),
-      lineHeight: _vm.font(_vm.line_height),
-      margin: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": _vm.content
-    }
-  })], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-ee9f9b5e", module.exports)
-  }
-}
 
 /***/ })
 

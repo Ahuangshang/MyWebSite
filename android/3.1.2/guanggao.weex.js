@@ -113,7 +113,7 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "D:\\workSpace\\rili_weex\\src\\views\\guanggao.vue"
+__vue_options__.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\guanggao.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 __vue_options__.style = __vue_options__.style || {}
@@ -440,7 +440,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_1_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/advertisement/ad.jpg",
       "placeholder": ""
     }
   }), _c('div', [_c('text', {
@@ -494,7 +494,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_2_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad2.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/advertisement/ad2.jpg",
       "placeholder": ""
     }
   }), _c('text', {
@@ -548,7 +548,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_3_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad4.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/advertisement/ad4.jpg",
       "placeholder": ""
     }
   }), _c('text', {
@@ -714,7 +714,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_4_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad5.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/advertisement/ad5.jpg",
       "placeholder": ""
     }
   })]), _c('text', {
@@ -768,7 +768,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_5_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad1.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/advertisement/ad1.jpg",
       "placeholder": ""
     }
   }), _c('text', {
@@ -847,7 +847,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_6_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad_qq.png",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/advertisement/ad_qq.png",
       "placeholder": ""
     }
   }), _c('image', {
@@ -857,7 +857,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       marginLeft: _vm.contentMargin
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad_aqy.png",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/advertisement/ad_aqy.png",
       "placeholder": ""
     }
   })]), _c('div', {
@@ -875,7 +875,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_6_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad_yk.png",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/advertisement/ad_yk.png",
       "placeholder": ""
     }
   }), _c('image', {
@@ -885,7 +885,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       marginLeft: _vm.contentMargin
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad_hy.png",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/advertisement/ad_hy.png",
       "placeholder": ""
     }
   })]), _c('text', {
@@ -937,7 +937,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_4_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad3.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/advertisement/ad3.jpg",
       "placeholder": ""
     }
   })]), _c('text', {

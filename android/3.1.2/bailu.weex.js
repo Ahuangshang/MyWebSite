@@ -102,225 +102,227 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var modal = weex.requireModule('modal');
 module.exports = {
 
-  parseQueryString: function parseQueryString(str) {
-    if (str.indexOf('?') === -1 || str.indexOf('=') === -1) return null;
-    str = str.split("?")[1];
-    var reg = /(([^?&=]+)(?:=([^?&=]*))*)/g;
-    // let reg = /\s*([\w\-]+?)\s*=\s*([^;]*?)\s*(?:;|$)\s*/g;
-    var result = {};
-    var match = void 0;
-    var key = void 0;
-    var value = void 0;
-    while (match = reg.exec(str)) {
-      key = match[2];
-      if (key === 'hot-reload_controller' || key === '_wx_tpl') continue;
-      value = match[3] || '';
-      result[key] = decodeURIComponent(value);
-    }
-    return result;
-  },
-  toDateString: function toDateString(value) {
-    var date = new Date(value);
-    var Y = date.getFullYear() + '-';
-    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-    var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
-    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
-    var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
-    var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-    return Y + M + D + h + m + s;
-  },
-  toTimeSpan: function toTimeSpan() {
-    //let date = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
-    // 可以这样做
-    var date = new Date(strtime.replace(/-/g, '/'));
-    // 有三种方式获取，在后面会讲到三种方式的区别
-    // return date.getTime();
-    // return date.valueOf();
-    return Date.parse(date);
+    parseQueryString: function parseQueryString(str) {
+        if (str.indexOf('?') === -1 || str.indexOf('=') === -1) return null;
+        str = str.split("?")[1];
+        var reg = /(([^?&=]+)(?:=([^?&=]*))*)/g;
+        // let reg = /\s*([\w\-]+?)\s*=\s*([^;]*?)\s*(?:;|$)\s*/g;
+        var result = {};
+        var match = void 0;
+        var key = void 0;
+        var value = void 0;
+        while (match = reg.exec(str)) {
+            key = match[2];
+            if (key === 'hot-reload_controller' || key === '_wx_tpl') continue;
+            value = match[3] || '';
+            result[key] = decodeURIComponent(value);
+        }
+        return result;
+    },
+    toDateString: function toDateString(value) {
+        var date = new Date(value);
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+        return Y + M + D + h + m + s;
+    },
+    toTimeSpan: function toTimeSpan() {
+        //let date = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
+        // 可以这样做
+        var date = new Date(strtime.replace(/-/g, '/'));
+        // 有三种方式获取，在后面会讲到三种方式的区别
+        // return date.getTime();
+        // return date.valueOf();
+        return Date.parse(date);
 
-    /*
-     三种获取的区别：
-     第一、第二种：会精确到毫秒
-     第三种：只能精确到秒，毫秒将用0来代替
-     比如上面代码输出的结果(一眼就能看出区别)：
-     1398250549123
-     1398250549123
-     1398250549000
+        /*
+         三种获取的区别：
+         第一、第二种：会精确到毫秒
+         第三种：只能精确到秒，毫秒将用0来代替
+         比如上面代码输出的结果(一眼就能看出区别)：
+         1398250549123
+         1398250549123
+         1398250549000
+         */
+    },
+    compareDate: function compareDate(startDate, endDate) {
+        var d1 = new Date(startDate.replace(/-/g, "/"));
+        var d2 = new Date(endDate.replace(/-/g, "/"));
+
+        return !(startDate !== "" && endDate !== "" && d1 > d2);
+    },
+    isNotNull: function isNotNull(str) {
+        return str !== undefined && str !== "" && str != null;
+    },
+    //获取日期 传1代表当月第一天 传其他代表当前日期
+    getDate: function getDate(v) {
+        var now = new Date();
+        var year = now.getFullYear(); //年
+        var month = now.getMonth() + 1; //月
+        var day = now.getDate(); //日
+
+        /*let hh = now.getHours();            //时
+         let mm = now.getMinutes();          //分
+         let ss = now.getSeconds();*/
+        var clock = year + "-"; //加""的作用是转成字符串，不然会以整型计算
+
+        if (month < 10) clock += "" + "0";
+        clock += month + "-";
+
+        if (day < 10) clock += "" + "0";
+        clock += v === 1 ? '1' : day;
+
+        /*if(hh < 10)
+         clock += ""+"0";
+         clock += hh;
+           if (mm < 10)
+         clock += ""+"0";
+         clock += mm;
+           if (ss < 10)
+         clock += ""+"0";
+         clock += ss;*/
+        return clock;
+    },
+
+    /**
+     * 获取图片的高度
+     * @param url
+     * @param callback
+     * @returns {*}
      */
-  },
-  compareDate: function compareDate(startDate, endDate) {
-    var d1 = new Date(startDate.replace(/-/g, "/"));
-    var d2 = new Date(endDate.replace(/-/g, "/"));
-
-    return !(startDate !== "" && endDate !== "" && d1 > d2);
-  },
-  isNotNull: function isNotNull(str) {
-    return str !== undefined && str !== "" && str != null;
-  },
-  //获取日期 传1代表当月第一天 传其他代表当前日期
-  getDate: function getDate(v) {
-    var now = new Date();
-    var year = now.getFullYear(); //年
-    var month = now.getMonth() + 1; //月
-    var day = now.getDate(); //日
-
-    /*let hh = now.getHours();            //时
-     let mm = now.getMinutes();          //分
-     let ss = now.getSeconds();*/
-    var clock = year + "-"; //加""的作用是转成字符串，不然会以整型计算
-
-    if (month < 10) clock += "" + "0";
-    clock += month + "-";
-
-    if (day < 10) clock += "" + "0";
-    clock += v === 1 ? '1' : day;
-
-    /*if(hh < 10)
-     clock += ""+"0";
-     clock += hh;
-       if (mm < 10)
-     clock += ""+"0";
-     clock += mm;
-       if (ss < 10)
-     clock += ""+"0";
-     clock += ss;*/
-    return clock;
-  },
-
-  /**
-   * 获取图片的高度
-   * @param url
-   * @param callback
-   * @returns {*}
-   */
-  checkPicurl: function checkPicurl(url, callback) {
-    var img = new Image();
-    img.src = url;
-    var ratio = 0;
-    var clientWidth = 750;
-    img.onerror = function () {
-      ratio = 0;
-      return callback(ratio);
-    };
-    if (img.complete) {
-      ratio = img.width / img.height;
-      return callback(ratio === 0 ? 0 : clientWidth / ratio);
-    } else {
-      img.onload = function () {
-        ratio = img.width / img.height;
-        img.onload = null; //避免重复加载
-        return callback(ratio === 0 ? 0 : clientWidth / ratio);
-      };
-    }
-  },
-  /**
-   *  适配不同情况下的字体大小
-   * @param size dp值的大小
-   * @returns {*} 适配后的值的大小
-   */
-  getFontSize: function getFontSize(size) {
-    if (this.isweb()) {
-      var clientWith = document.body.clientWidth;
-      if (weex.config.env.osName.toLocaleString() === "android") {
-        return 2 * size + 'px';
-      } else {
-        if (clientWith > 750) {
-          return 2 * size * weex.config.env.scale + 'px';
+    checkPicurl: function checkPicurl(url, callback) {
+        var img = new Image();
+        img.src = url;
+        var ratio = 0;
+        var clientWidth = 750;
+        img.onerror = function () {
+            ratio = 0;
+            return callback(ratio);
+        };
+        if (img.complete) {
+            ratio = img.width / img.height;
+            return callback(ratio === 0 ? 0 : clientWidth / ratio);
         } else {
-          return 4 * size * weex.config.env.scale + 'px';
+            img.onload = function () {
+                ratio = img.width / img.height;
+                img.onload = null; //避免重复加载
+                return callback(ratio === 0 ? 0 : clientWidth / ratio);
+            };
         }
-      }
-    } else {
-      var _clientWith = weex.config.env.deviceWidth;
-      var ratio = 750 / _clientWith;
-      var fontSize = size * ratio * weex.config.env.scale;
-      return fontSize.toFixed(0);
-    }
-  },
-  getMatchSize: function getMatchSize(size) {
-    if (this.isweb()) {
-      return size * weex.config.env.scale + 'px';
-    } else {
-      return size;
-    }
-  },
-  isweb: function isweb() {
-    return weex.config.env.platform.toLocaleLowerCase() === "web";
-  },
-  registerModules: function registerModules() {
-    if (this.isweb()) {
-      var _weex$registerModule;
+    },
+    /**
+     *  适配不同情况下的字体大小
+     * @param size dp值的大小
+     * @returns {*} 适配后的值的大小
+     */
+    getFontSize: function getFontSize(size) {
+        if (this.isweb()) {
+            var clientWith = document.body.clientWidth;
+            if (weex.config.env.osName.toLocaleString() === "android") {
+                return 2 * size + 'px';
+            } else {
+                if (clientWith > 900) {
+                    return size * weex.config.env.scale + 'px';
+                } else if (clientWith > 750) {
+                    return 2 * size * weex.config.env.scale + 'px';
+                } else {
+                    return 4 * size * weex.config.env.scale + 'px';
+                }
+            }
+        } else {
+            var _clientWith = weex.config.env.deviceWidth;
+            var ratio = 750 / _clientWith;
+            var fontSize = size * ratio * weex.config.env.scale;
+            return fontSize.toFixed(0);
+        }
+    },
+    getMatchSize: function getMatchSize(size) {
+        if (this.isweb()) {
+            return size * weex.config.env.scale + 'px';
+        } else {
+            return size;
+        }
+    },
+    isweb: function isweb() {
+        return weex.config.env.platform.toLocaleLowerCase() === "web";
+    },
+    registerModules: function registerModules() {
+        if (this.isweb()) {
+            var _weex$registerModule;
 
-      weex.registerModule('event', (_weex$registerModule = {
-        openWeexView: function openWeexView(viewName, viewTitle) {
-          if (weex.config.env.osName.toLowerCase() === "android") {
-            ltwc.openWeexView(viewName, viewTitle);
-          }
+            weex.registerModule('event', (_weex$registerModule = {
+                openWeexView: function openWeexView(viewName, viewTitle) {
+                    if (weex.config.env.osName.toLowerCase() === "android") {
+                        ltwc.openWeexView(viewName, viewTitle);
+                    }
+                }
+            }, _defineProperty(_weex$registerModule, 'openWeexView', function openWeexView(viewName, title, shareUrl) {
+                if (weex.config.env.osName.toLowerCase() === "android") {
+                    ltwc.openWeexView(viewName, title, shareUrl);
+                }
+            }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title) {
+                if (weex.config.env.osName.toLowerCase() === "android") {
+                    ltwc.openWebView(webUrl, title);
+                }
+            }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title, shareUrl) {
+                if (weex.config.env.osName.toLowerCase() === "android") {
+                    ltwc.openWebView(webUrl, title, shareUrl);
+                }
+            }), _defineProperty(_weex$registerModule, 'openView', function openView(uri) {
+                if (weex.config.env.osName.toLowerCase() === "android") {
+                    ltwc.openView(uri);
+                }
+            }), _defineProperty(_weex$registerModule, 'getFilePath', function getFilePath(name, type, callback) {
+                if (weex.config.env.osName.toLowerCase() === "android") {
+                    window.getFilePathCallback = callback;
+                    ltwc.getFilePath(name, type, callback);
+                }
+            }), _defineProperty(_weex$registerModule, 'showMessage', function showMessage(msg) {
+                if (weex.config.env.osName.toLowerCase() === "android") {
+                    ltwc.showMessage(msg);
+                }
+            }), _defineProperty(_weex$registerModule, 'getVersion', function getVersion(callback) {
+                if (weex.config.env.osName.toLowerCase() === "android") {
+                    window.getVersionCallback = callback;
+                    ltwc.getVersion(callback);
+                }
+            }), _defineProperty(_weex$registerModule, 'update', function update(url) {
+                if (weex.config.env.osName.toLowerCase() === "android") {
+                    ltwc.update(url);
+                }
+            }), _defineProperty(_weex$registerModule, 'setConfig', function setConfig(tabs, adImgUrl, adSchemeUrl) {
+                if (weex.config.env.osName.toLowerCase() === "android") {
+                    ltwc.setConfig(tabs, adImgUrl, adSchemeUrl);
+                }
+            }), _defineProperty(_weex$registerModule, 'playVideo', function playVideo(url) {
+                if (weex.config.env.osName.toLowerCase() === "android") {
+                    ltwc.playVideo(url);
+                }
+            }), _weex$registerModule));
+            weex.registerModule('net', {
+                requestNetData: function requestNetData(methodType, url, api, jsonParams, showLoading, callback) {
+                    if (weex.config.env.osName.toLowerCase() === "android") {
+                        window.requestNetDataCallback = callback;
+                        ltwc.requestNetData(methodType, url, api, jsonParams, showLoading);
+                    }
+                }
+            });
         }
-      }, _defineProperty(_weex$registerModule, 'openWeexView', function openWeexView(viewName, title, shareUrl) {
-        if (weex.config.env.osName.toLowerCase() === "android") {
-          ltwc.openWeexView(viewName, title, shareUrl);
-        }
-      }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title) {
-        if (weex.config.env.osName.toLowerCase() === "android") {
-          ltwc.openWebView(webUrl, title);
-        }
-      }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title, shareUrl) {
-        if (weex.config.env.osName.toLowerCase() === "android") {
-          ltwc.openWebView(webUrl, title, shareUrl);
-        }
-      }), _defineProperty(_weex$registerModule, 'openView', function openView(uri) {
-        if (weex.config.env.osName.toLowerCase() === "android") {
-          ltwc.openView(uri);
-        }
-      }), _defineProperty(_weex$registerModule, 'getFilePath', function getFilePath(name, type, callback) {
-        if (weex.config.env.osName.toLowerCase() === "android") {
-          window.getFilePathCallback = callback;
-          ltwc.getFilePath(name, type, callback);
-        }
-      }), _defineProperty(_weex$registerModule, 'showMessage', function showMessage(msg) {
-        if (weex.config.env.osName.toLowerCase() === "android") {
-          ltwc.showMessage(msg);
-        }
-      }), _defineProperty(_weex$registerModule, 'getVersion', function getVersion(callback) {
-        if (weex.config.env.osName.toLowerCase() === "android") {
-          window.getVersionCallback = callback;
-          ltwc.getVersion(callback);
-        }
-      }), _defineProperty(_weex$registerModule, 'update', function update(url) {
-        if (weex.config.env.osName.toLowerCase() === "android") {
-          ltwc.update(url);
-        }
-      }), _defineProperty(_weex$registerModule, 'setConfig', function setConfig(tabs, adImgUrl, adSchemeUrl) {
-        if (weex.config.env.osName.toLowerCase() === "android") {
-          ltwc.setConfig(tabs, adImgUrl, adSchemeUrl);
-        }
-      }), _defineProperty(_weex$registerModule, 'playVideo', function playVideo(url) {
-        if (weex.config.env.osName.toLowerCase() === "android") {
-          ltwc.playVideo(url);
-        }
-      }), _weex$registerModule));
-      weex.registerModule('net', {
-        requestNetData: function requestNetData(methodType, url, api, jsonParams, showLoading, callback) {
-          if (weex.config.env.osName.toLowerCase() === "android") {
-            window.requestNetDataCallback = callback;
-            ltwc.requestNetData(methodType, url, api, jsonParams, showLoading);
-          }
-        }
-      });
     }
-  }
 };
 if (module.exports.isweb()) {
-  window.getReturnData = function (type, data) {
-    if (type === "getFilePath") {
-      window.getFilePathCallback(data);
-    } else if (type === "requestNetData") {
-      window.requestNetDataCallback(data);
-    } else if (type === "getVersion") {
-      window.getVersionCallback(data);
-    }
-  };
+    window.getReturnData = function (type, data) {
+        if (type === "getFilePath") {
+            window.getFilePathCallback(data);
+        } else if (type === "requestNetData") {
+            window.requestNetDataCallback(data);
+        } else if (type === "getVersion") {
+            window.getVersionCallback(data);
+        }
+    };
 }
 
 /***/ }),
@@ -335,7 +337,7 @@ var __vue_styles__ = []
 __vue_exports__ = __webpack_require__(60)
 
 /* template */
-var __vue_template__ = __webpack_require__(82)
+var __vue_template__ = __webpack_require__(83)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -347,7 +349,7 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "D:\\workSpace\\rili_weex\\src\\views\\bailu.vue"
+__vue_options__.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\bailu.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 __vue_options__.style = __vue_options__.style || {}
@@ -468,7 +470,7 @@ exports.default = {
       default: 469
     },
     img_2_h: {
-      default: 520
+      default: 277
     },
 
     img_3_h: {
@@ -525,7 +527,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 82:
+/***/ 83:
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -535,7 +537,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_1_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/bailu/img_1.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/bailu/img_1.jpg",
       "placeholder": ""
     }
   }), _c('div', {
@@ -580,7 +582,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_2_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/bailu/img_2.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/bailu/img_2.jpg",
       "placeholder": ""
     }
   }), _c('text', {
@@ -609,7 +611,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_3_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/bailu/img_3.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/bailu/img_3.jpg",
       "placeholder": ""
     }
   }), _c('text', {
@@ -638,7 +640,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_4_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/bailu/img_4.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/bailu/img_4.jpg",
       "placeholder": ""
     }
   }), _c('text', {
@@ -667,7 +669,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_5_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/bailu/img_5.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/bailu/img_5.jpg",
       "placeholder": ""
     }
   }), _c('text', {

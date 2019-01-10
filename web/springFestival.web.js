@@ -65,7 +65,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 70);
+/******/ 	return __webpack_require__(__webpack_require__.s = 73);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -189,13 +189,113 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ 106:
+/***/ 103:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('scroller', [_c('image', {
+    staticStyle: _vm.$processStyle({
+      "width": "750px",
+      "height": "1125px"
+    }),
+    style: (_vm.$processStyle(undefined)),
+    attrs: {
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/springFestival/img_1.jpg",
+      "placeholder": "https://www.imengu.cn:8888/Ahuangshang/img/image_icon/default.png"
+    }
+  }), _vm._v(" "), _c('div', [_c('div', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      marginLeft: _vm.font(_vm.contentMargin),
+      marginRight: _vm.font(_vm.contentMargin)
+    }))
+  }, [_c('text', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(12),
+      lineHeight: _vm.font(_vm.line_height)
+    })),
+    attrs: {
+      "value": _vm.title_pingying
+    }
+  }), _vm._v(" "), _c('text', {
+    staticStyle: _vm.$processStyle({
+      "color": "red",
+      "font-weight": "bold"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(24),
+      lineHeight: _vm.font(_vm.line_height)
+    })),
+    attrs: {
+      "value": _vm.title_name
+    }
+  }), _vm._v(" "), _c('text', {
+    staticStyle: _vm.$processStyle({
+      "margin-top": "12px"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(16),
+      lineHeight: _vm.font(_vm.line_height)
+    })),
+    attrs: {
+      "value": _vm.title
+    }
+  }), _vm._v(" "), _c('text', {
+    staticStyle: _vm.$processStyle({
+      "margin-top": "15px"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(16)
+    }))
+  }, [_vm._v(" 节日起源")]), _vm._v(" "), _c('text', {
+    staticStyle: _vm.$processStyle({
+      "margin-top": "12px"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(14),
+      lineHeight: _vm.font(_vm.line_height)
+    })),
+    attrs: {
+      "value": _vm.content_1
+    }
+  }), _vm._v(" "), _c('text', {
+    staticStyle: _vm.$processStyle({
+      "margin-top": "15px"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(16)
+    }))
+  }, [_vm._v(" 风俗习惯")]), _vm._v(" "), _c('text', {
+    staticStyle: _vm.$processStyle({
+      "margin-top": "12px"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(14),
+      lineHeight: _vm.font(_vm.line_height)
+    })),
+    attrs: {
+      "value": _vm.content_2
+    }
+  })])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-eee615fc", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 112:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(82);
+var content = __webpack_require__(86);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -731,19 +831,19 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 44:
+/***/ 45:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(106)
+  __webpack_require__(112)
 }
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(58),
+  __webpack_require__(60),
   /* template */
-  __webpack_require__(98),
+  __webpack_require__(103),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -810,7 +910,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 58:
+/***/ 60:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -886,13 +986,13 @@ exports.default = {
 
 /***/ }),
 
-/***/ 70:
+/***/ 73:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _springFestival = __webpack_require__(44);
+var _springFestival = __webpack_require__(45);
 
 var _springFestival2 = _interopRequireDefault(_springFestival);
 
@@ -910,7 +1010,7 @@ new Vue(_springFestival2.default);
 
 /***/ }),
 
-/***/ 82:
+/***/ 86:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -922,106 +1022,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 // exports
 
-
-/***/ }),
-
-/***/ 98:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('scroller', [_c('image', {
-    staticStyle: _vm.$processStyle({
-      "width": "750px",
-      "height": "1125px"
-    }),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/springFestival/img_1.jpg",
-      "placeholder": "http://imengu.cn:8888/Ahuangshang/img/image_icon/default.png"
-    }
-  }), _vm._v(" "), _c('div', [_c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.font(_vm.contentMargin),
-      marginRight: _vm.font(_vm.contentMargin)
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(12),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.title_pingying
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "red",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(24),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.title_name
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "12px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(16),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.title
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(16)
-    }))
-  }, [_vm._v(" 节日起源")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "12px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(14),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_1
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(16)
-    }))
-  }, [_vm._v(" 风俗习惯")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "12px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(14),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_2
-    }
-  })])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-eee615fc", module.exports)
-  }
-}
 
 /***/ })
 

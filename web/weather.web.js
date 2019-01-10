@@ -65,7 +65,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 72);
+/******/ 	return __webpack_require__(__webpack_require__.s = 75);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -746,12 +746,12 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = {
     channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-    adImgUrl: 'http://imengu.cn:8888/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
-    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn:8888/Ahuangshang/html/springFestival.html',
+    adImgUrl: 'https://www.imengu.cn:8888/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
+    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=https://www.imengu.cn:8888/Ahuangshang/html/springFestival.html',
     newVersion: 312280,
-    updateUrl: 'http://imengu.cn:8888/Ahuangshang/apk/latest.apk',
-    HostImgUrl: 'http://imengu.cn:8888/Ahuangshang/img/',
-    defaultHost: 'http://imengu.cn:8888/',
+    updateUrl: 'https://www.imengu.cn:8888/Ahuangshang/apk/latest.apk',
+    HostImgUrl: 'https://www.imengu.cn:8888/Ahuangshang/img/',
+    defaultHost: 'https://www.imengu.cn:8888/',
     getContent: function getContent(e) {
         var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
         var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
@@ -964,12 +964,12 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = {
     channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-    adImgUrl: 'http://imengu.cn:8888/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
-    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn:8888/Ahuangshang/html/springFestival.html',
+    adImgUrl: 'https://www.imengu.cn:8888/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
+    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=https://www.imengu.cn:8888/Ahuangshang/html/springFestival.html',
     newVersion: 312280,
-    updateUrl: 'http://imengu.cn:8888/Ahuangshang/apk/latest.apk',
-    HostImgUrl: 'http://imengu.cn:8888/Ahuangshang/img/',
-    defaultHost: 'http://imengu.cn:8888/',
+    updateUrl: 'https://www.imengu.cn:8888/Ahuangshang/apk/latest.apk',
+    HostImgUrl: 'https://www.imengu.cn:8888/Ahuangshang/img/',
+    defaultHost: 'https://www.imengu.cn:8888/',
     getContent: function getContent(e) {
         var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
         var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
@@ -2247,19 +2247,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* 43 */,
 /* 44 */,
 /* 45 */,
-/* 46 */
+/* 46 */,
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(107)
+  __webpack_require__(113)
 }
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(60),
+  __webpack_require__(62),
   /* template */
-  __webpack_require__(99),
+  __webpack_require__(104),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -2291,7 +2292,6 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 47 */,
 /* 48 */,
 /* 49 */,
 /* 50 */,
@@ -2304,7 +2304,9 @@ module.exports = Component.exports
 /* 57 */,
 /* 58 */,
 /* 59 */,
-/* 60 */
+/* 60 */,
+/* 61 */,
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2494,8 +2496,6 @@ exports.default = {
 };
 
 /***/ }),
-/* 61 */,
-/* 62 */,
 /* 63 */,
 /* 64 */,
 /* 65 */,
@@ -2505,13 +2505,16 @@ exports.default = {
 /* 69 */,
 /* 70 */,
 /* 71 */,
-/* 72 */
+/* 72 */,
+/* 73 */,
+/* 74 */,
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _weather = __webpack_require__(46);
+var _weather = __webpack_require__(47);
 
 var _weather2 = _interopRequireDefault(_weather);
 
@@ -2528,9 +2531,6 @@ _weather2.default.el = '#root';
 new Vue(_weather2.default);
 
 /***/ }),
-/* 73 */,
-/* 74 */,
-/* 75 */,
 /* 76 */,
 /* 77 */,
 /* 78 */,
@@ -2538,7 +2538,11 @@ new Vue(_weather2.default);
 /* 80 */,
 /* 81 */,
 /* 82 */,
-/* 83 */
+/* 83 */,
+/* 84 */,
+/* 85 */,
+/* 86 */,
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -2552,10 +2556,6 @@ exports.push([module.i, "\n.root[data-v-fb4b6c32] {\n}\n.rootWeb[data-v-fb4b6c32
 
 
 /***/ }),
-/* 84 */,
-/* 85 */,
-/* 86 */,
-/* 87 */,
 /* 88 */,
 /* 89 */,
 /* 90 */,
@@ -2567,7 +2567,12 @@ exports.push([module.i, "\n.root[data-v-fb4b6c32] {\n}\n.rootWeb[data-v-fb4b6c32
 /* 96 */,
 /* 97 */,
 /* 98 */,
-/* 99 */
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -2719,20 +2724,21 @@ if (false) {
 }
 
 /***/ }),
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
 /* 105 */,
 /* 106 */,
-/* 107 */
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(83);
+var content = __webpack_require__(87);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM

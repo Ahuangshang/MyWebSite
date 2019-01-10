@@ -65,7 +65,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 68);
+/******/ 	return __webpack_require__(__webpack_require__.s = 70);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -746,12 +746,12 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = {
     channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-    adImgUrl: 'http://imengu.cn:8888/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
-    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn:8888/Ahuangshang/html/springFestival.html',
+    adImgUrl: 'https://www.imengu.cn:8888/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
+    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=https://www.imengu.cn:8888/Ahuangshang/html/springFestival.html',
     newVersion: 312280,
-    updateUrl: 'http://imengu.cn:8888/Ahuangshang/apk/latest.apk',
-    HostImgUrl: 'http://imengu.cn:8888/Ahuangshang/img/',
-    defaultHost: 'http://imengu.cn:8888/',
+    updateUrl: 'https://www.imengu.cn:8888/Ahuangshang/apk/latest.apk',
+    HostImgUrl: 'https://www.imengu.cn:8888/Ahuangshang/img/',
+    defaultHost: 'https://www.imengu.cn:8888/',
     getContent: function getContent(e) {
         var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
         var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
@@ -964,12 +964,12 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = {
     channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-    adImgUrl: 'http://imengu.cn:8888/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
-    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn:8888/Ahuangshang/html/springFestival.html',
+    adImgUrl: 'https://www.imengu.cn:8888/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
+    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=https://www.imengu.cn:8888/Ahuangshang/html/springFestival.html',
     newVersion: 312280,
-    updateUrl: 'http://imengu.cn:8888/Ahuangshang/apk/latest.apk',
-    HostImgUrl: 'http://imengu.cn:8888/Ahuangshang/img/',
-    defaultHost: 'http://imengu.cn:8888/',
+    updateUrl: 'https://www.imengu.cn:8888/Ahuangshang/apk/latest.apk',
+    HostImgUrl: 'https://www.imengu.cn:8888/Ahuangshang/img/',
+    defaultHost: 'https://www.imengu.cn:8888/',
     getContent: function getContent(e) {
         var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
         var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
@@ -1929,13 +1929,13 @@ module.exports = function(module) {
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(104)
+  __webpack_require__(110)
 }
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(56),
+  __webpack_require__(57),
   /* template */
-  __webpack_require__(95),
+  __webpack_require__(100),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -1980,7 +1980,8 @@ module.exports = Component.exports
 /* 53 */,
 /* 54 */,
 /* 55 */,
-/* 56 */
+/* 56 */,
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2110,7 +2111,6 @@ exports.default = {
 };
 
 /***/ }),
-/* 57 */,
 /* 58 */,
 /* 59 */,
 /* 60 */,
@@ -2121,7 +2121,9 @@ exports.default = {
 /* 65 */,
 /* 66 */,
 /* 67 */,
-/* 68 */
+/* 68 */,
+/* 69 */,
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2144,8 +2146,6 @@ _more2.default.el = '#root';
 new Vue(_more2.default);
 
 /***/ }),
-/* 69 */,
-/* 70 */,
 /* 71 */,
 /* 72 */,
 /* 73 */,
@@ -2155,7 +2155,11 @@ new Vue(_more2.default);
 /* 77 */,
 /* 78 */,
 /* 79 */,
-/* 80 */
+/* 80 */,
+/* 81 */,
+/* 82 */,
+/* 83 */,
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -2169,10 +2173,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 
 /***/ }),
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */,
 /* 85 */,
 /* 86 */,
 /* 87 */,
@@ -2183,7 +2183,12 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /* 92 */,
 /* 93 */,
 /* 94 */,
-/* 95 */
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -2330,21 +2335,22 @@ if (false) {
 }
 
 /***/ }),
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */,
 /* 101 */,
 /* 102 */,
 /* 103 */,
-/* 104 */
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(80);
+var content = __webpack_require__(84);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM

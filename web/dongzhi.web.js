@@ -65,7 +65,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 64);
+/******/ 	return __webpack_require__(__webpack_require__.s = 66);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -431,9 +431,9 @@ if (module.exports.isweb()) {
 var disposed = false
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(52),
+  __webpack_require__(53),
   /* template */
-  __webpack_require__(87),
+  __webpack_require__(91),
   /* styles */
   null,
   /* scopeId */
@@ -466,7 +466,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 52:
+/***/ 53:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -596,7 +596,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 64:
+/***/ 66:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -620,7 +620,7 @@ new Vue(_dongzhi2.default);
 
 /***/ }),
 
-/***/ 87:
+/***/ 91:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -631,7 +631,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_1_h
     })),
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/dongzhi/dongzhi_1.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/dongzhi/dongzhi_1.jpg",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('div', {
@@ -679,7 +679,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_3_h
     })),
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/dongzhi/dongzhi_3.jpg"
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/dongzhi/dongzhi_3.jpg"
     }
   }), _vm._v(" "), _c('text', {
     staticStyle: _vm.$processStyle({
@@ -708,7 +708,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_2_h
     })),
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/dongzhi/dongzhi_2.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/dongzhi/dongzhi_2.jpg",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('text', {
@@ -738,7 +738,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_4_h
     })),
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/dongzhi/dongzhi_4.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/dongzhi/dongzhi_4.jpg",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('text', {
@@ -768,7 +768,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_5_h
     })),
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/dongzhi/dongzhi_5.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/dongzhi/dongzhi_5.jpg",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('text', {

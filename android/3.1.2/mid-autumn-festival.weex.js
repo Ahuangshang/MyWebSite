@@ -101,7 +101,7 @@ var __vue_styles__ = []
 __vue_exports__ = __webpack_require__(65)
 
 /* template */
-var __vue_template__ = __webpack_require__(83)
+var __vue_template__ = __webpack_require__(84)
 __vue_options__ = __vue_exports__ = __vue_exports__ || {}
 if (
   typeof __vue_exports__.default === "object" ||
@@ -113,7 +113,7 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "D:\\workSpace\\rili_weex\\src\\views\\mid-autumn-festival.vue"
+__vue_options__.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\mid-autumn-festival.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 __vue_options__.style = __vue_options__.style || {}
@@ -279,7 +279,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 83:
+/***/ 84:
 /***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -289,7 +289,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_1_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn.jpg",
       "placeholder": ""
     }
   }), _c('div', {
@@ -334,7 +334,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_2_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn1.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn1.jpg",
       "placeholder": ""
     }
   }), _c('text', {
@@ -363,7 +363,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_3_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn5.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn5.jpg",
       "placeholder": ""
     }
   }), _c('text', {
@@ -392,7 +392,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_4_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn6.jpg",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn6.jpg",
       "placeholder": ""
     }
   }), _c('text', {
@@ -421,7 +421,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_5_h
     },
     attrs: {
-      "src": "http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn7.gif",
+      "src": "https://www.imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn7.gif",
       "placeholder": ""
     }
   }), _c('text', {

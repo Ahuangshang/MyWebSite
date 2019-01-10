@@ -65,7 +65,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 74);
+/******/ 	return __webpack_require__(__webpack_require__.s = 77);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -903,12 +903,12 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = {
     channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-    adImgUrl: 'http://imengu.cn:8888/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
-    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn:8888/Ahuangshang/html/springFestival.html',
+    adImgUrl: 'https://www.imengu.cn:8888/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
+    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=https://www.imengu.cn:8888/Ahuangshang/html/springFestival.html',
     newVersion: 312280,
-    updateUrl: 'http://imengu.cn:8888/Ahuangshang/apk/latest.apk',
-    HostImgUrl: 'http://imengu.cn:8888/Ahuangshang/img/',
-    defaultHost: 'http://imengu.cn:8888/',
+    updateUrl: 'https://www.imengu.cn:8888/Ahuangshang/apk/latest.apk',
+    HostImgUrl: 'https://www.imengu.cn:8888/Ahuangshang/img/',
+    defaultHost: 'https://www.imengu.cn:8888/',
     getContent: function getContent(e) {
         var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
         var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
@@ -1868,19 +1868,20 @@ module.exports = function(module) {
 /* 45 */,
 /* 46 */,
 /* 47 */,
-/* 48 */
+/* 48 */,
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(102)
+  __webpack_require__(107)
 }
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(62),
+  __webpack_require__(64),
   /* template */
-  __webpack_require__(90),
+  __webpack_require__(94),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -1912,7 +1913,6 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 49 */,
 /* 50 */,
 /* 51 */,
 /* 52 */,
@@ -1925,7 +1925,9 @@ module.exports = Component.exports
 /* 59 */,
 /* 60 */,
 /* 61 */,
-/* 62 */
+/* 62 */,
+/* 63 */,
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1939,7 +1941,7 @@ var _methods = __webpack_require__(2);
 
 var _methods2 = _interopRequireDefault(_methods);
 
-var _videoconfig = __webpack_require__(75);
+var _videoconfig = __webpack_require__(78);
 
 var _videoconfig2 = _interopRequireDefault(_videoconfig);
 
@@ -1978,8 +1980,6 @@ exports.default = {
 };
 
 /***/ }),
-/* 63 */,
-/* 64 */,
 /* 65 */,
 /* 66 */,
 /* 67 */,
@@ -1989,13 +1989,16 @@ exports.default = {
 /* 71 */,
 /* 72 */,
 /* 73 */,
-/* 74 */
+/* 74 */,
+/* 75 */,
+/* 76 */,
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _zhibo = __webpack_require__(48);
+var _zhibo = __webpack_require__(49);
 
 var _zhibo2 = _interopRequireDefault(_zhibo);
 
@@ -2012,7 +2015,7 @@ _zhibo2.default.el = '#root';
 new Vue(_zhibo2.default);
 
 /***/ }),
-/* 75 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2290,9 +2293,9 @@ exports.default = {
 };
 
 /***/ }),
-/* 76 */,
-/* 77 */,
-/* 78 */
+/* 79 */,
+/* 80 */,
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -2306,9 +2309,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 
 /***/ }),
-/* 79 */,
-/* 80 */,
-/* 81 */,
 /* 82 */,
 /* 83 */,
 /* 84 */,
@@ -2317,7 +2317,11 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 /* 87 */,
 /* 88 */,
 /* 89 */,
-/* 90 */
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -2370,10 +2374,6 @@ if (false) {
 }
 
 /***/ }),
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
 /* 95 */,
 /* 96 */,
 /* 97 */,
@@ -2381,13 +2381,18 @@ if (false) {
 /* 99 */,
 /* 100 */,
 /* 101 */,
-/* 102 */
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(78);
+var content = __webpack_require__(81);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
