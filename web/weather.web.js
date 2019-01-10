@@ -788,7 +788,7 @@ exports.default = {
         var nhigh = high.replace("高温", "");
         nhigh = nhigh.replace('℃', '');
         var nlow = low.replace('低温', '');
-        return nhigh + " / " + nlow;
+        return nhigh + " ~" + nlow;
     }
 };
 
@@ -1006,7 +1006,7 @@ exports.default = {
         var nhigh = high.replace("高温", "");
         nhigh = nhigh.replace('℃', '');
         var nlow = low.replace('低温', '');
-        return nhigh + " / " + nlow;
+        return nhigh + " ~" + nlow;
     }
 };
 
@@ -2459,7 +2459,7 @@ exports.default = {
                     this.forecast.splice(0, this.forecast.length);
                     data.forecast.map(function (item) {
                         _this.forecast.push({
-                            date: '周' + item.date.substring(item.date.length - 1, item.date.length),
+                            date: item.week.replace("星期", "周"),
                             type: item.type,
                             dec: _config2.default.getWeatherDec(item.high, item.low)
                         });
@@ -2471,11 +2471,18 @@ exports.default = {
             return _config2.default.getWeatherTypeImg(this.currentType);
         },
         distributeData: function distributeData(type, data) {
-            this.params = {
-                city: JSON.parse(data).jsonData
-            };
-            this.refresh = false;
-            this.getWeatherInfo(false);
+            if (type === 'locationInfo') {
+                this.params = {
+                    city: JSON.parse(data).jsonData
+                };
+            } else if (type === 'cityCode') {
+                this.params = {
+                    city: this.params.city,
+                    cityCode: JSON.parse(data).jsonData
+                };
+                this.refresh = false;
+                this.getWeatherInfo(false);
+            }
         }
     },
     created: function created() {
@@ -2484,13 +2491,16 @@ exports.default = {
             _methods2.default.registerModules();
         }
         this.getOptions();
+        this.getWeatherInfo(true);
     },
     mounted: function mounted() {
         var _this2 = this;
 
-        this.getWeatherInfo(true);
         weex.requireModule('globalEvent').addEventListener('locationInfo', function (data) {
             _this2.distributeData("locationInfo", JSON.stringify(data));
+        });
+        weex.requireModule('globalEvent').addEventListener('cityCode', function (data) {
+            _this2.distributeData("cityCode", JSON.stringify(data));
         });
     }
 };

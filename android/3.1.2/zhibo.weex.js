@@ -1226,7 +1226,7 @@ exports.default = {
         var nhigh = high.replace("高温", "");
         nhigh = nhigh.replace('℃', '');
         var nlow = low.replace('低温', '');
-        return nhigh + " / " + nlow;
+        return nhigh + " ~" + nlow;
     }
 };
 
