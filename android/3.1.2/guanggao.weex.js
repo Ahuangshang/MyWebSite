@@ -65,7 +65,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 65);
+/******/ 	return __webpack_require__(__webpack_require__.s = 44);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -91,146 +91,71 @@ exports.default = mixins;
 
 /***/ }),
 
-/***/ 1:
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ 39:
+/***/ 31:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(53),
-  /* template */
-  __webpack_require__(89),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\guanggao.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] guanggao.vue: functional components are not supported with templates, they should use render functions.")}
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
 
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0ae15946", Component.options)
-  } else {
-    hotAPI.reload("data-v-0ae15946", Component.options)
+/* script */
+__vue_exports__ = __webpack_require__(63)
+
+/* template */
+var __vue_template__ = __webpack_require__(92)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "D:\\workSpace\\rili_weex\\src\\views\\guanggao.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
   }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
 
-module.exports = Component.exports
+module.exports = __vue_exports__
 
 
 /***/ }),
 
-/***/ 53:
+/***/ 44:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _guanggao = __webpack_require__(31);
+
+var _guanggao2 = _interopRequireDefault(_guanggao);
+
+var _mixins = __webpack_require__(0);
+
+var _mixins2 = _interopRequireDefault(_mixins);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+Vue.mixin(_mixins2.default);
+
+_guanggao2.default.el = '#root';
+
+new Vue(_guanggao2.default);
+
+/***/ }),
+
+/***/ 63:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -480,612 +405,570 @@ exports.default = {
 
 /***/ }),
 
-/***/ 65:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _guanggao = __webpack_require__(39);
-
-var _guanggao2 = _interopRequireDefault(_guanggao);
-
-var _mixins = __webpack_require__(0);
-
-var _mixins2 = _interopRequireDefault(_mixins);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-Vue.mixin(_mixins2.default);
-
-_guanggao2.default.el = '#root';
-
-new Vue(_guanggao2.default);
-
-/***/ }),
-
-/***/ 89:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 92:
+/***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('scroller', [_c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+    style: {
       marginLeft: _vm.contentMargin,
       marginRight: _vm.contentMargin
-    }))
+    }
   }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#000000",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+    staticStyle: {
+      color: "#000000",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.title_size,
       marginTop: _vm.contentMargin,
       marginBottom: _vm.contentMargin,
       lineHeight: _vm.line_height2
-    })),
+    },
     attrs: {
       "value": _vm.title
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    style: {
       fontSize: _vm.tex_size_2,
       marginTop: _vm.contentMargin
-    }))
-  }, [_vm._v(" 2017-10-01 李唐科技")]), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+    }
+  }, [_vm._v(" 2017-10-01 李唐科技")]), _c('image', {
+    style: {
       width: _vm.img_w,
       height: _vm.img_1_h
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad.jpg",
+      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad.jpg",
       "placeholder": ""
     }
-  }), _vm._v(" "), _c('div', [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('div', [_c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_1
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_2
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_3
     }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+  }), _c('image', {
+    style: {
       width: _vm.img_w,
       height: _vm.img_2_h
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad2.jpg",
+      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad2.jpg",
       "placeholder": ""
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_4
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_5
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_6
     }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+  }), _c('image', {
+    style: {
       width: _vm.img_w,
       height: _vm.img_3_h
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad4.jpg",
+      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad4.jpg",
       "placeholder": ""
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_7
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_8
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_9
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_10
     }
-  }, [_vm._v("}\n      ")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }, [_vm._v("}\n      ")]), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_10
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_10
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_10
     }
-  }, [_vm._v("}\n      ")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }, [_vm._v("}\n      ")]), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_10
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_10
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_11
     }
-  }), _vm._v(" "), _c('div', {
-    staticStyle: _vm.$processStyle({
-      "align-items": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('div', {
+    staticStyle: {
+      alignItems: "center"
+    },
+    style: {
       width: _vm.img_w
-    }))
+    }
   }, [_c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+    style: {
       width: _vm.img_4_h,
       height: _vm.img_4_h
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad5.jpg",
+      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad5.jpg",
       "placeholder": ""
     }
-  })]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  })]), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_12
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_13
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_14
     }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+  }), _c('image', {
+    style: {
       width: _vm.img_w,
       height: _vm.img_5_h
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad1.jpg",
+      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad1.jpg",
       "placeholder": ""
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#f45531"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height2
-    })),
+    },
     attrs: {
       "value": _vm.content_15
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#f45531"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height2
-    })),
+    },
     attrs: {
       "value": _vm.content_16
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#f45531"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    }))
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
+    }
+  }), _c('text', {
+    staticStyle: {
+      color: "#f45531"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height2
-    })),
+    },
     attrs: {
       "value": _vm.content_17
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#f45531"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height2
-    })),
+    },
     attrs: {
       "value": _vm.content_18
     }
-  }), _vm._v(" "), _c('div', {
-    staticStyle: _vm.$processStyle({
-      "justify-content": "center",
-      "flex-direction": "row"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('div', {
+    staticStyle: {
+      justifyContent: "center",
+      flexDirection: "row"
+    },
+    style: {
       width: _vm.img_w
-    }))
+    }
   }, [_c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+    style: {
       width: _vm.img_4_h,
       height: _vm.img_6_h
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad_qq.png",
+      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad_qq.png",
       "placeholder": ""
     }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+  }), _c('image', {
+    style: {
       width: _vm.img_4_h,
       height: _vm.img_6_h,
       marginLeft: _vm.contentMargin
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad_aqy.png",
+      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad_aqy.png",
       "placeholder": ""
     }
-  })]), _vm._v(" "), _c('div', {
-    staticStyle: _vm.$processStyle({
-      "justify-content": "center",
-      "flex-direction": "row"
-    }),
-    style: (_vm.$processStyle({
+  })]), _c('div', {
+    staticStyle: {
+      justifyContent: "center",
+      flexDirection: "row"
+    },
+    style: {
       width: _vm.img_w,
       marginTop: _vm.contentMargin
-    }))
+    }
   }, [_c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+    style: {
       width: _vm.img_4_h,
       height: _vm.img_6_h
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad_yk.png",
+      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad_yk.png",
       "placeholder": ""
     }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+  }), _c('image', {
+    style: {
       width: _vm.img_4_h,
       height: _vm.img_6_h,
       marginLeft: _vm.contentMargin
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad_hy.png",
+      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad_hy.png",
       "placeholder": ""
     }
-  })]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
+  })]), _c('text', {
+    staticStyle: {
+      color: "#f45531"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    }))
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
+    }
+  }), _c('text', {
+    staticStyle: {
+      color: "#f45531"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height2
-    })),
+    },
     attrs: {
       "value": _vm.content_19
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#f45531"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height2
-    })),
+    },
     attrs: {
       "value": _vm.content_20
     }
-  }), _vm._v(" "), _c('div', {
-    staticStyle: _vm.$processStyle({
-      "align-items": "center"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('div', {
+    staticStyle: {
+      alignItems: "center"
+    },
+    style: {
       width: _vm.img_w
-    }))
+    }
   }, [_c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+    style: {
       width: _vm.img_4_h,
       height: _vm.img_4_h
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad3.jpg",
+      "src": "http://zerosboy.site/Ahuangshang/img/advertisement/ad3.jpg",
       "placeholder": ""
     }
-  })]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#1D67F4"
-    }),
-    style: (_vm.$processStyle({
+  })]), _c('text', {
+    staticStyle: {
+      color: "#1D67F4"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height2
-    })),
+    },
     attrs: {
       "value": _vm.content_21
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      color: "#020402"
+    },
+    style: {
       fontSize: _vm.tex_size_3,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.tex_size_2
-    })),
+    },
     attrs: {
       "value": _vm.content_22
     }
   })])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-0ae15946", module.exports)
-  }
-}
 
 /***/ })
 

@@ -65,7 +65,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 67);
+/******/ 	return __webpack_require__(__webpack_require__.s = 46);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -91,146 +91,71 @@ exports.default = mixins;
 
 /***/ }),
 
-/***/ 1:
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ 41:
+/***/ 33:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(55),
-  /* template */
-  __webpack_require__(91),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\mid-autumn-festival.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] mid-autumn-festival.vue: functional components are not supported with templates, they should use render functions.")}
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
 
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3858003d", Component.options)
-  } else {
-    hotAPI.reload("data-v-3858003d", Component.options)
+/* script */
+__vue_exports__ = __webpack_require__(65)
+
+/* template */
+var __vue_template__ = __webpack_require__(83)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "D:\\workSpace\\rili_weex\\src\\views\\mid-autumn-festival.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
   }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
 
-module.exports = Component.exports
+module.exports = __vue_exports__
 
 
 /***/ }),
 
-/***/ 55:
+/***/ 46:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _midAutumnFestival = __webpack_require__(33);
+
+var _midAutumnFestival2 = _interopRequireDefault(_midAutumnFestival);
+
+var _mixins = __webpack_require__(0);
+
+var _mixins2 = _interopRequireDefault(_mixins);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+Vue.mixin(_mixins2.default);
+
+_midAutumnFestival2.default.el = '#root';
+
+new Vue(_midAutumnFestival2.default);
+
+/***/ }),
+
+/***/ 65:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -354,211 +279,174 @@ exports.default = {
 
 /***/ }),
 
-/***/ 67:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _midAutumnFestival = __webpack_require__(41);
-
-var _midAutumnFestival2 = _interopRequireDefault(_midAutumnFestival);
-
-var _mixins = __webpack_require__(0);
-
-var _mixins2 = _interopRequireDefault(_mixins);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-Vue.mixin(_mixins2.default);
-
-_midAutumnFestival2.default.el = '#root';
-
-new Vue(_midAutumnFestival2.default);
-
-/***/ }),
-
-/***/ 91:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 83:
+/***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('scroller', [_c('div', [_c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+    style: {
       width: _vm.img_w_top,
       height: _vm.img_1_h
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn.jpg",
+      "src": "http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn.jpg",
       "placeholder": ""
     }
-  }), _vm._v(" "), _c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+  }), _c('div', {
+    style: {
       marginLeft: _vm.contentMargin,
       marginRight: _vm.contentMargin
-    }))
+    }
   }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
+    staticStyle: {
+      color: "#334f16"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.title
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    style: {
       fontSize: _vm.tex_size_2,
       marginTop: _vm.contentMargin
-    }))
-  }, [_vm._v(" 起源")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
+    }
+  }, [_vm._v(" 起源")]), _c('text', {
+    staticStyle: {
+      color: "#334f16"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_1
     }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+  }), _c('image', {
+    style: {
       width: _vm.img_w,
       height: _vm.img_2_h
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn1.jpg",
+      "src": "http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn1.jpg",
       "placeholder": ""
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      marginTop: "15px"
+    },
+    style: {
       fontSize: _vm.tex_size_2
-    }))
-  }, [_vm._v(" 发展")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
+    }
+  }, [_vm._v(" 发展")]), _c('text', {
+    staticStyle: {
+      color: "#334f16"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_2
     }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+  }), _c('image', {
+    style: {
       width: _vm.img_w,
       height: _vm.img_3_h
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn5.jpg",
+      "src": "http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn5.jpg",
       "placeholder": ""
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      marginTop: "15px"
+    },
+    style: {
       fontSize: _vm.tex_size_2
-    }))
-  }, [_vm._v(" 假期")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
+    }
+  }, [_vm._v(" 假期")]), _c('text', {
+    staticStyle: {
+      color: "#334f16"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_3
     }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+  }), _c('image', {
+    style: {
       width: _vm.img_w,
       height: _vm.img_4_h
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn6.jpg",
+      "src": "http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn6.jpg",
       "placeholder": ""
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      marginTop: "15px"
+    },
+    style: {
       fontSize: _vm.tex_size_2
-    }))
-  }, [_vm._v(" 风俗习惯")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
+    }
+  }, [_vm._v(" 风俗习惯")]), _c('text', {
+    staticStyle: {
+      color: "#334f16"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_4
     }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
+  }), _c('image', {
+    style: {
       width: _vm.img_w,
       height: _vm.img_5_h
-    })),
+    },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn7.gif",
+      "src": "http://zerosboy.site/Ahuangshang/img/mid_autumn/mid-autumn7.gif",
       "placeholder": ""
     }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
+  }), _c('text', {
+    staticStyle: {
+      marginTop: "15px"
+    },
+    style: {
       fontSize: _vm.tex_size_2
-    }))
-  }, [_vm._v(" 神话传说")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
+    }
+  }, [_vm._v(" 神话传说")]), _c('text', {
+    staticStyle: {
+      color: "#334f16"
+    },
+    style: {
       fontSize: _vm.tex_size_1,
       marginTop: _vm.topMargin,
       margin: _vm.contentMargin,
       lineHeight: _vm.line_height
-    })),
+    },
     attrs: {
       "value": _vm.content_5
     }
   })])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-3858003d", module.exports)
-  }
-}
 
 /***/ })
 
