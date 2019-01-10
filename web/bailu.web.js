@@ -637,7 +637,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_1_h
     })),
     attrs: {
-      "src": "https://www.imengu.cn:8888/Ahuangshang/img/bailu/img_1.jpg",
+      "src": "http://imengu.cn:8888/Ahuangshang/img/bailu/img_1.jpg",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('div', {
@@ -685,7 +685,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_2_h
     })),
     attrs: {
-      "src": "https://www.imengu.cn:8888/Ahuangshang/img/bailu/img_2.jpg",
+      "src": "http://imengu.cn:8888/Ahuangshang/img/bailu/img_2.jpg",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('text', {
@@ -715,7 +715,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_3_h
     })),
     attrs: {
-      "src": "https://www.imengu.cn:8888/Ahuangshang/img/bailu/img_3.jpg",
+      "src": "http://imengu.cn:8888/Ahuangshang/img/bailu/img_3.jpg",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('text', {
@@ -745,7 +745,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_4_h
     })),
     attrs: {
-      "src": "https://www.imengu.cn:8888/Ahuangshang/img/bailu/img_4.jpg",
+      "src": "http://imengu.cn:8888/Ahuangshang/img/bailu/img_4.jpg",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('text', {
@@ -775,7 +775,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_5_h
     })),
     attrs: {
-      "src": "https://www.imengu.cn:8888/Ahuangshang/img/bailu/img_5.jpg",
+      "src": "http://imengu.cn:8888/Ahuangshang/img/bailu/img_5.jpg",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('text', {

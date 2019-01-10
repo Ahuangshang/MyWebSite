@@ -200,8 +200,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }),
     style: (_vm.$processStyle(undefined)),
     attrs: {
-      "src": "https://www.imengu.cn:8888/Ahuangshang/img/springFestival/img_1.jpg",
-      "placeholder": "https://www.imengu.cn:8888/Ahuangshang/img/image_icon/default.png"
+      "src": "http://imengu.cn:8888/Ahuangshang/img/springFestival/img_1.jpg",
+      "placeholder": "http://imengu.cn:8888/Ahuangshang/img/image_icon/default.png"
     }
   }), _vm._v(" "), _c('div', [_c('div', {
     staticStyle: _vm.$processStyle(undefined),
