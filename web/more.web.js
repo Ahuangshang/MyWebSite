@@ -2023,6 +2023,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 
 var modal = weex.requireModule('modal');
 exports.default = {
@@ -2099,11 +2101,14 @@ exports.default = {
           }
           break;
         case 5:
-          weex.requireModule('event').openView('className=cn.ltwc.cft.activity.ShareActivity&ltkj&type=image/*&ltkj&msg=王朝黄历\n我正在使用有趣实用的王朝黄历，快来下载吧！\n' + _config2.default.updateUrl + '&ltkj&shareUrl=' + _config2.default.updateUrl);
+          weex.requireModule('event').openView('className=cn.ltwc.cft.activity.ShareActivity&ltkj&type=text/*&ltkj&msg=王朝黄历\n我正在使用有趣实用的王朝黄历，快来下载吧！\n' + _config2.default.updateUrl + '&ltkj&shareUrl=' + _config2.default.updateUrl);
           //weex.requireModule('event').playVideo('http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8');
           break;
         case 6:
           weex.requireModule('event').openView('className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=zhibo&ltkj&webTitle=视频直播');
+          break;
+        case 7:
+          weex.requireModule('event').openView('className=cn.ltwc.cft.activity.ShowWifiPakActivity');
           break;
       }
     }
@@ -2167,7 +2172,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -2324,7 +2329,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.jump(6)
       }
     }
-  }) : _vm._e()], 1)], 1)
+  }) : _vm._e(), _vm._v(" "), _c('item', {
+    staticStyle: _vm.$processStyle({
+      "margin-top": "60px"
+    }),
+    style: (_vm.$processStyle(undefined)),
+    attrs: {
+      "top_border": "true",
+      "imgUrl": "share.png",
+      "itemName": "wifi密码查看",
+      "show_arrow": "true"
+    },
+    on: {
+      "onClick": function($event) {
+        _vm.jump(7)
+      }
+    }
+  })], 1)], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
