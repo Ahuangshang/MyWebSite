@@ -971,12 +971,12 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = {
     channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-    adImgUrl: 'http://imengu.cn:8888/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
-    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn:8888/Ahuangshang/html/springFestival.html',
+    adImgUrl: 'http://imengu.cn/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
+    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/springFestival.html',
     newVersion: 312280,
-    updateUrl: 'http://imengu.cn:8888/Ahuangshang/apk/latest.apk',
-    HostImgUrl: 'http://imengu.cn:8888/Ahuangshang/img/',
-    defaultHost: 'http://imengu.cn:8888/',
+    updateUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
+    HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
+    defaultHost: 'http://imengu.cn/',
     getContent: function getContent(e) {
         var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
         var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";

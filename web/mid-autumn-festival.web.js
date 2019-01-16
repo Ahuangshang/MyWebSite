@@ -389,7 +389,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_1_h
     })),
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn.jpg",
+      "src": "http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn.jpg",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('div', {
@@ -437,7 +437,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_2_h
     })),
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn1.jpg",
+      "src": "http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn1.jpg",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('text', {
@@ -467,7 +467,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_3_h
     })),
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn5.jpg",
+      "src": "http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn5.jpg",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('text', {
@@ -497,7 +497,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_4_h
     })),
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn6.jpg",
+      "src": "http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn6.jpg",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('text', {
@@ -527,7 +527,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_5_h
     })),
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/mid_autumn/mid-autumn7.gif",
+      "src": "http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn7.gif",
       "placeholder": ""
     }
   }), _vm._v(" "), _c('text', {

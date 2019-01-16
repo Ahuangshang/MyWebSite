@@ -440,7 +440,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_1_h
     },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad.jpg",
+      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad.jpg",
       "placeholder": ""
     }
   }), _c('div', [_c('text', {
@@ -494,7 +494,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_2_h
     },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad2.jpg",
+      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad2.jpg",
       "placeholder": ""
     }
   }), _c('text', {
@@ -548,7 +548,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_3_h
     },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad4.jpg",
+      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad4.jpg",
       "placeholder": ""
     }
   }), _c('text', {
@@ -714,7 +714,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_4_h
     },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad5.jpg",
+      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad5.jpg",
       "placeholder": ""
     }
   })]), _c('text', {
@@ -768,7 +768,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_5_h
     },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad1.jpg",
+      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad1.jpg",
       "placeholder": ""
     }
   }), _c('text', {
@@ -847,7 +847,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_6_h
     },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad_qq.png",
+      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad_qq.png",
       "placeholder": ""
     }
   }), _c('image', {
@@ -857,7 +857,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       marginLeft: _vm.contentMargin
     },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad_aqy.png",
+      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad_aqy.png",
       "placeholder": ""
     }
   })]), _c('div', {
@@ -875,7 +875,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_6_h
     },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad_yk.png",
+      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad_yk.png",
       "placeholder": ""
     }
   }), _c('image', {
@@ -885,7 +885,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       marginLeft: _vm.contentMargin
     },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad_hy.png",
+      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad_hy.png",
       "placeholder": ""
     }
   })]), _c('text', {
@@ -937,7 +937,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       height: _vm.img_4_h
     },
     attrs: {
-      "src": "http://imengu.cn:8888/Ahuangshang/img/advertisement/ad3.jpg",
+      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad3.jpg",
       "placeholder": ""
     }
   })]), _c('text', {
