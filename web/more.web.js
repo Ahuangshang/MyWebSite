@@ -65,31 +65,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 70);
+/******/ 	return __webpack_require__(__webpack_require__.s = 89);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/******/ ({
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var navigator = weex.requireModule('navigator');
-var mixins = {
-    data: function data() {
-        return {};
-    },
-    methods: {}
-};
-
-exports.default = mixins;
-
-/***/ }),
-/* 1 */
+/***/ 0:
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -186,7 +167,513 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 2 */
+
+/***/ 1:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var navigator = weex.requireModule('navigator');
+var mixins = {
+    data: function data() {
+        return {};
+    },
+    methods: {}
+};
+
+exports.default = mixins;
+
+/***/ }),
+
+/***/ 10:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _methods = __webpack_require__(2);
+
+var _methods2 = _interopRequireDefault(_methods);
+
+var _Config = __webpack_require__(11);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    props: {
+        imgw: {
+            default: 50
+        },
+        imgh: {
+            default: 0
+        },
+        imgUrl: {
+            default: ''
+        },
+        padding_left: {
+            default: 0
+        },
+        padding_right: {
+            default: 0
+        },
+        bgColor: {
+            default: '#00000000'
+        },
+        resize: {
+            default: 'contain'
+        },
+        imgFilePath: {
+            default: 'image_icon/'
+        }
+    },
+    methods: {
+        onClick: function onClick() {
+            this.$emit('onClick');
+        },
+        font: function font(size) {
+            return _methods2.default.getFontSize(size);
+        },
+        getSrc: function getSrc(imgUrl) {
+            return _Config2.default.HostImgUrl + this.imgFilePath + imgUrl;
+        },
+        getImgHeight: function getImgHeight(imgh) {
+            return imgh != 0 ? imgh : this.imgw;
+        }
+    }
+};
+
+/***/ }),
+
+/***/ 103:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 11:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+/**
+ * Created by Tw93 on 2016/11/4.
+ */
+
+exports.default = {
+    channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
+    adImgUrl: 'http://imengu.cn/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
+    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/springFestival.html',
+    newVersion: 312280,
+    updateUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
+    HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
+    defaultHost: 'http://imengu.cn/',
+    getContent: function getContent(e) {
+        var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
+        var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
+        var result = "<html>" + head + style + "<body>" + e + "</body></html>";
+        result = encodeURI(result);
+        return result;
+    },
+    getWeatherTypeImg: function getWeatherTypeImg(currentType) {
+        if (this.contains(currentType, '晴')) {
+            return 'qing.jpg';
+        } else if (this.contains(currentType, '阴')) {
+            return 'yin.jpg';
+        } else if (this.contains(currentType, '多云')) {
+            return 'duoyun.gif';
+        } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
+            return 'xiaoyu.gif';
+        } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
+            return 'dayu.gif';
+        } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
+            return 'xiaoxue.gif';
+        } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
+            return 'daxue.gif';
+        } else if (this.contains(currentType, '雪')) {
+            return 'xiaoxue.gif';
+        } else if (this.contains(currentType, '雨')) {
+            return 'xiaoyu.gif';
+        }
+    },
+
+    contains: function contains(str, s) {
+        return str.indexOf(s) > -1;
+    },
+    getWeatherDec: function getWeatherDec(high, low) {
+        var nhigh = high.replace("高温", "");
+        nhigh = nhigh.replace('℃', '');
+        var nlow = low.replace('低温', '');
+        return nhigh + " ~" + nlow;
+    },
+    newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
+    newsTabStyles: {
+        bgColor: '#ffffff',
+        titleColor: '#dd000000',
+        activeTitleColor: '#31A9A5',
+        activeBgColor: '#ffffff',
+        isActiveTitleBold: true,
+        iconWidth: 70,
+        iconHeight: 70,
+        width: 160,
+        height: 75,
+        fontSize: 28,
+        hasActiveBottom: true,
+        activeBottomColor: '#31A9A5',
+        activeBottomHeight: 1,
+        activeBottomWidth: 160,
+        textPaddingLeft: 10,
+        textPaddingRight: 10,
+        normalBottomColor: 'rgba(0,0,0,0.4)',
+        normalBottomHeight: 1,
+        hasRightIcon: true,
+        rightOffset: 100
+    },
+    jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
+    jokeTabStyles: {
+        bgColor: '#ffffff',
+        titleColor: '#dd000000',
+        activeTitleColor: '#31A9A5',
+        activeBgColor: '#ffffff',
+        isActiveTitleBold: true,
+        iconWidth: 70,
+        iconHeight: 70,
+        width: 250,
+        height: 75,
+        fontSize: 28,
+        hasActiveBottom: true,
+        activeBottomColor: '#31A9A5',
+        activeBottomHeight: 1,
+        activeBottomWidth: 250,
+        textPaddingLeft: 10,
+        textPaddingRight: 10,
+        normalBottomColor: 'rgba(0,0,0,0.4)',
+        normalBottomHeight: 1,
+        hasRightIcon: true,
+        rightOffset: 100
+    }
+};
+
+/***/ }),
+
+/***/ 116:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticStyle: _vm.$processStyle({
+      "background-color": "rgba(244,244,244,0.96)",
+      "position": "absolute",
+      "top": "0",
+      "bottom": "0",
+      "left": "0",
+      "right": "0"
+    }),
+    style: (_vm.$processStyle(undefined))
+  }, [_c('scroller', {
+    staticStyle: _vm.$processStyle({
+      "background-color": "rgba(244,244,244,0.96)",
+      "show-scrollbar": "false"
+    }),
+    style: (_vm.$processStyle(undefined))
+  }, [_c('div', {
+    staticStyle: _vm.$processStyle({
+      "align-items": "center",
+      "flex-direction": "column",
+      "margin-top": "70px"
+    }),
+    style: (_vm.$processStyle(undefined))
+  }, [_c('icon-img', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle(undefined)),
+    attrs: {
+      "imgUrl": "icon.png",
+      "imgw": "100"
+    }
+  }), _vm._v(" "), _c('text', {
+    staticStyle: _vm.$processStyle({
+      "margin-top": "10px",
+      "color": "#979797"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(20)
+    })),
+    attrs: {
+      "value": _vm.versionInfo
+    }
+  })], 1), _vm._v(" "), _c('item', {
+    staticStyle: _vm.$processStyle({
+      "margin-top": "60px"
+    }),
+    style: (_vm.$processStyle(undefined)),
+    attrs: {
+      "top_border": "true",
+      "imgUrl": "message.png",
+      "itemName": "消息中心",
+      "show_arrow": "true"
+    },
+    on: {
+      "onClick": function($event) {
+        _vm.jump(1)
+      }
+    }
+  }), _vm._v(" "), _c('item', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle(undefined)),
+    attrs: {
+      "imgUrl": "zhainan.png",
+      "itemName": "宅男天堂",
+      "show_arrow": "true"
+    },
+    on: {
+      "onClick": function($event) {
+        _vm.jump(2)
+      }
+    }
+  }), _vm._v(" "), _c('item', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle(undefined)),
+    attrs: {
+      "imgUrl": "todayonHistory.png",
+      "itemName": "历史上的今天",
+      "show_arrow": "true"
+    },
+    on: {
+      "onClick": function($event) {
+        _vm.jump(3)
+      }
+    }
+  }), _vm._v(" "), _c('item', {
+    staticStyle: _vm.$processStyle({
+      "margin-top": "60px"
+    }),
+    style: (_vm.$processStyle(undefined)),
+    attrs: {
+      "top_border": "true",
+      "imgUrl": "update.png",
+      "itemName": "版本更新",
+      "extraName": _vm.extraName,
+      "show_arrow": "true"
+    },
+    on: {
+      "onClick": function($event) {
+        _vm.jump(4)
+      }
+    }
+  }), _vm._v(" "), _c('item', {
+    staticStyle: _vm.$processStyle({
+      "margin-top": "60px"
+    }),
+    style: (_vm.$processStyle(undefined)),
+    attrs: {
+      "top_border": "true",
+      "imgUrl": "share.png",
+      "itemName": "推荐给朋友",
+      "show_arrow": "true"
+    },
+    on: {
+      "onClick": function($event) {
+        _vm.jump(5)
+      }
+    }
+  }), _vm._v(" "), (_vm.oldVersion > 612230 && _vm.showLive) ? _c('item', {
+    staticStyle: _vm.$processStyle({
+      "margin-top": "60px",
+      "margin-bottom": "80px"
+    }),
+    style: (_vm.$processStyle(undefined)),
+    attrs: {
+      "top_border": "true",
+      "imgUrl": "live.png",
+      "itemName": "视频直播",
+      "show_arrow": "true"
+    },
+    on: {
+      "onClick": function($event) {
+        _vm.jump(6)
+      }
+    }
+  }) : _vm._e(), _vm._v(" "), _c('item', {
+    staticStyle: _vm.$processStyle({
+      "margin-top": "60px"
+    }),
+    style: (_vm.$processStyle(undefined)),
+    attrs: {
+      "top_border": "true",
+      "imgUrl": "joke.png",
+      "itemName": "一起笑吧",
+      "show_arrow": "true"
+    },
+    on: {
+      "onClick": function($event) {
+        _vm.jump(7)
+      }
+    }
+  })], 1)], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-b03e901c", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 12:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+// imports
+
+
+// module
+exports.push([module.i, "\n.div[data-v-7203603b] {\n    align-items: center;\n    flex-direction: column;\n}\n.icon[data-v-7203603b] {\n    width: 50px;\n    height: 50px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 125:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(103);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("1231df3e", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b03e901c\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./more.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b03e901c\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./more.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 13:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "div",
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      width: _vm.imgw,
+      height: _vm.getImgHeight(_vm.imgh),
+      backgroundColor: _vm.bgColor
+    })),
+    on: {
+      "click": _vm.onClick
+    }
+  }, [_c('image', {
+    staticClass: "icon",
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      width: _vm.imgw,
+      height: _vm.getImgHeight(_vm.imgh),
+      marginLeft: _vm.padding_left,
+      marginRight: _vm.padding_right
+    })),
+    attrs: {
+      "resize": _vm.resize,
+      "src": _vm.getSrc(_vm.imgUrl)
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7203603b", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 14:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(12);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("9aa8cbfa", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7203603b\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7203603b\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -215,7 +702,12 @@ module.exports = {
         return result;
     },
     toDateString: function toDateString(value) {
-        var date = new Date(value);
+        var date = void 0;
+        if (this.isNotNull(value)) {
+            date = new Date(value);
+        } else {
+            date = new Date();
+        }
         var Y = date.getFullYear() + '-';
         var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
         var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
@@ -421,7 +913,53 @@ if (module.exports.isweb()) {
 }
 
 /***/ }),
-/* 3 */
+
+/***/ 27:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(48)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(30),
+  /* template */
+  __webpack_require__(43),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-50539d45",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\customview\\icon.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] icon.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-50539d45", Component.options)
+  } else {
+    hotAPI.reload("data-v-50539d45", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 3:
 /***/ (function(module, exports) {
 
 /*
@@ -477,666 +1015,8 @@ module.exports = function() {
 
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
 
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-  Modified by Evan You @yyx990803
-*/
-
-var hasDocument = typeof document !== 'undefined'
-
-if (typeof DEBUG !== 'undefined' && DEBUG) {
-  if (!hasDocument) {
-    throw new Error(
-    'vue-style-loader cannot be used in a non-browser environment. ' +
-    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
-  ) }
-}
-
-var listToStyles = __webpack_require__(5)
-
-/*
-type StyleObject = {
-  id: number;
-  parts: Array<StyleObjectPart>
-}
-
-type StyleObjectPart = {
-  css: string;
-  media: string;
-  sourceMap: ?string
-}
-*/
-
-var stylesInDom = {/*
-  [id: number]: {
-    id: number,
-    refs: number,
-    parts: Array<(obj?: StyleObjectPart) => void>
-  }
-*/}
-
-var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
-var singletonElement = null
-var singletonCounter = 0
-var isProduction = false
-var noop = function () {}
-
-// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-// tags it will allow on a page
-var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
-
-module.exports = function (parentId, list, _isProduction) {
-  isProduction = _isProduction
-
-  var styles = listToStyles(parentId, list)
-  addStylesToDom(styles)
-
-  return function update (newList) {
-    var mayRemove = []
-    for (var i = 0; i < styles.length; i++) {
-      var item = styles[i]
-      var domStyle = stylesInDom[item.id]
-      domStyle.refs--
-      mayRemove.push(domStyle)
-    }
-    if (newList) {
-      styles = listToStyles(parentId, newList)
-      addStylesToDom(styles)
-    } else {
-      styles = []
-    }
-    for (var i = 0; i < mayRemove.length; i++) {
-      var domStyle = mayRemove[i]
-      if (domStyle.refs === 0) {
-        for (var j = 0; j < domStyle.parts.length; j++) {
-          domStyle.parts[j]()
-        }
-        delete stylesInDom[domStyle.id]
-      }
-    }
-  }
-}
-
-function addStylesToDom (styles /* Array<StyleObject> */) {
-  for (var i = 0; i < styles.length; i++) {
-    var item = styles[i]
-    var domStyle = stylesInDom[item.id]
-    if (domStyle) {
-      domStyle.refs++
-      for (var j = 0; j < domStyle.parts.length; j++) {
-        domStyle.parts[j](item.parts[j])
-      }
-      for (; j < item.parts.length; j++) {
-        domStyle.parts.push(addStyle(item.parts[j]))
-      }
-      if (domStyle.parts.length > item.parts.length) {
-        domStyle.parts.length = item.parts.length
-      }
-    } else {
-      var parts = []
-      for (var j = 0; j < item.parts.length; j++) {
-        parts.push(addStyle(item.parts[j]))
-      }
-      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
-    }
-  }
-}
-
-function createStyleElement () {
-  var styleElement = document.createElement('style')
-  styleElement.type = 'text/css'
-  head.appendChild(styleElement)
-  return styleElement
-}
-
-function addStyle (obj /* StyleObjectPart */) {
-  var update, remove
-  var styleElement = document.querySelector('style[data-vue-ssr-id~="' + obj.id + '"]')
-
-  if (styleElement) {
-    if (isProduction) {
-      // has SSR styles and in production mode.
-      // simply do nothing.
-      return noop
-    } else {
-      // has SSR styles but in dev mode.
-      // for some reason Chrome can't handle source map in server-rendered
-      // style tags - source maps in <style> only works if the style tag is
-      // created and inserted dynamically. So we remove the server rendered
-      // styles and inject new ones.
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  if (isOldIE) {
-    // use singleton mode for IE9.
-    var styleIndex = singletonCounter++
-    styleElement = singletonElement || (singletonElement = createStyleElement())
-    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
-    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
-  } else {
-    // use multi-style-tag mode in all other cases
-    styleElement = createStyleElement()
-    update = applyToTag.bind(null, styleElement)
-    remove = function () {
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  update(obj)
-
-  return function updateStyle (newObj /* StyleObjectPart */) {
-    if (newObj) {
-      if (newObj.css === obj.css &&
-          newObj.media === obj.media &&
-          newObj.sourceMap === obj.sourceMap) {
-        return
-      }
-      update(obj = newObj)
-    } else {
-      remove()
-    }
-  }
-}
-
-var replaceText = (function () {
-  var textStore = []
-
-  return function (index, replacement) {
-    textStore[index] = replacement
-    return textStore.filter(Boolean).join('\n')
-  }
-})()
-
-function applyToSingletonTag (styleElement, index, remove, obj) {
-  var css = remove ? '' : obj.css
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = replaceText(index, css)
-  } else {
-    var cssNode = document.createTextNode(css)
-    var childNodes = styleElement.childNodes
-    if (childNodes[index]) styleElement.removeChild(childNodes[index])
-    if (childNodes.length) {
-      styleElement.insertBefore(cssNode, childNodes[index])
-    } else {
-      styleElement.appendChild(cssNode)
-    }
-  }
-}
-
-function applyToTag (styleElement, obj) {
-  var css = obj.css
-  var media = obj.media
-  var sourceMap = obj.sourceMap
-
-  if (media) {
-    styleElement.setAttribute('media', media)
-  }
-
-  if (sourceMap) {
-    // https://developer.chrome.com/devtools/docs/javascript-debugging
-    // this makes source maps inside style tags work properly in Chrome
-    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
-    // http://stackoverflow.com/a/26603875
-    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
-  }
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = css
-  } else {
-    while (styleElement.firstChild) {
-      styleElement.removeChild(styleElement.firstChild)
-    }
-    styleElement.appendChild(document.createTextNode(css))
-  }
-}
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-/**
- * Created by Tw93 on 2016/11/4.
- */
-
-exports.default = {
-    channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-    adImgUrl: 'http://imengu.cn/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
-    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/springFestival.html',
-    newVersion: 312280,
-    updateUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
-    HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
-    defaultHost: 'http://imengu.cn/',
-    getContent: function getContent(e) {
-        var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
-        var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
-        var result = "<html>" + head + style + "<body>" + e + "</body></html>";
-        result = encodeURI(result);
-        return result;
-    },
-    getWeatherTypeImg: function getWeatherTypeImg(currentType) {
-        if (this.contains(currentType, '晴')) {
-            return 'qing.jpg';
-        } else if (this.contains(currentType, '阴')) {
-            return 'yin.jpg';
-        } else if (this.contains(currentType, '多云')) {
-            return 'duoyun.gif';
-        } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
-            return 'xiaoyu.gif';
-        } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
-            return 'dayu.gif';
-        } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
-            return 'xiaoxue.gif';
-        } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
-            return 'daxue.gif';
-        } else if (this.contains(currentType, '雪')) {
-            return 'xiaoxue.gif';
-        } else if (this.contains(currentType, '雨')) {
-            return 'xiaoyu.gif';
-        }
-    },
-
-    contains: function contains(str, s) {
-        return str.indexOf(s) > -1;
-    },
-    getWeatherDec: function getWeatherDec(high, low) {
-        var nhigh = high.replace("高温", "");
-        nhigh = nhigh.replace('℃', '');
-        var nlow = low.replace('低温', '');
-        return nhigh + " ~" + nlow;
-    }
-};
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(13)
-}
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(9),
-  /* template */
-  __webpack_require__(12),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  "data-v-7203603b",
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\customview\\icon-img.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] icon-img.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7203603b", Component.options)
-  } else {
-    hotAPI.reload("data-v-7203603b", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _methods = __webpack_require__(2);
-
-var _methods2 = _interopRequireDefault(_methods);
-
-var _Config = __webpack_require__(10);
-
-var _Config2 = _interopRequireDefault(_Config);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-exports.default = {
-    props: {
-        imgw: {
-            default: 50
-        },
-        imgh: {
-            default: 0
-        },
-        imgUrl: {
-            default: ''
-        },
-        padding_left: {
-            default: 0
-        },
-        padding_right: {
-            default: 0
-        },
-        bgColor: {
-            default: '#00000000'
-        },
-        resize: {
-            default: 'contain'
-        },
-        imgFilePath: {
-            default: 'image_icon/'
-        }
-    },
-    methods: {
-        onClick: function onClick() {
-            this.$emit('onClick');
-        },
-        font: function font(size) {
-            return _methods2.default.getFontSize(size);
-        },
-        getSrc: function getSrc(imgUrl) {
-            return _Config2.default.HostImgUrl + this.imgFilePath + imgUrl;
-        },
-        getImgHeight: function getImgHeight(imgh) {
-            return imgh != 0 ? imgh : this.imgw;
-        }
-    }
-};
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-/**
- * Created by Tw93 on 2016/11/4.
- */
-
-exports.default = {
-    channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-    adImgUrl: 'http://imengu.cn/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
-    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/springFestival.html',
-    newVersion: 312280,
-    updateUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
-    HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
-    defaultHost: 'http://imengu.cn/',
-    getContent: function getContent(e) {
-        var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
-        var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
-        var result = "<html>" + head + style + "<body>" + e + "</body></html>";
-        result = encodeURI(result);
-        return result;
-    },
-    getWeatherTypeImg: function getWeatherTypeImg(currentType) {
-        if (this.contains(currentType, '晴')) {
-            return 'qing.jpg';
-        } else if (this.contains(currentType, '阴')) {
-            return 'yin.jpg';
-        } else if (this.contains(currentType, '多云')) {
-            return 'duoyun.gif';
-        } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
-            return 'xiaoyu.gif';
-        } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
-            return 'dayu.gif';
-        } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
-            return 'xiaoxue.gif';
-        } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
-            return 'daxue.gif';
-        } else if (this.contains(currentType, '雪')) {
-            return 'xiaoxue.gif';
-        } else if (this.contains(currentType, '雨')) {
-            return 'xiaoyu.gif';
-        }
-    },
-
-    contains: function contains(str, s) {
-        return str.indexOf(s) > -1;
-    },
-    getWeatherDec: function getWeatherDec(high, low) {
-        var nhigh = high.replace("高温", "");
-        nhigh = nhigh.replace('℃', '');
-        var nlow = low.replace('低温', '');
-        return nhigh + " ~" + nlow;
-    }
-};
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)();
-// imports
-
-
-// module
-exports.push([module.i, "\n.div[data-v-7203603b] {\n    align-items: center;\n    flex-direction: column;\n}\n.icon[data-v-7203603b] {\n    width: 50px;\n    height: 50px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "div",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.imgw,
-      height: _vm.getImgHeight(_vm.imgh),
-      backgroundColor: _vm.bgColor
-    })),
-    on: {
-      "click": _vm.onClick
-    }
-  }, [_c('image', {
-    staticClass: "icon",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.imgw,
-      height: _vm.getImgHeight(_vm.imgh),
-      marginLeft: _vm.padding_left,
-      marginRight: _vm.padding_right
-    })),
-    attrs: {
-      "resize": _vm.resize,
-      "src": _vm.getSrc(_vm.imgUrl)
-    }
-  })])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-7203603b", module.exports)
-  }
-}
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(11);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(4)("9aa8cbfa", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7203603b\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue", function() {
-     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7203603b\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(32)
-}
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(17),
-  /* template */
-  __webpack_require__(29),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  "data-v-50539d45",
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\customview\\icon.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] icon.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-50539d45", Component.options)
-  } else {
-    hotAPI.reload("data-v-50539d45", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 15 */,
-/* 16 */,
-/* 17 */
+/***/ 30:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1169,7 +1049,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 
-var he = __webpack_require__(22);
+var he = __webpack_require__(37);
 
 
 module.exports = {
@@ -1214,7 +1094,8 @@ module.exports = {
 };
 
 /***/ }),
-/* 18 */
+
+/***/ 31:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1232,8 +1113,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
     components: {
-        iconImg: __webpack_require__(8),
-        icon: __webpack_require__(14)
+        iconImg: __webpack_require__(9),
+        icon: __webpack_require__(27)
     },
     name: "item",
     props: {
@@ -1310,8 +1191,8 @@ exports.default = {
 //
 
 /***/ }),
-/* 19 */,
-/* 20 */
+
+/***/ 34:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -1325,7 +1206,8 @@ exports.push([module.i, "\n.div[data-v-50539d45] {\n    align-items: center;\n  
 
 
 /***/ }),
-/* 21 */
+
+/***/ 35:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -1339,7 +1221,8 @@ exports.push([module.i, "\n.item[data-v-7b020242] {\n    flex-direction: row;\n 
 
 
 /***/ }),
-/* 22 */
+
+/***/ 37:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/he v1.1.1 by @mathias | MIT license */
@@ -1684,26 +1567,245 @@ exports.push([module.i, "\n.item[data-v-7b020242] {\n    flex-direction: row;\n 
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)(module), __webpack_require__(7)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(51)(module), __webpack_require__(8)))
 
 /***/ }),
-/* 23 */,
-/* 24 */,
-/* 25 */,
-/* 26 */,
-/* 27 */
+
+/***/ 4:
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+  Modified by Evan You @yyx990803
+*/
+
+var hasDocument = typeof document !== 'undefined'
+
+if (typeof DEBUG !== 'undefined' && DEBUG) {
+  if (!hasDocument) {
+    throw new Error(
+    'vue-style-loader cannot be used in a non-browser environment. ' +
+    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
+  ) }
+}
+
+var listToStyles = __webpack_require__(5)
+
+/*
+type StyleObject = {
+  id: number;
+  parts: Array<StyleObjectPart>
+}
+
+type StyleObjectPart = {
+  css: string;
+  media: string;
+  sourceMap: ?string
+}
+*/
+
+var stylesInDom = {/*
+  [id: number]: {
+    id: number,
+    refs: number,
+    parts: Array<(obj?: StyleObjectPart) => void>
+  }
+*/}
+
+var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
+var singletonElement = null
+var singletonCounter = 0
+var isProduction = false
+var noop = function () {}
+
+// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+// tags it will allow on a page
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
+
+module.exports = function (parentId, list, _isProduction) {
+  isProduction = _isProduction
+
+  var styles = listToStyles(parentId, list)
+  addStylesToDom(styles)
+
+  return function update (newList) {
+    var mayRemove = []
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i]
+      var domStyle = stylesInDom[item.id]
+      domStyle.refs--
+      mayRemove.push(domStyle)
+    }
+    if (newList) {
+      styles = listToStyles(parentId, newList)
+      addStylesToDom(styles)
+    } else {
+      styles = []
+    }
+    for (var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i]
+      if (domStyle.refs === 0) {
+        for (var j = 0; j < domStyle.parts.length; j++) {
+          domStyle.parts[j]()
+        }
+        delete stylesInDom[domStyle.id]
+      }
+    }
+  }
+}
+
+function addStylesToDom (styles /* Array<StyleObject> */) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i]
+    var domStyle = stylesInDom[item.id]
+    if (domStyle) {
+      domStyle.refs++
+      for (var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j])
+      }
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j]))
+      }
+      if (domStyle.parts.length > item.parts.length) {
+        domStyle.parts.length = item.parts.length
+      }
+    } else {
+      var parts = []
+      for (var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j]))
+      }
+      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
+    }
+  }
+}
+
+function createStyleElement () {
+  var styleElement = document.createElement('style')
+  styleElement.type = 'text/css'
+  head.appendChild(styleElement)
+  return styleElement
+}
+
+function addStyle (obj /* StyleObjectPart */) {
+  var update, remove
+  var styleElement = document.querySelector('style[data-vue-ssr-id~="' + obj.id + '"]')
+
+  if (styleElement) {
+    if (isProduction) {
+      // has SSR styles and in production mode.
+      // simply do nothing.
+      return noop
+    } else {
+      // has SSR styles but in dev mode.
+      // for some reason Chrome can't handle source map in server-rendered
+      // style tags - source maps in <style> only works if the style tag is
+      // created and inserted dynamically. So we remove the server rendered
+      // styles and inject new ones.
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  if (isOldIE) {
+    // use singleton mode for IE9.
+    var styleIndex = singletonCounter++
+    styleElement = singletonElement || (singletonElement = createStyleElement())
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+  } else {
+    // use multi-style-tag mode in all other cases
+    styleElement = createStyleElement()
+    update = applyToTag.bind(null, styleElement)
+    remove = function () {
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  update(obj)
+
+  return function updateStyle (newObj /* StyleObjectPart */) {
+    if (newObj) {
+      if (newObj.css === obj.css &&
+          newObj.media === obj.media &&
+          newObj.sourceMap === obj.sourceMap) {
+        return
+      }
+      update(obj = newObj)
+    } else {
+      remove()
+    }
+  }
+}
+
+var replaceText = (function () {
+  var textStore = []
+
+  return function (index, replacement) {
+    textStore[index] = replacement
+    return textStore.filter(Boolean).join('\n')
+  }
+})()
+
+function applyToSingletonTag (styleElement, index, remove, obj) {
+  var css = remove ? '' : obj.css
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css)
+  } else {
+    var cssNode = document.createTextNode(css)
+    var childNodes = styleElement.childNodes
+    if (childNodes[index]) styleElement.removeChild(childNodes[index])
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index])
+    } else {
+      styleElement.appendChild(cssNode)
+    }
+  }
+}
+
+function applyToTag (styleElement, obj) {
+  var css = obj.css
+  var media = obj.media
+  var sourceMap = obj.sourceMap
+
+  if (media) {
+    styleElement.setAttribute('media', media)
+  }
+
+  if (sourceMap) {
+    // https://developer.chrome.com/devtools/docs/javascript-debugging
+    // this makes source maps inside style tags work properly in Chrome
+    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
+    // http://stackoverflow.com/a/26603875
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
+  }
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild)
+    }
+    styleElement.appendChild(document.createTextNode(css))
+  }
+}
+
+
+/***/ }),
+
+/***/ 40:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(33)
+  __webpack_require__(49)
 }
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(18),
+  __webpack_require__(31),
   /* template */
-  __webpack_require__(30),
+  __webpack_require__(44),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -1735,8 +1837,8 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 28 */,
-/* 29 */
+
+/***/ 43:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -1767,7 +1869,8 @@ if (false) {
 }
 
 /***/ }),
-/* 30 */
+
+/***/ 44:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -1835,14 +1938,14 @@ if (false) {
 }
 
 /***/ }),
-/* 31 */,
-/* 32 */
+
+/***/ 48:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(20);
+var content = __webpack_require__(34);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -1862,13 +1965,14 @@ if(false) {
 }
 
 /***/ }),
-/* 33 */
+
+/***/ 49:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(21);
+var content = __webpack_require__(35);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -1888,7 +1992,42 @@ if(false) {
 }
 
 /***/ }),
-/* 34 */
+
+/***/ 5:
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+
+/***/ }),
+
+/***/ 51:
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -1916,26 +2055,20 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */
+
+/***/ 61:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(110)
+  __webpack_require__(125)
 }
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(57),
+  __webpack_require__(75),
   /* template */
-  __webpack_require__(100),
+  __webpack_require__(116),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -1967,35 +2100,131 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */
+
+/***/ 7:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
+});
+/**
+ * Created by Tw93 on 2016/11/4.
+ */
+
+exports.default = {
+    channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
+    adImgUrl: 'http://imengu.cn/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
+    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/springFestival.html',
+    newVersion: 312280,
+    updateUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
+    HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
+    defaultHost: 'http://imengu.cn/',
+    getContent: function getContent(e) {
+        var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
+        var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
+        var result = "<html>" + head + style + "<body>" + e + "</body></html>";
+        result = encodeURI(result);
+        return result;
+    },
+    getWeatherTypeImg: function getWeatherTypeImg(currentType) {
+        if (this.contains(currentType, '晴')) {
+            return 'qing.jpg';
+        } else if (this.contains(currentType, '阴')) {
+            return 'yin.jpg';
+        } else if (this.contains(currentType, '多云')) {
+            return 'duoyun.gif';
+        } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
+            return 'xiaoyu.gif';
+        } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
+            return 'dayu.gif';
+        } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
+            return 'xiaoxue.gif';
+        } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
+            return 'daxue.gif';
+        } else if (this.contains(currentType, '雪')) {
+            return 'xiaoxue.gif';
+        } else if (this.contains(currentType, '雨')) {
+            return 'xiaoyu.gif';
+        }
+    },
+
+    contains: function contains(str, s) {
+        return str.indexOf(s) > -1;
+    },
+    getWeatherDec: function getWeatherDec(high, low) {
+        var nhigh = high.replace("高温", "");
+        nhigh = nhigh.replace('℃', '');
+        var nlow = low.replace('低温', '');
+        return nhigh + " ~" + nlow;
+    },
+    newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
+    newsTabStyles: {
+        bgColor: '#ffffff',
+        titleColor: '#dd000000',
+        activeTitleColor: '#31A9A5',
+        activeBgColor: '#ffffff',
+        isActiveTitleBold: true,
+        iconWidth: 70,
+        iconHeight: 70,
+        width: 160,
+        height: 75,
+        fontSize: 28,
+        hasActiveBottom: true,
+        activeBottomColor: '#31A9A5',
+        activeBottomHeight: 1,
+        activeBottomWidth: 160,
+        textPaddingLeft: 10,
+        textPaddingRight: 10,
+        normalBottomColor: 'rgba(0,0,0,0.4)',
+        normalBottomHeight: 1,
+        hasRightIcon: true,
+        rightOffset: 100
+    },
+    jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
+    jokeTabStyles: {
+        bgColor: '#ffffff',
+        titleColor: '#dd000000',
+        activeTitleColor: '#31A9A5',
+        activeBgColor: '#ffffff',
+        isActiveTitleBold: true,
+        iconWidth: 70,
+        iconHeight: 70,
+        width: 250,
+        height: 75,
+        fontSize: 28,
+        hasActiveBottom: true,
+        activeBottomColor: '#31A9A5',
+        activeBottomHeight: 1,
+        activeBottomWidth: 250,
+        textPaddingLeft: 10,
+        textPaddingRight: 10,
+        normalBottomColor: 'rgba(0,0,0,0.4)',
+        normalBottomHeight: 1,
+        hasRightIcon: true,
+        rightOffset: 100
+    }
+};
+
+/***/ }),
+
+/***/ 75:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
 });
 
 var _methods = __webpack_require__(2);
 
 var _methods2 = _interopRequireDefault(_methods);
 
-var _config = __webpack_require__(6);
+var _config = __webpack_require__(7);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -2028,117 +2257,134 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var modal = weex.requireModule('modal');
 exports.default = {
-  props: {
-    versionInfo: {
-      default: 'V 3.1.0'
-    },
-    extraName: {
-      default: ''
-    },
-    oldVersion: {
-      default: 0
-    },
-    newVersion: {
-      default: 0
-    },
-    showLive: {
-      default: false
-    }
+    props: {
+        versionInfo: {
+            default: 'V 3.1.0'
+        },
+        extraName: {
+            default: ''
+        },
+        oldVersion: {
+            default: 0
+        },
+        newVersion: {
+            default: 0
+        },
+        showLive: {
+            default: false
+        }
 
-  },
-  components: {
-    icon: __webpack_require__(14),
-    iconImg: __webpack_require__(8),
-    item: __webpack_require__(27)
-  },
-  created: function created() {
-    var _this = this;
+    },
+    components: {
+        icon: __webpack_require__(27),
+        iconImg: __webpack_require__(9),
+        item: __webpack_require__(40)
+    },
+    created: function created() {
+        var _this = this;
 
-    if (_methods2.default.isweb()) {
-      window.temp_this = this;
-      _methods2.default.registerModules();
-    }
-    this.getOptions();
-    weex.requireModule('event').setConfig(_config2.default.channels, _config2.default.adImgUrl, _config2.default.adImgSchemeUrl);
-    weex.requireModule('event').getVersion(function (versionInfo) {
-      _this.versionInfo = versionInfo;
-      _this.oldVersion = versionInfo.replace(/\./ig, '').replace('V ', '') * 1;
-      _this.newVersion = _config2.default.newVersion;
-      if (_this.newVersion > _this.oldVersion) {
-        _this.extraName = '更新新版本';
-      } else {
-        _this.extraName = '已是最新版本';
-      }
-    });
-  },
-  methods: {
-    getOptions: function getOptions() {
-      if (_methods2.default.isweb()) {
-        var bundleUrl = this.$getConfig().bundleUrl;
-        var urlParams = _methods2.default.parseQueryString(bundleUrl);
-        this.showLive = urlParams.showLive === 'true';
-      } else {
-        this.showLive = this.$getConfig().showLive.toLocaleString() === 'true';
-      }
+        if (_methods2.default.isweb()) {
+            window.temp_this = this;
+            _methods2.default.registerModules();
+        }
+        this.getOptions();
+        weex.requireModule('event').setConfig(_config2.default.adImgUrl, _config2.default.adImgSchemeUrl);
+        weex.requireModule('event').getVersion(function (versionInfo) {
+            _this.versionInfo = versionInfo;
+            _this.oldVersion = versionInfo.replace(/\./ig, '').replace('V ', '') * 1;
+            _this.newVersion = _config2.default.newVersion;
+            if (_this.newVersion > _this.oldVersion) {
+                _this.extraName = '更新新版本';
+            } else {
+                _this.extraName = '已是最新版本';
+            }
+        });
     },
-    font: function font(size) {
-      return _methods2.default.getFontSize(size);
-    },
-    jump: function jump(e) {
-      switch (e) {
-        case 1:
-          weex.requireModule('event').openView('className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=message&ltkj&webTitle=消息记录');
-          break;
-        case 2:
-          weex.requireModule('event').openView('className=cn.ltwc.cft.activity.ZhaiNaniActivity');
-          break;
-        case 3:
-          weex.requireModule('event').openView('className=cn.ltwc.cft.activity.TodayonhistoryActivity');
-          break;
-        case 4:
-          if (this.newVersion > this.oldVersion) {
-            weex.requireModule('event').update(_config2.default.updateUrl);
-          }
-          break;
-        case 5:
-          weex.requireModule('event').openView('className=cn.ltwc.cft.activity.ShareActivity&ltkj&type=text/*&ltkj&msg=王朝黄历\n我正在使用有趣实用的王朝黄历，快来下载吧！\n' + _config2.default.updateUrl + '&ltkj&shareUrl=' + _config2.default.updateUrl);
-          //weex.requireModule('event').playVideo('http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8');
-          break;
-        case 6:
-          weex.requireModule('event').openView('className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=zhibo&ltkj&webTitle=视频直播');
-          break;
-        case 7:
-          weex.requireModule('event').openView('className=cn.ltwc.cft.activity.ShowWifiPakActivity');
-          break;
-      }
+    methods: {
+        getOptions: function getOptions() {
+            if (_methods2.default.isweb()) {
+                var bundleUrl = this.$getConfig().bundleUrl;
+                var urlParams = _methods2.default.parseQueryString(bundleUrl);
+                this.showLive = urlParams.showLive === 'true';
+            } else {
+                this.showLive = this.$getConfig().showLive.toLocaleString() === 'true';
+            }
+        },
+        font: function font(size) {
+            return _methods2.default.getFontSize(size);
+        },
+        jump: function jump(e) {
+            switch (e) {
+                case 1:
+                    weex.requireModule('event').openView('className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=message&ltkj&webTitle=消息记录');
+                    break;
+                case 2:
+                    weex.requireModule('event').openView('className=cn.ltwc.cft.activity.ZhaiNaniActivity');
+                    break;
+                case 3:
+                    weex.requireModule('event').openView('className=cn.ltwc.cft.activity.TodayonhistoryActivity');
+                    break;
+                case 4:
+                    if (this.newVersion > this.oldVersion) {
+                        weex.requireModule('event').update(_config2.default.updateUrl);
+                    }
+                    break;
+                case 5:
+                    weex.requireModule('event').openView('className=cn.ltwc.cft.activity.ShareActivity&ltkj&type=text/*&ltkj&msg=王朝黄历\n我正在使用有趣实用的王朝黄历，快来下载吧！\n' + _config2.default.updateUrl + '&ltkj&shareUrl=' + _config2.default.updateUrl);
+                    //weex.requireModule('event').playVideo('http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8');
+                    break;
+                case 6:
+                    weex.requireModule('event').openView('className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=zhibo&ltkj&webTitle=视频直播');
+                    break;
+                case 7:
+                    weex.requireModule('event').openView('className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=joke&ltkj&webTitle=一起笑吧');
+                    break;
+            }
+        }
     }
-  }
 };
 
 /***/ }),
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */,
-/* 63 */,
-/* 64 */,
-/* 65 */,
-/* 66 */,
-/* 67 */,
-/* 68 */,
-/* 69 */,
-/* 70 */
+
+/***/ 8:
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
+/***/ 89:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _more = __webpack_require__(42);
+var _more = __webpack_require__(61);
 
 var _more2 = _interopRequireDefault(_more);
 
-var _mixins = __webpack_require__(0);
+var _mixins = __webpack_require__(1);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -2151,244 +2397,50 @@ _more2.default.el = '#root';
 new Vue(_more2.default);
 
 /***/ }),
-/* 71 */,
-/* 72 */,
-/* 73 */,
-/* 74 */,
-/* 75 */,
-/* 76 */,
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
-/* 82 */,
-/* 83 */,
-/* 84 */
+
+/***/ 9:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)();
-// imports
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(14)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(10),
+  /* template */
+  __webpack_require__(13),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-7203603b",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\customview\\icon-img.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] icon-img.vue: functional components are not supported with templates, they should use render functions.")}
 
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 85 */,
-/* 86 */,
-/* 87 */,
-/* 88 */,
-/* 89 */,
-/* 90 */,
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */,
-/* 99 */,
-/* 100 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticStyle: _vm.$processStyle({
-      "background-color": "rgba(244,244,244,0.96)",
-      "position": "absolute",
-      "top": "0",
-      "bottom": "0",
-      "left": "0",
-      "right": "0"
-    }),
-    style: (_vm.$processStyle(undefined))
-  }, [_c('scroller', {
-    staticStyle: _vm.$processStyle({
-      "background-color": "rgba(244,244,244,0.96)"
-    }),
-    style: (_vm.$processStyle(undefined))
-  }, [_c('div', {
-    staticStyle: _vm.$processStyle({
-      "align-items": "center",
-      "flex-direction": "column",
-      "margin-top": "70px"
-    }),
-    style: (_vm.$processStyle(undefined))
-  }, [_c('icon-img', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "imgUrl": "icon.png",
-      "imgw": "100"
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "10px",
-      "color": "#979797"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(20)
-    })),
-    attrs: {
-      "value": _vm.versionInfo
-    }
-  })], 1), _vm._v(" "), _c('item', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "60px"
-    }),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "top_border": "true",
-      "imgUrl": "message.png",
-      "itemName": "消息中心",
-      "show_arrow": "true"
-    },
-    on: {
-      "onClick": function($event) {
-        _vm.jump(1)
-      }
-    }
-  }), _vm._v(" "), _c('item', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "imgUrl": "zhainan.png",
-      "itemName": "宅男天堂",
-      "show_arrow": "true"
-    },
-    on: {
-      "onClick": function($event) {
-        _vm.jump(2)
-      }
-    }
-  }), _vm._v(" "), _c('item', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "imgUrl": "todayonHistory.png",
-      "itemName": "历史上的今天",
-      "show_arrow": "true"
-    },
-    on: {
-      "onClick": function($event) {
-        _vm.jump(3)
-      }
-    }
-  }), _vm._v(" "), _c('item', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "60px"
-    }),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "top_border": "true",
-      "imgUrl": "update.png",
-      "itemName": "版本更新",
-      "extraName": _vm.extraName,
-      "show_arrow": "true"
-    },
-    on: {
-      "onClick": function($event) {
-        _vm.jump(4)
-      }
-    }
-  }), _vm._v(" "), _c('item', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "60px"
-    }),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "top_border": "true",
-      "imgUrl": "share.png",
-      "itemName": "推荐给朋友",
-      "show_arrow": "true"
-    },
-    on: {
-      "onClick": function($event) {
-        _vm.jump(5)
-      }
-    }
-  }), _vm._v(" "), (_vm.oldVersion > 612230 && _vm.showLive) ? _c('item', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "60px",
-      "margin-bottom": "80px"
-    }),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "top_border": "true",
-      "imgUrl": "live.png",
-      "itemName": "视频直播",
-      "show_arrow": "true"
-    },
-    on: {
-      "onClick": function($event) {
-        _vm.jump(6)
-      }
-    }
-  }) : _vm._e(), _vm._v(" "), _c('item', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "60px"
-    }),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "top_border": "true",
-      "imgUrl": "share.png",
-      "itemName": "wifi密码查看",
-      "show_arrow": "true"
-    },
-    on: {
-      "onClick": function($event) {
-        _vm.jump(7)
-      }
-    }
-  })], 1)], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
   module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-b03e901c", module.exports)
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7203603b", Component.options)
+  } else {
+    hotAPI.reload("data-v-7203603b", Component.options)
   }
-}
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
 
-/***/ }),
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
-/* 106 */,
-/* 107 */,
-/* 108 */,
-/* 109 */,
-/* 110 */
-/***/ (function(module, exports, __webpack_require__) {
+module.exports = Component.exports
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(84);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(4)("1231df3e", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b03e901c\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./more.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b03e901c\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./more.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
 
 /***/ })
-/******/ ]);
+
+/******/ });

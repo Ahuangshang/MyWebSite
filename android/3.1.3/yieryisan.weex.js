@@ -65,110 +65,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 95);
+/******/ 	return __webpack_require__(__webpack_require__.s = 71);
 /******/ })
 /************************************************************************/
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -189,118 +91,7 @@ exports.default = mixins;
 
 /***/ }),
 
-/***/ 115:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.font(_vm.contentMargin),
-      marginRight: _vm.font(_vm.contentMargin)
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#000000",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.title
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#1d1d1d"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": " 来源：江苏新闻广播"
-    }
-  })]), _vm._v(" "), _c('scroller', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "show-scrollbar": "false"
-    }
-  }, [_c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.font(_vm.contentMargin),
-      marginRight: _vm.font(_vm.contentMargin)
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#161616"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_3),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_1
-    }
-  }), _vm._v(" "), (_vm.isweb) ? _c('a', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "href": "http://news.jstv.com/wap/tvlive/20171212/1513059469134.shtml"
-    }
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#255fff",
-      "padding-top": "20px",
-      "padding-bottom": "20px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin),
-      marginBottom: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": "点击查看纪念活动视频 >>"
-    }
-  })]) : _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#255fff",
-      "padding-top": "20px",
-      "padding-bottom": "20px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin),
-      marginBottom: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": "点击查看纪念活动视频 >>"
-    },
-    on: {
-      "click": _vm.jump
-    }
-  })])])], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-81ae8e34", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ 2:
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -541,48 +332,71 @@ if (module.exports.isweb()) {
 
 /***/ }),
 
-/***/ 67:
+/***/ 57:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(81),
-  /* template */
-  __webpack_require__(115),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\yieryisan.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] yieryisan.vue: functional components are not supported with templates, they should use render functions.")}
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
 
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-81ae8e34", Component.options)
-  } else {
-    hotAPI.reload("data-v-81ae8e34", Component.options)
+/* script */
+__vue_exports__ = __webpack_require__(86)
+
+/* template */
+var __vue_template__ = __webpack_require__(98)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\yieryisan.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
   }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
 
-module.exports = Component.exports
+module.exports = __vue_exports__
 
 
 /***/ }),
 
-/***/ 81:
+/***/ 71:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _yieryisan = __webpack_require__(57);
+
+var _yieryisan2 = _interopRequireDefault(_yieryisan);
+
+var _mixins = __webpack_require__(0);
+
+var _mixins2 = _interopRequireDefault(_mixins);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+Vue.mixin(_mixins2.default);
+
+_yieryisan2.default.el = '#root';
+
+new Vue(_yieryisan2.default);
+
+/***/ }),
+
+/***/ 86:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -592,7 +406,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _methods = __webpack_require__(2);
+var _methods = __webpack_require__(1);
 
 var _methods2 = _interopRequireDefault(_methods);
 
@@ -711,27 +525,102 @@ exports.default = {
 
 /***/ }),
 
-/***/ 95:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 98:
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-var _yieryisan = __webpack_require__(67);
-
-var _yieryisan2 = _interopRequireDefault(_yieryisan);
-
-var _mixins = __webpack_require__(1);
-
-var _mixins2 = _interopRequireDefault(_mixins);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-Vue.mixin(_mixins2.default);
-
-_yieryisan2.default.el = '#root';
-
-new Vue(_yieryisan2.default);
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    style: {
+      marginLeft: _vm.font(_vm.contentMargin),
+      marginRight: _vm.font(_vm.contentMargin)
+    }
+  }, [_c('text', {
+    staticStyle: {
+      color: "#000000",
+      textAlign: "center"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_1),
+      marginTop: _vm.font(_vm.topMargin),
+      margin: _vm.font(_vm.contentMargin),
+      lineHeight: _vm.font(_vm.line_height)
+    },
+    attrs: {
+      "value": _vm.title
+    }
+  }), _c('text', {
+    staticStyle: {
+      color: "#1d1d1d"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_2),
+      marginTop: _vm.font(_vm.contentMargin)
+    },
+    attrs: {
+      "value": " 来源：江苏新闻广播"
+    }
+  })]), _c('scroller', {
+    attrs: {
+      "showScrollbar": "false"
+    }
+  }, [_c('div', {
+    style: {
+      marginLeft: _vm.font(_vm.contentMargin),
+      marginRight: _vm.font(_vm.contentMargin)
+    }
+  }, [_c('text', {
+    staticStyle: {
+      color: "#161616"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_3),
+      marginTop: _vm.font(_vm.topMargin),
+      margin: _vm.font(_vm.contentMargin),
+      lineHeight: _vm.font(_vm.line_height)
+    },
+    attrs: {
+      "value": _vm.content_1
+    }
+  }), (_vm.isweb) ? _c('a', {
+    attrs: {
+      "href": "http://news.jstv.com/wap/tvlive/20171212/1513059469134.shtml"
+    }
+  }, [_c('text', {
+    staticStyle: {
+      color: "#255fff",
+      paddingTop: "20px",
+      paddingBottom: "20px"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_2),
+      marginTop: _vm.font(_vm.contentMargin),
+      marginBottom: _vm.font(_vm.topMargin),
+      margin: _vm.font(_vm.contentMargin)
+    },
+    attrs: {
+      "value": "点击查看纪念活动视频 >>"
+    }
+  })]) : _c('text', {
+    staticStyle: {
+      color: "#255fff",
+      paddingTop: "20px",
+      paddingBottom: "20px"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_2),
+      marginTop: _vm.font(_vm.contentMargin),
+      marginBottom: _vm.font(_vm.topMargin),
+      margin: _vm.font(_vm.contentMargin)
+    },
+    attrs: {
+      "value": "点击查看纪念活动视频 >>"
+    },
+    on: {
+      "click": _vm.jump
+    }
+  })])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
 
 /***/ })
 

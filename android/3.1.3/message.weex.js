@@ -65,110 +65,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 95);
+/******/ 	return __webpack_require__(__webpack_require__.s = 63);
 /******/ })
 /************************************************************************/
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -189,118 +91,7 @@ exports.default = mixins;
 
 /***/ }),
 
-/***/ 115:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.font(_vm.contentMargin),
-      marginRight: _vm.font(_vm.contentMargin)
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#000000",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.title
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#1d1d1d"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": " 来源：江苏新闻广播"
-    }
-  })]), _vm._v(" "), _c('scroller', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "show-scrollbar": "false"
-    }
-  }, [_c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.font(_vm.contentMargin),
-      marginRight: _vm.font(_vm.contentMargin)
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#161616"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_3),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_1
-    }
-  }), _vm._v(" "), (_vm.isweb) ? _c('a', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "href": "http://news.jstv.com/wap/tvlive/20171212/1513059469134.shtml"
-    }
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#255fff",
-      "padding-top": "20px",
-      "padding-bottom": "20px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin),
-      marginBottom: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": "点击查看纪念活动视频 >>"
-    }
-  })]) : _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#255fff",
-      "padding-top": "20px",
-      "padding-bottom": "20px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin),
-      marginBottom: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": "点击查看纪念活动视频 >>"
-    },
-    on: {
-      "click": _vm.jump
-    }
-  })])])], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-81ae8e34", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ 2:
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -541,187 +332,205 @@ if (module.exports.isweb()) {
 
 /***/ }),
 
-/***/ 67:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 103:
+/***/ (function(module, exports) {
 
-var disposed = false
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(81),
-  /* template */
-  __webpack_require__(115),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\yieryisan.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] yieryisan.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-81ae8e34", Component.options)
-  } else {
-    hotAPI.reload("data-v-81ae8e34", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('list', _vm._l((_vm.datas), function(item, i) {
+    return _c('cell', {
+      key: i,
+      appendAsTree: true,
+      attrs: {
+        "append": "tree"
+      }
+    }, [_c('div', {
+      staticClass: ["item"],
+      style: {
+        backgroundColor: _vm.bgColor
+      },
+      on: {
+        "click": function($event) {
+          _vm.click(i)
+        }
+      }
+    }, [_c('text', {
+      staticClass: ["item-title"]
+    }, [_vm._v(_vm._s(item.title))]), _c('text', {
+      staticClass: ["item-content"]
+    }, [_vm._v(_vm._s(item.content))]), _c('text', {
+      staticClass: ["item-time"]
+    }, [_vm._v(_vm._s(item.time))])])])
+  }))
+},staticRenderFns: []}
+module.exports.render._withStripped = true
 
 /***/ }),
 
-/***/ 81:
+/***/ 3:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
+/**
+ * Created by Tw93 on 2016/11/4.
+ */
 
-var _methods = __webpack_require__(2);
-
-var _methods2 = _interopRequireDefault(_methods);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-//  var buiweex = require("bui-weex");
-var modal = weex.requireModule('modal');
 exports.default = {
-  props: {
-    img_w: {
-      default: 750
+    channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
+    adImgUrl: 'http://imengu.cn/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
+    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/springFestival.html',
+    newVersion: 312280,
+    updateUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
+    HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
+    defaultHost: 'http://imengu.cn/',
+    getContent: function getContent(e) {
+        var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
+        var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
+        var result = "<html>" + head + style + "<body>" + e + "</body></html>";
+        result = encodeURI(result);
+        return result;
     },
-    img_1_h: {
-      default: 469
-    },
-    img_2_h: {
-      default: 520
+    getWeatherTypeImg: function getWeatherTypeImg(currentType) {
+        if (this.contains(currentType, '晴')) {
+            return 'qing.jpg';
+        } else if (this.contains(currentType, '阴')) {
+            return 'yin.jpg';
+        } else if (this.contains(currentType, '多云')) {
+            return 'duoyun.gif';
+        } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
+            return 'xiaoyu.gif';
+        } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
+            return 'dayu.gif';
+        } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
+            return 'xiaoxue.gif';
+        } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
+            return 'daxue.gif';
+        } else if (this.contains(currentType, '雪')) {
+            return 'xiaoxue.gif';
+        } else if (this.contains(currentType, '雨')) {
+            return 'xiaoyu.gif';
+        }
     },
 
-    img_3_h: {
-      default: 489
+    contains: function contains(str, s) {
+        return str.indexOf(s) > -1;
     },
-
-    img_4_h: {
-      default: 490
+    getWeatherDec: function getWeatherDec(high, low) {
+        var nhigh = high.replace("高温", "");
+        nhigh = nhigh.replace('℃', '');
+        var nlow = low.replace('低温', '');
+        return nhigh + " ~" + nlow;
     },
-    img_5_h: {
-      default: 370
+    newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
+    newsTabStyles: {
+        bgColor: '#ffffff',
+        titleColor: '#dd000000',
+        activeTitleColor: '#31A9A5',
+        activeBgColor: '#ffffff',
+        isActiveTitleBold: true,
+        iconWidth: 70,
+        iconHeight: 70,
+        width: 160,
+        height: 75,
+        fontSize: 28,
+        hasActiveBottom: true,
+        activeBottomColor: '#31A9A5',
+        activeBottomHeight: 1,
+        activeBottomWidth: 160,
+        textPaddingLeft: 10,
+        textPaddingRight: 10,
+        normalBottomColor: 'rgba(0,0,0,0.4)',
+        normalBottomHeight: 1,
+        hasRightIcon: true,
+        rightOffset: 100
     },
-    contentMargin: {
-      default: 7
-    },
-    tex_size_1: {
-      default: 22
-    },
-    tex_size_2: {
-      default: 16
-    },
-    tex_size_3: {
-      default: 18
-    },
-    topMargin: {
-      default: 18
-    },
-    line_height: {
-      default: 30
-    },
-    isweb: {
-      default: false
-    },
-    url: {
-      default: "http://news.jstv.com/wap/tvlive/20171212/1513059469134.shtml"
-    },
-    title: {
-      default: "南京大屠杀死难者国家公祭仪式于12月13日上午10时举行"
-    },
-    content_1: {
-      default: "        今年是南京大屠杀惨案发生80周年。12月13日上午10时，中央按照逢10周年规格，将在侵华日军南京大屠杀遇难同胞纪念馆集会广场举行南京大屠杀死难者国家公祭仪式，届时周边道路将实施交通管制。\n" + "\n" + "　　12月13日早晨7点，在侵华日军南京大屠杀遇难同胞纪念馆的集会广场举行升国旗和降半旗仪式。\n" + "\n" + "　　上午10点，在南京17处南京大屠杀遇难同胞丛葬地、12个社区和6家反映抗战主题的爱国主义教育基地，与国家公祭仪式同步举行悼念南京大屠杀死难者活动。\n" + "\n" + "　　公祭日当天还将开展多项悼念活动，上午10点，由中国博物馆协会纪念馆专业委员会组织中国人民抗日战争胜利纪念馆、沈阳“九一八”历史博物馆、上海淞沪抗战纪念馆等国内20家反映抗战主题的纪念馆同步举行悼念活动。\n" + "\n" + "　　12月13日国家公祭日早上7点到下午1点期间，侵华日军南京大屠杀遇难同胞纪念馆周边道路将实施交通管制，届时在相关路段上运行的21条公交线路将采取临时调整措施，地铁2号线“云锦路”站也将临时封闭，市交通局副局长郑春发提醒：相关路段公交线路在管制解除后，公交线路恢复运营路段，特别提醒地铁2号线当天上午下午1点之前，站临时关闭，跟以前不一样，上午云锦路站整个上午是关闭的，提醒广大市民提前做好出行计划和线路安排，乘坐公共交通出行的要提早出门。\n" + "\n" + "　　今年7月到国家公祭日期间，南京组织开展了以“勿忘国耻、圆梦中华”为主题的4大类28项主题教育活动，其中，共六场的“抗战家书”征集暨诵读活动，最后一场定于12月9号下午，在市档案馆举行；12月，在侵华日军南京大屠杀遇难同胞纪念馆遇难者名单墙前，举行为期一个月的南京大屠杀死难者遗属家庭祭告仪式，同时开展家祭微传播活动。此外，学术研讨活动、相关出版物首发式、系列文化活动于近期陆续举办。"
+    jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
+    jokeTabStyles: {
+        bgColor: '#ffffff',
+        titleColor: '#dd000000',
+        activeTitleColor: '#31A9A5',
+        activeBgColor: '#ffffff',
+        isActiveTitleBold: true,
+        iconWidth: 70,
+        iconHeight: 70,
+        width: 250,
+        height: 75,
+        fontSize: 28,
+        hasActiveBottom: true,
+        activeBottomColor: '#31A9A5',
+        activeBottomHeight: 1,
+        activeBottomWidth: 250,
+        textPaddingLeft: 10,
+        textPaddingRight: 10,
+        normalBottomColor: 'rgba(0,0,0,0.4)',
+        normalBottomHeight: 1,
+        hasRightIcon: true,
+        rightOffset: 100
     }
-  },
-  created: function created() {
-    if (_methods2.default.isweb()) {
-      window.temp_this = this;
-      _methods2.default.registerModules();
-      this.isweb = true;
-    }
-  },
-  methods: {
-    font: function font(size) {
-      return _methods2.default.getFontSize(size);
-    },
-    jump: function jump(e) {
-      weex.requireModule('event').openView('className=cn.ltwc.cft.activity.MyX5WebView&ltkj&webTitle=国家公祭日&ltkj&webUrl=' + this.url + '&ltkj&shareUrl=' + this.url + '&ltkj&barShow=false');
-    }
-  }
 };
 
 /***/ }),
 
-/***/ 95:
+/***/ 49:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
+
+/* styles */
+__vue_styles__.push(__webpack_require__(91)
+)
+
+/* script */
+__vue_exports__ = __webpack_require__(78)
+
+/* template */
+var __vue_template__ = __webpack_require__(103)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\message.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__._scopeId = "data-v-0cee72e6"
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
+  }
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
+
+module.exports = __vue_exports__
+
+
+/***/ }),
+
+/***/ 63:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _yieryisan = __webpack_require__(67);
+var _message = __webpack_require__(49);
 
-var _yieryisan2 = _interopRequireDefault(_yieryisan);
+var _message2 = _interopRequireDefault(_message);
 
-var _mixins = __webpack_require__(1);
+var _mixins = __webpack_require__(0);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -729,9 +538,195 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 Vue.mixin(_mixins2.default);
 
-_yieryisan2.default.el = '#root';
+_message2.default.el = '#root';
 
-new Vue(_yieryisan2.default);
+new Vue(_message2.default);
+
+/***/ }),
+
+/***/ 78:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _methods = __webpack_require__(1);
+
+var _methods2 = _interopRequireDefault(_methods);
+
+var _config = __webpack_require__(3);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    data: function data() {
+        return {
+            datas: [{
+                viewName: "yuanxiao",
+                title: "元宵节",
+                content: "元宵佳节赏花灯，吉祥之星为你升；正月十五团圆夜，全家一起猜花灯。",
+                time: "2018-03-02",
+                shareUrl: "http://mp.weixin.qq.com/s/O29M03SiniaMhB-bieVNVg",
+                shareImagePaht: ''
+            }, {
+                viewName: "springFestival",
+                title: "春节",
+                content: "春节是指汉字文化圈传统上的农历新年，俗称“年节”，传统名称为新年、大年、新岁，但口头上又称度岁、庆新岁、过年。",
+                time: "2018-02-15",
+                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/springFestival.html",
+                shareImagePaht: _config2.default.HostImgUrl + 'springFestival/img_1.jpg'
+            }, {
+                viewName: "dongzhi",
+                title: "冬至",
+                content: "冬至是农历的重要节气，也是中华民族的传统节日。早在春秋时代，中国就已经用土圭观测出冬至，古人认为自冬至起阳气回升，代表着下一个循环的开始。冬至是重要的养生时期，应注意防寒保暖、保肝护肝。",
+                time: "2017-12-22",
+                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/dongzhi.html",
+                shareImagePaht: _config2.default.HostImgUrl + 'dongzhi/dongzhi_1.jpg'
+            }, {
+                viewName: "yieryisan",
+                title: "国家公祭日",
+                content: "南京大屠杀死难者国家公祭仪式于12月13日上午10时举行。",
+                time: "2017-12-12",
+                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/yieryisan.html",
+                shareImagePaht: ''
+            }, {
+                viewName: "mid-autumn-festival",
+                title: "中秋节",
+                content: "中秋节自古便有祭月、赏月、拜月、吃月饼、赏桂花、饮桂花酒等习俗，流传至今，久经不息。中秋节以月之圆兆人之团圆，为寄托思念故乡，思念亲人之情，祈盼丰收、幸福，成为丰富多彩、弥足珍贵的文化遗产。中秋节与端午节、春节、清明节并称为中国四大传统节日。",
+                time: "2017-10-04",
+                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/mid-Autumn-festival.html",
+                shareImagePaht: _config2.default.HostImgUrl + 'mid_autumn/mid-autumn.jpg'
+            }, {
+                viewName: "guanggao",
+                title: "开业大吉",
+                content: "视频VIP豪送|庆国庆、迎中秋，万份视频VIP等你来领！",
+                time: "2017-10-01",
+                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/guanggao.html",
+                shareImagePaht: _config2.default.HostImgUrl + 'advertisement/ad.jpg'
+            }, {
+                viewName: "bailu",
+                title: "白露",
+                content: "白露是农历二十四节气中的第十五个节气，当太阳到达黄经165度时为白露。",
+                time: "2017-09-07",
+                shareUrl: _config2.default.defaultHost + 'Ahuangshang/html/bailu.html',
+                shareImagePaht: _config2.default.HostImgUrl + 'bailu/img_1.jpg'
+            }],
+            bgColor: "#ffffff",
+            title: "",
+            content: "",
+            time: ""
+
+        };
+    },
+
+    methods: {
+        click: function click(i) {
+            if (this.datas[i].viewName === 'yuanxiao') {
+                weex.requireModule('event').openView('className=cn.ltwc.cft.activity.MyX5WebView&ltkj&webUrl=' + this.datas[i].shareUrl + '&ltkj&webTitle=' + this.datas[i].title + '&ltkj&shareUrl=' + this.datas[i].shareUrl);
+            } else {
+                weex.requireModule('event').openView('className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=' + this.datas[i].viewName + '&ltkj&webTitle=' + this.datas[i].title + '&ltkj&shareUrl=' + this.datas[i].shareUrl + '&ltkj&shareImagePath=' + this.datas[i].shareImagePaht);
+            }
+        }
+    },
+    created: function created() {
+        if (_methods2.default.isweb()) {
+            window.temp_this = this;
+            _methods2.default.registerModules();
+        }
+    }
+};
+
+/***/ }),
+
+/***/ 91:
+/***/ (function(module, exports) {
+
+module.exports = {
+  "item": {
+    "paddingTop": "25",
+    "paddingBottom": "25",
+    "paddingLeft": "35",
+    "paddingRight": "35",
+    "minHeight": "200",
+    "justifyContent": "center",
+    "borderBottomWidth": "1",
+    "borderColor": "#dddddd",
+    "backgroundColor:active": "rgb(240,240,240)"
+  },
+  "item-title": {
+    "fontSize": "40",
+    "color": "#303030"
+  },
+  "item-content": {
+    "marginTop": "5",
+    "fontSize": "32",
+    "color": "#000000"
+  },
+  "item-time": {
+    "fontSize": "32",
+    "color": "#6c6c6c",
+    "textAlign": "right"
+  }
+}
 
 /***/ })
 

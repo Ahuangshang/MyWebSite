@@ -65,110 +65,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 83);
+/******/ 	return __webpack_require__(__webpack_require__.s = 59);
 /******/ })
 /************************************************************************/
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -189,191 +91,7 @@ exports.default = mixins;
 
 /***/ }),
 
-/***/ 114:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('scroller', [_c('div', [_c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w_top,
-      height: _vm.img_1_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/bailu/img_1.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.font(_vm.contentMargin),
-      marginRight: _vm.font(_vm.contentMargin)
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.title
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin)
-    }))
-  }, [_vm._v(" 由来")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_1
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_2_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/bailu/img_2.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2)
-    }))
-  }, [_vm._v(" 气候特征")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_2
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_3_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/bailu/img_3.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2)
-    }))
-  }, [_vm._v(" 民俗")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_3
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_4_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/bailu/img_4.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2)
-    }))
-  }, [_vm._v(" 农事")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_4
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_5_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/bailu/img_5.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2)
-    }))
-  }, [_vm._v("诗词")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_5
-    }
-  })])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-7a96b446", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ 2:
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -614,48 +332,71 @@ if (module.exports.isweb()) {
 
 /***/ }),
 
-/***/ 55:
+/***/ 45:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(69),
-  /* template */
-  __webpack_require__(114),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\bailu.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] bailu.vue: functional components are not supported with templates, they should use render functions.")}
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
 
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7a96b446", Component.options)
-  } else {
-    hotAPI.reload("data-v-7a96b446", Component.options)
+/* script */
+__vue_exports__ = __webpack_require__(74)
+
+/* template */
+var __vue_template__ = __webpack_require__(96)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\bailu.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
   }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
 
-module.exports = Component.exports
+module.exports = __vue_exports__
 
 
 /***/ }),
 
-/***/ 69:
+/***/ 59:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _bailu = __webpack_require__(45);
+
+var _bailu2 = _interopRequireDefault(_bailu);
+
+var _mixins = __webpack_require__(0);
+
+var _mixins2 = _interopRequireDefault(_mixins);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+Vue.mixin(_mixins2.default);
+
+_bailu2.default.el = '#root';
+
+new Vue(_bailu2.default);
+
+/***/ }),
+
+/***/ 74:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -721,7 +462,7 @@ Object.defineProperty(exports, "__esModule", {
 
 //  var buiweex = require("bui-weex");
 var modal = weex.requireModule('modal');
-var util = __webpack_require__(2);
+var util = __webpack_require__(1);
 exports.default = {
   props: {
     img_w_top: {
@@ -791,27 +532,174 @@ exports.default = {
 
 /***/ }),
 
-/***/ 83:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 96:
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-var _bailu = __webpack_require__(55);
-
-var _bailu2 = _interopRequireDefault(_bailu);
-
-var _mixins = __webpack_require__(1);
-
-var _mixins2 = _interopRequireDefault(_mixins);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-Vue.mixin(_mixins2.default);
-
-_bailu2.default.el = '#root';
-
-new Vue(_bailu2.default);
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('scroller', [_c('div', [_c('image', {
+    style: {
+      width: _vm.img_w_top,
+      height: _vm.img_1_h
+    },
+    attrs: {
+      "src": "http://imengu.cn/Ahuangshang/img/bailu/img_1.jpg",
+      "placeholder": ""
+    }
+  }), _c('div', {
+    style: {
+      marginLeft: _vm.font(_vm.contentMargin),
+      marginRight: _vm.font(_vm.contentMargin)
+    }
+  }, [_c('text', {
+    staticStyle: {
+      color: "#334f16"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_1),
+      marginTop: _vm.font(_vm.topMargin),
+      margin: _vm.font(_vm.contentMargin),
+      lineHeight: _vm.font(_vm.line_height)
+    },
+    attrs: {
+      "value": _vm.title
+    }
+  }), _c('text', {
+    style: {
+      fontSize: _vm.font(_vm.tex_size_2),
+      marginTop: _vm.font(_vm.contentMargin)
+    }
+  }, [_vm._v(" 由来")]), _c('text', {
+    staticStyle: {
+      color: "#334f16"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_1),
+      marginTop: _vm.font(_vm.topMargin),
+      margin: _vm.font(_vm.contentMargin),
+      lineHeight: _vm.font(_vm.line_height)
+    },
+    attrs: {
+      "value": _vm.content_1
+    }
+  }), _c('image', {
+    style: {
+      width: _vm.img_w,
+      height: _vm.img_2_h
+    },
+    attrs: {
+      "src": "http://imengu.cn/Ahuangshang/img/bailu/img_2.jpg",
+      "placeholder": ""
+    }
+  }), _c('text', {
+    staticStyle: {
+      marginTop: "15px"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_2)
+    }
+  }, [_vm._v(" 气候特征")]), _c('text', {
+    staticStyle: {
+      color: "#334f16"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_1),
+      marginTop: _vm.font(_vm.topMargin),
+      margin: _vm.font(_vm.contentMargin),
+      lineHeight: _vm.font(_vm.line_height)
+    },
+    attrs: {
+      "value": _vm.content_2
+    }
+  }), _c('image', {
+    style: {
+      width: _vm.img_w,
+      height: _vm.img_3_h
+    },
+    attrs: {
+      "src": "http://imengu.cn/Ahuangshang/img/bailu/img_3.jpg",
+      "placeholder": ""
+    }
+  }), _c('text', {
+    staticStyle: {
+      marginTop: "15px"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_2)
+    }
+  }, [_vm._v(" 民俗")]), _c('text', {
+    staticStyle: {
+      color: "#334f16"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_1),
+      marginTop: _vm.font(_vm.topMargin),
+      margin: _vm.font(_vm.contentMargin),
+      lineHeight: _vm.font(_vm.line_height)
+    },
+    attrs: {
+      "value": _vm.content_3
+    }
+  }), _c('image', {
+    style: {
+      width: _vm.img_w,
+      height: _vm.img_4_h
+    },
+    attrs: {
+      "src": "http://imengu.cn/Ahuangshang/img/bailu/img_4.jpg",
+      "placeholder": ""
+    }
+  }), _c('text', {
+    staticStyle: {
+      marginTop: "15px"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_2)
+    }
+  }, [_vm._v(" 农事")]), _c('text', {
+    staticStyle: {
+      color: "#334f16"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_1),
+      marginTop: _vm.font(_vm.topMargin),
+      margin: _vm.font(_vm.contentMargin),
+      lineHeight: _vm.font(_vm.line_height)
+    },
+    attrs: {
+      "value": _vm.content_4
+    }
+  }), _c('image', {
+    style: {
+      width: _vm.img_w,
+      height: _vm.img_5_h
+    },
+    attrs: {
+      "src": "http://imengu.cn/Ahuangshang/img/bailu/img_5.jpg",
+      "placeholder": ""
+    }
+  }), _c('text', {
+    staticStyle: {
+      marginTop: "15px"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_2)
+    }
+  }, [_vm._v("诗词")]), _c('text', {
+    staticStyle: {
+      color: "#334f16"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_1),
+      marginTop: _vm.font(_vm.topMargin),
+      margin: _vm.font(_vm.contentMargin),
+      lineHeight: _vm.font(_vm.line_height)
+    },
+    attrs: {
+      "value": _vm.content_5
+    }
+  })])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
 
 /***/ })
 

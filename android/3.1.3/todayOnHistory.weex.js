@@ -65,110 +65,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 95);
+/******/ 	return __webpack_require__(__webpack_require__.s = 69);
 /******/ })
 /************************************************************************/
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -189,118 +91,7 @@ exports.default = mixins;
 
 /***/ }),
 
-/***/ 115:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.font(_vm.contentMargin),
-      marginRight: _vm.font(_vm.contentMargin)
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#000000",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.title
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#1d1d1d"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": " 来源：江苏新闻广播"
-    }
-  })]), _vm._v(" "), _c('scroller', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "show-scrollbar": "false"
-    }
-  }, [_c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.font(_vm.contentMargin),
-      marginRight: _vm.font(_vm.contentMargin)
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#161616"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_3),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_1
-    }
-  }), _vm._v(" "), (_vm.isweb) ? _c('a', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "href": "http://news.jstv.com/wap/tvlive/20171212/1513059469134.shtml"
-    }
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#255fff",
-      "padding-top": "20px",
-      "padding-bottom": "20px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin),
-      marginBottom: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": "点击查看纪念活动视频 >>"
-    }
-  })]) : _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#255fff",
-      "padding-top": "20px",
-      "padding-bottom": "20px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin),
-      marginBottom: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": "点击查看纪念活动视频 >>"
-    },
-    on: {
-      "click": _vm.jump
-    }
-  })])])], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-81ae8e34", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ 2:
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -541,187 +332,137 @@ if (module.exports.isweb()) {
 
 /***/ }),
 
-/***/ 67:
+/***/ 102:
+/***/ (function(module, exports) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('text', {
+    staticStyle: {
+      color: "#555555"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_1),
+      marginTop: _vm.font(_vm.contentMargin),
+      margin: _vm.font(_vm.contentMargin),
+      lineHeight: _vm.font(_vm.line_height)
+    },
+    attrs: {
+      "value": _vm.year
+    }
+  }), _c('text', {
+    staticStyle: {
+      color: "#000000",
+      justifyContent: "center",
+      textAlign: "center"
+    },
+    style: {
+      fontSize: _vm.font(_vm.title_size),
+      marginTop: _vm.font(_vm.contentMargin),
+      marginBottom: _vm.font(_vm.contentMargin),
+      lineHeight: _vm.font(_vm.line_height)
+    },
+    attrs: {
+      "value": _vm.title
+    }
+  }), _c('list', _vm._l((_vm.dealPicUrl), function(item) {
+    return _c('cell', {
+      appendAsTree: true,
+      attrs: {
+        "append": "tree"
+      }
+    }, [_c('image', {
+      style: {
+        width: _vm.img_w,
+        height: item.height
+      },
+      attrs: {
+        "src": item.url,
+        "placeholder": ""
+      }
+    }), _c('text', {
+      staticStyle: {
+        color: "#555555",
+        justifyContent: "center",
+        textAlign: "center"
+      },
+      style: {
+        fontSize: _vm.font(_vm.tex_size_1),
+        lineHeight: _vm.font(_vm.line_height)
+      },
+      attrs: {
+        "value": item.title
+      }
+    })])
+  })), _c('text', {
+    staticStyle: {
+      color: "#0a0a0a"
+    },
+    style: {
+      fontSize: _vm.font(_vm.tex_size_2),
+      marginTop: _vm.font(_vm.topMargin),
+      lineHeight: _vm.font(_vm.line_height),
+      margin: _vm.font(_vm.contentMargin)
+    },
+    attrs: {
+      "value": _vm.content
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+
+/***/ }),
+
+/***/ 55:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(81),
-  /* template */
-  __webpack_require__(115),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\yieryisan.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] yieryisan.vue: functional components are not supported with templates, they should use render functions.")}
+var __vue_exports__, __vue_options__
+var __vue_styles__ = []
 
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-81ae8e34", Component.options)
-  } else {
-    hotAPI.reload("data-v-81ae8e34", Component.options)
+/* script */
+__vue_exports__ = __webpack_require__(84)
+
+/* template */
+var __vue_template__ = __webpack_require__(102)
+__vue_options__ = __vue_exports__ = __vue_exports__ || {}
+if (
+  typeof __vue_exports__.default === "object" ||
+  typeof __vue_exports__.default === "function"
+) {
+if (Object.keys(__vue_exports__).some(function (key) { return key !== "default" && key !== "__esModule" })) {console.error("named exports are not supported in *.vue files.")}
+__vue_options__ = __vue_exports__ = __vue_exports__.default
+}
+if (typeof __vue_options__ === "function") {
+  __vue_options__ = __vue_options__.options
+}
+__vue_options__.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\todayOnHistory.vue"
+__vue_options__.render = __vue_template__.render
+__vue_options__.staticRenderFns = __vue_template__.staticRenderFns
+__vue_options__.style = __vue_options__.style || {}
+__vue_styles__.forEach(function (module) {
+  for (var name in module) {
+    __vue_options__.style[name] = module[name]
   }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
+})
+if (typeof __register_static_styles__ === "function") {
+  __register_static_styles__(__vue_options__._scopeId, __vue_styles__)
+}
 
-module.exports = Component.exports
+module.exports = __vue_exports__
 
 
 /***/ }),
 
-/***/ 81:
+/***/ 69:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+var _todayOnHistory = __webpack_require__(55);
 
-var _methods = __webpack_require__(2);
+var _todayOnHistory2 = _interopRequireDefault(_todayOnHistory);
 
-var _methods2 = _interopRequireDefault(_methods);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-//  var buiweex = require("bui-weex");
-var modal = weex.requireModule('modal');
-exports.default = {
-  props: {
-    img_w: {
-      default: 750
-    },
-    img_1_h: {
-      default: 469
-    },
-    img_2_h: {
-      default: 520
-    },
-
-    img_3_h: {
-      default: 489
-    },
-
-    img_4_h: {
-      default: 490
-    },
-    img_5_h: {
-      default: 370
-    },
-    contentMargin: {
-      default: 7
-    },
-    tex_size_1: {
-      default: 22
-    },
-    tex_size_2: {
-      default: 16
-    },
-    tex_size_3: {
-      default: 18
-    },
-    topMargin: {
-      default: 18
-    },
-    line_height: {
-      default: 30
-    },
-    isweb: {
-      default: false
-    },
-    url: {
-      default: "http://news.jstv.com/wap/tvlive/20171212/1513059469134.shtml"
-    },
-    title: {
-      default: "南京大屠杀死难者国家公祭仪式于12月13日上午10时举行"
-    },
-    content_1: {
-      default: "        今年是南京大屠杀惨案发生80周年。12月13日上午10时，中央按照逢10周年规格，将在侵华日军南京大屠杀遇难同胞纪念馆集会广场举行南京大屠杀死难者国家公祭仪式，届时周边道路将实施交通管制。\n" + "\n" + "　　12月13日早晨7点，在侵华日军南京大屠杀遇难同胞纪念馆的集会广场举行升国旗和降半旗仪式。\n" + "\n" + "　　上午10点，在南京17处南京大屠杀遇难同胞丛葬地、12个社区和6家反映抗战主题的爱国主义教育基地，与国家公祭仪式同步举行悼念南京大屠杀死难者活动。\n" + "\n" + "　　公祭日当天还将开展多项悼念活动，上午10点，由中国博物馆协会纪念馆专业委员会组织中国人民抗日战争胜利纪念馆、沈阳“九一八”历史博物馆、上海淞沪抗战纪念馆等国内20家反映抗战主题的纪念馆同步举行悼念活动。\n" + "\n" + "　　12月13日国家公祭日早上7点到下午1点期间，侵华日军南京大屠杀遇难同胞纪念馆周边道路将实施交通管制，届时在相关路段上运行的21条公交线路将采取临时调整措施，地铁2号线“云锦路”站也将临时封闭，市交通局副局长郑春发提醒：相关路段公交线路在管制解除后，公交线路恢复运营路段，特别提醒地铁2号线当天上午下午1点之前，站临时关闭，跟以前不一样，上午云锦路站整个上午是关闭的，提醒广大市民提前做好出行计划和线路安排，乘坐公共交通出行的要提早出门。\n" + "\n" + "　　今年7月到国家公祭日期间，南京组织开展了以“勿忘国耻、圆梦中华”为主题的4大类28项主题教育活动，其中，共六场的“抗战家书”征集暨诵读活动，最后一场定于12月9号下午，在市档案馆举行；12月，在侵华日军南京大屠杀遇难同胞纪念馆遇难者名单墙前，举行为期一个月的南京大屠杀死难者遗属家庭祭告仪式，同时开展家祭微传播活动。此外，学术研讨活动、相关出版物首发式、系列文化活动于近期陆续举办。"
-    }
-  },
-  created: function created() {
-    if (_methods2.default.isweb()) {
-      window.temp_this = this;
-      _methods2.default.registerModules();
-      this.isweb = true;
-    }
-  },
-  methods: {
-    font: function font(size) {
-      return _methods2.default.getFontSize(size);
-    },
-    jump: function jump(e) {
-      weex.requireModule('event').openView('className=cn.ltwc.cft.activity.MyX5WebView&ltkj&webTitle=国家公祭日&ltkj&webUrl=' + this.url + '&ltkj&shareUrl=' + this.url + '&ltkj&barShow=false');
-    }
-  }
-};
-
-/***/ }),
-
-/***/ 95:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _yieryisan = __webpack_require__(67);
-
-var _yieryisan2 = _interopRequireDefault(_yieryisan);
-
-var _mixins = __webpack_require__(1);
+var _mixins = __webpack_require__(0);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -729,9 +470,123 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 Vue.mixin(_mixins2.default);
 
-_yieryisan2.default.el = '#root';
+_todayOnHistory2.default.el = '#root';
 
-new Vue(_yieryisan2.default);
+new Vue(_todayOnHistory2.default);
+
+/***/ }),
+
+/***/ 84:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var stream = weex.requireModule('stream');
+var mtd = __webpack_require__(1);
+exports.default = {
+    data: function data() {
+        return {
+            ss: "测试页面",
+            title: "",
+            content: "",
+            year: "",
+            picUrl: [],
+            dealPicUrl: [],
+            img_w: 750,
+            contentMargin: 7,
+            tex_size_1: 12,
+            tex_size_2: 16,
+            title_size: 20,
+            topMargin: 18,
+            line_height: 30
+        };
+    },
+
+    methods: {
+        testWeb: function testWeb(eid, type, callback) {
+            return stream.fetch({
+                method: 'GET',
+                type: type,
+                url: 'http://v.juhe.cn/todayOnhistory/queryDetail.php?e_id=' + eid + '&key=4b38076dc77166f1d610d1697315c07d'
+            }, callback);
+        },
+        getOptions: function getOptions() {
+            var _this = this;
+
+            if (mtd.isweb()) {
+                var bundleUrl = this.$getConfig().bundleUrl;
+                var urlParams = mtd.parseQueryString(bundleUrl);
+                this.year = urlParams.year;
+                this.testWeb(urlParams.e_id, 'jsonp', function (res) {
+                    _this.dealBack(JSON.stringify(res));
+                });
+            } else {
+                this.year = this.$getConfig().year;
+                this.testWeb(this.$getConfig().e_id, 'json', function (res) {
+                    _this.dealBack(JSON.stringify(res));
+                });
+            }
+        },
+        dealBack: function dealBack(e) {
+            var data = JSON.parse(e).data;
+            var result = data.result;
+            this.title = result[0].title;
+            this.content = result[0].content;
+            this.picUrl = result[0].picUrl;
+            var that = this;
+            this.getDealList(function (res) {
+                that.dealPicUrl = res;
+            });
+        },
+        getDealList: function getDealList(callback) {
+            var that = this;
+            if (mtd.isweb()) {
+                var dealPicUrl = [];
+                this.picUrl.map(function (item) {
+                    //console.log(item.url)
+                    mtd.checkPicurl(item.url, function (res) {
+                        dealPicUrl.push({
+                            height: res + "px",
+                            title: res == 0 ? "" : item.pic_title || "王朝黄历--历史上的今天",
+                            url: item.url
+                        });
+                    });
+                });
+                return callback(dealPicUrl);
+            }
+        },
+        font: function font(size) {
+            return mtd.getFontSize(size);
+        }
+    },
+
+    created: function created() {
+        this.getOptions();
+    }
+};
 
 /***/ })
 

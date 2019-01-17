@@ -65,33 +65,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 74);
+/******/ 	return __webpack_require__(__webpack_require__.s = 93);
 /******/ })
 /************************************************************************/
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var navigator = weex.requireModule('navigator');
-var mixins = {
-    data: function data() {
-        return {};
-    },
-    methods: {}
-};
-
-exports.default = mixins;
-
-/***/ }),
-
-/***/ 1:
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -189,7 +168,28 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ 102:
+/***/ 1:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var navigator = weex.requireModule('navigator');
+var mixins = {
+    data: function data() {
+        return {};
+    },
+    methods: {}
+};
+
+exports.default = mixins;
+
+/***/ }),
+
+/***/ 117:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -300,7 +300,12 @@ module.exports = {
         return result;
     },
     toDateString: function toDateString(value) {
-        var date = new Date(value);
+        var date = void 0;
+        if (this.isNotNull(value)) {
+            date = new Date(value);
+        } else {
+            date = new Date();
+        }
         var Y = date.getFullYear() + '-';
         var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
         var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
@@ -507,15 +512,15 @@ if (module.exports.isweb()) {
 
 /***/ }),
 
-/***/ 46:
+/***/ 65:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(61),
+  __webpack_require__(79),
   /* template */
-  __webpack_require__(102),
+  __webpack_require__(117),
   /* styles */
   null,
   /* scopeId */
@@ -548,7 +553,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 61:
+/***/ 79:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -662,17 +667,17 @@ exports.default = {
 
 /***/ }),
 
-/***/ 74:
+/***/ 93:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _todayOnHistory = __webpack_require__(46);
+var _todayOnHistory = __webpack_require__(65);
 
 var _todayOnHistory2 = _interopRequireDefault(_todayOnHistory);
 
-var _mixins = __webpack_require__(0);
+var _mixins = __webpack_require__(1);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 

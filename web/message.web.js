@@ -65,33 +65,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 68);
+/******/ 	return __webpack_require__(__webpack_require__.s = 87);
 /******/ })
 /************************************************************************/
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-var navigator = weex.requireModule('navigator');
-var mixins = {
-    data: function data() {
-        return {};
-    },
-    methods: {}
-};
-
-exports.default = mixins;
-
-/***/ }),
-
-/***/ 1:
 /***/ (function(module, exports) {
 
 /* globals __VUE_SSR_CONTEXT__ */
@@ -189,13 +168,97 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ 108:
+/***/ 1:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var navigator = weex.requireModule('navigator');
+var mixins = {
+    data: function data() {
+        return {};
+    },
+    methods: {}
+};
+
+exports.default = mixins;
+
+/***/ }),
+
+/***/ 100:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+// imports
+
+
+// module
+exports.push([module.i, "\n.item[data-v-46c0d07a] {\n    padding-top: 25px;\n    padding-bottom: 25px;\n    padding-left: 35px;\n    padding-right: 35px;\n    min-height: 200px;\n    justify-content: center;\n    /*margin-bottom: 1px; FUTURE */\n    border-bottom-width: 1px;\n    border-color: #dddddd;\n}\n.item[data-v-46c0d07a]:active {\n    background-color: rgb(240, 240, 240);\n}\n.item-title[data-v-46c0d07a] {\n    font-size: 40px;\n    color: #303030;\n}\n.item-content[data-v-46c0d07a] {\n    margin-top: 5px;\n    font-size: 32px;\n    color: #000000;\n}\n.item-time[data-v-46c0d07a] {\n    font-size: 32px;\n    color: #6c6c6c;\n    text-align: right;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 111:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('list', _vm._l((_vm.datas), function(item, i) {
+    return _c('cell', {
+      key: i,
+      staticStyle: _vm.$processStyle(undefined),
+      style: (_vm.$processStyle(undefined)),
+      attrs: {
+        "append": "tree"
+      }
+    }, [_c('div', {
+      staticClass: "item",
+      staticStyle: _vm.$processStyle(undefined),
+      style: (_vm.$processStyle({
+        backgroundColor: _vm.bgColor
+      })),
+      on: {
+        "click": function($event) {
+          _vm.click(i)
+        }
+      }
+    }, [_c('text', {
+      staticClass: "item-title",
+      staticStyle: _vm.$processStyle(undefined),
+      style: (_vm.$processStyle(undefined))
+    }, [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c('text', {
+      staticClass: "item-content",
+      staticStyle: _vm.$processStyle(undefined),
+      style: (_vm.$processStyle(undefined))
+    }, [_vm._v(_vm._s(item.content))]), _vm._v(" "), _c('text', {
+      staticClass: "item-time",
+      staticStyle: _vm.$processStyle(undefined),
+      style: (_vm.$processStyle(undefined))
+    }, [_vm._v(_vm._s(item.time))])])])
+  }))
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-46c0d07a", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 122:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(82);
+var content = __webpack_require__(100);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -245,7 +308,12 @@ module.exports = {
         return result;
     },
     toDateString: function toDateString(value) {
-        var date = new Date(value);
+        var date = void 0;
+        if (this.isNotNull(value)) {
+            date = new Date(value);
+        } else {
+            date = new Date();
+        }
         var Y = date.getFullYear() + '-';
         var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
         var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
@@ -731,51 +799,6 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 40:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(108)
-}
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(55),
-  /* template */
-  __webpack_require__(96),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  "data-v-46c0d07a",
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\message.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] message.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-46c0d07a", Component.options)
-  } else {
-    hotAPI.reload("data-v-46c0d07a", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
 /***/ 5:
 /***/ (function(module, exports) {
 
@@ -810,7 +833,161 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 55:
+/***/ 59:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(122)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(73),
+  /* template */
+  __webpack_require__(111),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-46c0d07a",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\message.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] message.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-46c0d07a", Component.options)
+  } else {
+    hotAPI.reload("data-v-46c0d07a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 7:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+/**
+ * Created by Tw93 on 2016/11/4.
+ */
+
+exports.default = {
+    channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
+    adImgUrl: 'http://imengu.cn/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
+    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/springFestival.html',
+    newVersion: 312280,
+    updateUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
+    HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
+    defaultHost: 'http://imengu.cn/',
+    getContent: function getContent(e) {
+        var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
+        var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
+        var result = "<html>" + head + style + "<body>" + e + "</body></html>";
+        result = encodeURI(result);
+        return result;
+    },
+    getWeatherTypeImg: function getWeatherTypeImg(currentType) {
+        if (this.contains(currentType, '晴')) {
+            return 'qing.jpg';
+        } else if (this.contains(currentType, '阴')) {
+            return 'yin.jpg';
+        } else if (this.contains(currentType, '多云')) {
+            return 'duoyun.gif';
+        } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
+            return 'xiaoyu.gif';
+        } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
+            return 'dayu.gif';
+        } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
+            return 'xiaoxue.gif';
+        } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
+            return 'daxue.gif';
+        } else if (this.contains(currentType, '雪')) {
+            return 'xiaoxue.gif';
+        } else if (this.contains(currentType, '雨')) {
+            return 'xiaoyu.gif';
+        }
+    },
+
+    contains: function contains(str, s) {
+        return str.indexOf(s) > -1;
+    },
+    getWeatherDec: function getWeatherDec(high, low) {
+        var nhigh = high.replace("高温", "");
+        nhigh = nhigh.replace('℃', '');
+        var nlow = low.replace('低温', '');
+        return nhigh + " ~" + nlow;
+    },
+    newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
+    newsTabStyles: {
+        bgColor: '#ffffff',
+        titleColor: '#dd000000',
+        activeTitleColor: '#31A9A5',
+        activeBgColor: '#ffffff',
+        isActiveTitleBold: true,
+        iconWidth: 70,
+        iconHeight: 70,
+        width: 160,
+        height: 75,
+        fontSize: 28,
+        hasActiveBottom: true,
+        activeBottomColor: '#31A9A5',
+        activeBottomHeight: 1,
+        activeBottomWidth: 160,
+        textPaddingLeft: 10,
+        textPaddingRight: 10,
+        normalBottomColor: 'rgba(0,0,0,0.4)',
+        normalBottomHeight: 1,
+        hasRightIcon: true,
+        rightOffset: 100
+    },
+    jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
+    jokeTabStyles: {
+        bgColor: '#ffffff',
+        titleColor: '#dd000000',
+        activeTitleColor: '#31A9A5',
+        activeBgColor: '#ffffff',
+        isActiveTitleBold: true,
+        iconWidth: 70,
+        iconHeight: 70,
+        width: 250,
+        height: 75,
+        fontSize: 28,
+        hasActiveBottom: true,
+        activeBottomColor: '#31A9A5',
+        activeBottomHeight: 1,
+        activeBottomWidth: 250,
+        textPaddingLeft: 10,
+        textPaddingRight: 10,
+        normalBottomColor: 'rgba(0,0,0,0.4)',
+        normalBottomHeight: 1,
+        hasRightIcon: true,
+        rightOffset: 100
+    }
+};
+
+/***/ }),
+
+/***/ 73:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -824,7 +1001,7 @@ var _methods = __webpack_require__(2);
 
 var _methods2 = _interopRequireDefault(_methods);
 
-var _config = __webpack_require__(6);
+var _config = __webpack_require__(7);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -891,43 +1068,50 @@ exports.default = {
                 title: "元宵节",
                 content: "元宵佳节赏花灯，吉祥之星为你升；正月十五团圆夜，全家一起猜花灯。",
                 time: "2018-03-02",
-                shareUrl: "http://mp.weixin.qq.com/s/O29M03SiniaMhB-bieVNVg"
+                shareUrl: "http://mp.weixin.qq.com/s/O29M03SiniaMhB-bieVNVg",
+                shareImagePaht: ''
             }, {
                 viewName: "springFestival",
                 title: "春节",
                 content: "春节是指汉字文化圈传统上的农历新年，俗称“年节”，传统名称为新年、大年、新岁，但口头上又称度岁、庆新岁、过年。",
                 time: "2018-02-15",
-                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/springFestival.html"
+                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/springFestival.html",
+                shareImagePaht: _config2.default.HostImgUrl + 'springFestival/img_1.jpg'
             }, {
                 viewName: "dongzhi",
                 title: "冬至",
                 content: "冬至是农历的重要节气，也是中华民族的传统节日。早在春秋时代，中国就已经用土圭观测出冬至，古人认为自冬至起阳气回升，代表着下一个循环的开始。冬至是重要的养生时期，应注意防寒保暖、保肝护肝。",
                 time: "2017-12-22",
-                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/dongzhi.html"
+                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/dongzhi.html",
+                shareImagePaht: _config2.default.HostImgUrl + 'dongzhi/dongzhi_1.jpg'
             }, {
                 viewName: "yieryisan",
                 title: "国家公祭日",
                 content: "南京大屠杀死难者国家公祭仪式于12月13日上午10时举行。",
                 time: "2017-12-12",
-                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/yieryisan.html"
+                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/yieryisan.html",
+                shareImagePaht: ''
             }, {
                 viewName: "mid-autumn-festival",
                 title: "中秋节",
                 content: "中秋节自古便有祭月、赏月、拜月、吃月饼、赏桂花、饮桂花酒等习俗，流传至今，久经不息。中秋节以月之圆兆人之团圆，为寄托思念故乡，思念亲人之情，祈盼丰收、幸福，成为丰富多彩、弥足珍贵的文化遗产。中秋节与端午节、春节、清明节并称为中国四大传统节日。",
                 time: "2017-10-04",
-                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/mid-autumn-festival.html"
+                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/mid-Autumn-festival.html",
+                shareImagePaht: _config2.default.HostImgUrl + 'mid_autumn/mid-autumn.jpg'
             }, {
                 viewName: "guanggao",
                 title: "开业大吉",
                 content: "视频VIP豪送|庆国庆、迎中秋，万份视频VIP等你来领！",
                 time: "2017-10-01",
-                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/guanggao.html"
+                shareUrl: _config2.default.defaultHost + "Ahuangshang/html/guanggao.html",
+                shareImagePaht: _config2.default.HostImgUrl + 'advertisement/ad.jpg'
             }, {
                 viewName: "bailu",
                 title: "白露",
                 content: "白露是农历二十四节气中的第十五个节气，当太阳到达黄经165度时为白露。",
                 time: "2017-09-07",
-                shareUrl: _config2.default.defaultHost + 'Ahuangshang/html/bailu.html'
+                shareUrl: _config2.default.defaultHost + 'Ahuangshang/html/bailu.html',
+                shareImagePaht: _config2.default.HostImgUrl + 'bailu/img_1.jpg'
             }],
             bgColor: "#ffffff",
             title: "",
@@ -942,7 +1126,7 @@ exports.default = {
             if (this.datas[i].viewName === 'yuanxiao') {
                 weex.requireModule('event').openView('className=cn.ltwc.cft.activity.MyX5WebView&ltkj&webUrl=' + this.datas[i].shareUrl + '&ltkj&webTitle=' + this.datas[i].title + '&ltkj&shareUrl=' + this.datas[i].shareUrl);
             } else {
-                weex.requireModule('event').openView('className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=' + this.datas[i].viewName + '&ltkj&webTitle=' + this.datas[i].title + '&ltkj&shareUrl=' + this.datas[i].shareUrl);
+                weex.requireModule('event').openView('className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=' + this.datas[i].viewName + '&ltkj&webTitle=' + this.datas[i].title + '&ltkj&shareUrl=' + this.datas[i].shareUrl + '&ltkj&shareImagePath=' + this.datas[i].shareImagePaht);
             }
         }
     },
@@ -956,80 +1140,17 @@ exports.default = {
 
 /***/ }),
 
-/***/ 6:
+/***/ 87:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-/**
- * Created by Tw93 on 2016/11/4.
- */
-
-exports.default = {
-    channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-    adImgUrl: 'http://imengu.cn/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
-    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/springFestival.html',
-    newVersion: 312280,
-    updateUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
-    HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
-    defaultHost: 'http://imengu.cn/',
-    getContent: function getContent(e) {
-        var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
-        var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
-        var result = "<html>" + head + style + "<body>" + e + "</body></html>";
-        result = encodeURI(result);
-        return result;
-    },
-    getWeatherTypeImg: function getWeatherTypeImg(currentType) {
-        if (this.contains(currentType, '晴')) {
-            return 'qing.jpg';
-        } else if (this.contains(currentType, '阴')) {
-            return 'yin.jpg';
-        } else if (this.contains(currentType, '多云')) {
-            return 'duoyun.gif';
-        } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
-            return 'xiaoyu.gif';
-        } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
-            return 'dayu.gif';
-        } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
-            return 'xiaoxue.gif';
-        } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
-            return 'daxue.gif';
-        } else if (this.contains(currentType, '雪')) {
-            return 'xiaoxue.gif';
-        } else if (this.contains(currentType, '雨')) {
-            return 'xiaoyu.gif';
-        }
-    },
-
-    contains: function contains(str, s) {
-        return str.indexOf(s) > -1;
-    },
-    getWeatherDec: function getWeatherDec(high, low) {
-        var nhigh = high.replace("高温", "");
-        nhigh = nhigh.replace('℃', '');
-        var nlow = low.replace('低温', '');
-        return nhigh + " ~" + nlow;
-    }
-};
-
-/***/ }),
-
-/***/ 68:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _message = __webpack_require__(40);
+var _message = __webpack_require__(59);
 
 var _message2 = _interopRequireDefault(_message);
 
-var _mixins = __webpack_require__(0);
+var _mixins = __webpack_require__(1);
 
 var _mixins2 = _interopRequireDefault(_mixins);
 
@@ -1040,69 +1161,6 @@ Vue.mixin(_mixins2.default);
 _message2.default.el = '#root';
 
 new Vue(_message2.default);
-
-/***/ }),
-
-/***/ 82:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)();
-// imports
-
-
-// module
-exports.push([module.i, "\n.item[data-v-46c0d07a] {\n    padding-top: 25px;\n    padding-bottom: 25px;\n    padding-left: 35px;\n    padding-right: 35px;\n    min-height: 200px;\n    justify-content: center;\n    /*margin-bottom: 1px; FUTURE */\n    border-bottom-width: 1px;\n    border-color: #dddddd;\n}\n.item[data-v-46c0d07a]:active {\n    background-color: rgb(240, 240, 240);\n}\n.item-title[data-v-46c0d07a] {\n    font-size: 40px;\n    color: #303030;\n}\n.item-content[data-v-46c0d07a] {\n    margin-top: 5px;\n    font-size: 32px;\n    color: #000000;\n}\n.item-time[data-v-46c0d07a] {\n    font-size: 32px;\n    color: #6c6c6c;\n    text-align: right;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 96:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('list', _vm._l((_vm.datas), function(item, i) {
-    return _c('cell', {
-      key: i,
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle(undefined)),
-      attrs: {
-        "append": "tree"
-      }
-    }, [_c('div', {
-      staticClass: "item",
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle({
-        backgroundColor: _vm.bgColor
-      })),
-      on: {
-        "click": function($event) {
-          _vm.click(i)
-        }
-      }
-    }, [_c('text', {
-      staticClass: "item-title",
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle(undefined))
-    }, [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c('text', {
-      staticClass: "item-content",
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle(undefined))
-    }, [_vm._v(_vm._s(item.content))]), _vm._v(" "), _c('text', {
-      staticClass: "item-time",
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle(undefined))
-    }, [_vm._v(_vm._s(item.time))])])])
-  }))
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-46c0d07a", module.exports)
-  }
-}
 
 /***/ })
 
