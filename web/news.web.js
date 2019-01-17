@@ -4318,12 +4318,14 @@ exports.default = {
             if (that.list[index] === 'undefined' || that.list[index].length === 0) {
                 this.getData(false, true, 0, function (res) {
                     if (_methods2.default.isNotNull(res)) {
+                        that.show = false;
                         that.list[index].splice(0, that.list.length[index]);
                         res.map(function (item) {
                             that.list[index].push(item);
                         });
+                    } else {
+                        that.show = true;
                     }
-                    that.show = true;
                 });
             }
         },

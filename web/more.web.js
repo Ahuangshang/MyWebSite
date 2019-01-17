@@ -487,12 +487,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _c('item', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "60px"
-    }),
+    staticStyle: _vm.$processStyle(undefined),
     style: (_vm.$processStyle(undefined)),
     attrs: {
-      "top_border": "true",
       "imgUrl": "update.png",
       "itemName": "版本更新",
       "extraName": _vm.extraName,
@@ -504,12 +501,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _c('item', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "60px"
-    }),
+    staticStyle: _vm.$processStyle(undefined),
     style: (_vm.$processStyle(undefined)),
     attrs: {
-      "top_border": "true",
       "imgUrl": "share.png",
       "itemName": "推荐给朋友",
       "show_arrow": "true"
@@ -520,13 +514,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), (_vm.oldVersion > 612230 && _vm.showLive) ? _c('item', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "60px",
-      "margin-bottom": "80px"
-    }),
+    staticStyle: _vm.$processStyle(undefined),
     style: (_vm.$processStyle(undefined)),
     attrs: {
-      "top_border": "true",
       "imgUrl": "live.png",
       "itemName": "视频直播",
       "show_arrow": "true"
@@ -537,12 +527,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }) : _vm._e(), _vm._v(" "), _c('item', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "60px"
-    }),
+    staticStyle: _vm.$processStyle(undefined),
     style: (_vm.$processStyle(undefined)),
     attrs: {
-      "top_border": "true",
       "imgUrl": "joke.png",
       "itemName": "一起笑吧",
       "show_arrow": "true"
@@ -2330,7 +2317,7 @@ exports.default = {
                     }
                     break;
                 case 5:
-                    weex.requireModule('event').openView('className=cn.ltwc.cft.activity.ShareActivity&ltkj&type=text/*&ltkj&msg=王朝黄历\n我正在使用有趣实用的王朝黄历，快来下载吧！\n' + _config2.default.updateUrl + '&ltkj&shareUrl=' + _config2.default.updateUrl);
+                    weex.requireModule('event').openView('className=cn.ltwc.cft.activity.ShareActivity&ltkj&type=image/text&ltkj&msg=王朝黄历\n我正在使用有趣实用的王朝黄历，快来下载吧！\n' + _config2.default.updateUrl + '&ltkj&shareUrl=' + _config2.default.updateUrl);
                     //weex.requireModule('event').playVideo('http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8');
                     break;
                 case 6:
