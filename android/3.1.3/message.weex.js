@@ -383,7 +383,7 @@ exports.default = {
     channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
     adImgUrl: 'http://imengu.cn/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
     adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/springFestival.html',
-    newVersion: 312280,
+    newVersion: 313301,
     updateUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
     HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
     defaultHost: 'http://imengu.cn/',
