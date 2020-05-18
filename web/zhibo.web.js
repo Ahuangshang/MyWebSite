@@ -65,7 +65,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 96);
+/******/ 	return __webpack_require__(__webpack_require__.s = 103);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -192,297 +192,6 @@ exports.default = mixins;
 /***/ 10:
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _methods = __webpack_require__(2);
-
-var _methods2 = _interopRequireDefault(_methods);
-
-var _Config = __webpack_require__(11);
-
-var _Config2 = _interopRequireDefault(_Config);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-exports.default = {
-    props: {
-        imgw: {
-            default: 50
-        },
-        imgh: {
-            default: 0
-        },
-        imgUrl: {
-            default: ''
-        },
-        padding_left: {
-            default: 0
-        },
-        padding_right: {
-            default: 0
-        },
-        bgColor: {
-            default: '#00000000'
-        },
-        resize: {
-            default: 'contain'
-        },
-        imgFilePath: {
-            default: 'image_icon/'
-        }
-    },
-    methods: {
-        onClick: function onClick() {
-            this.$emit('onClick');
-        },
-        font: function font(size) {
-            return _methods2.default.getFontSize(size);
-        },
-        getSrc: function getSrc(imgUrl) {
-            return _Config2.default.HostImgUrl + this.imgFilePath + imgUrl;
-        },
-        getImgHeight: function getImgHeight(imgh) {
-            return imgh != 0 ? imgh : this.imgw;
-        }
-    }
-};
-
-/***/ }),
-
-/***/ 109:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticStyle: _vm.$processStyle({
-      "background-color": "rgba(244,244,244,0.96)",
-      "position": "absolute",
-      "top": "0",
-      "bottom": "0",
-      "left": "0",
-      "right": "0"
-    }),
-    style: (_vm.$processStyle(undefined))
-  }, [_c('list', {
-    staticStyle: _vm.$processStyle({
-      "background-color": "rgba(244,244,244,0.96)"
-    }),
-    style: (_vm.$processStyle(undefined))
-  }, _vm._l((_vm.datas), function(item, i) {
-    return _c('cell', {
-      key: i,
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle(undefined)),
-      attrs: {
-        "append": "tree"
-      }
-    }, [_c('item', {
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle(undefined)),
-      attrs: {
-        "imgUrl": item.channelImg,
-        "itemName": item.channelName,
-        "imgFilePath": "taibiao/",
-        "iconSize": "80"
-      },
-      on: {
-        "onClick": function($event) {
-          _vm.jump(item.url)
-        }
-      }
-    })], 1)
-  }))], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-26c4533b", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ 11:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-/**
- * Created by Tw93 on 2016/11/4.
- */
-
-exports.default = {
-    channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-    adImgUrl: 'http://imengu.cn/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
-    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/springFestival.html',
-    newVersion: 313301,
-    updateUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
-    HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
-    defaultHost: 'http://imengu.cn/',
-    getContent: function getContent(e) {
-        var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
-        var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
-        var result = "<html>" + head + style + "<body>" + e + "</body></html>";
-        result = encodeURI(result);
-        return result;
-    },
-    getWeatherTypeImg: function getWeatherTypeImg(currentType) {
-        if (this.contains(currentType, '晴')) {
-            return 'qing.jpg';
-        } else if (this.contains(currentType, '阴')) {
-            return 'yin.jpg';
-        } else if (this.contains(currentType, '多云')) {
-            return 'duoyun.gif';
-        } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
-            return 'xiaoyu.gif';
-        } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
-            return 'dayu.gif';
-        } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
-            return 'xiaoxue.gif';
-        } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
-            return 'daxue.gif';
-        } else if (this.contains(currentType, '雪')) {
-            return 'xiaoxue.gif';
-        } else if (this.contains(currentType, '雨')) {
-            return 'xiaoyu.gif';
-        }
-    },
-
-    contains: function contains(str, s) {
-        return str.indexOf(s) > -1;
-    },
-    getWeatherDec: function getWeatherDec(high, low) {
-        var nhigh = high.replace("高温", "");
-        nhigh = nhigh.replace('℃', '');
-        var nlow = low.replace('低温', '');
-        return nhigh + " ~" + nlow;
-    },
-    newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
-    newsTabStyles: {
-        bgColor: '#ffffff',
-        titleColor: '#dd000000',
-        activeTitleColor: '#31A9A5',
-        activeBgColor: '#ffffff',
-        isActiveTitleBold: true,
-        iconWidth: 70,
-        iconHeight: 70,
-        width: 160,
-        height: 75,
-        fontSize: 28,
-        hasActiveBottom: true,
-        activeBottomColor: '#31A9A5',
-        activeBottomHeight: 1,
-        activeBottomWidth: 160,
-        textPaddingLeft: 10,
-        textPaddingRight: 10,
-        normalBottomColor: 'rgba(0,0,0,0.4)',
-        normalBottomHeight: 1,
-        hasRightIcon: true,
-        rightOffset: 100
-    },
-    jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
-    jokeTabStyles: {
-        bgColor: '#ffffff',
-        titleColor: '#dd000000',
-        activeTitleColor: '#31A9A5',
-        activeBgColor: '#ffffff',
-        isActiveTitleBold: true,
-        iconWidth: 70,
-        iconHeight: 70,
-        width: 250,
-        height: 75,
-        fontSize: 28,
-        hasActiveBottom: true,
-        activeBottomColor: '#31A9A5',
-        activeBottomHeight: 1,
-        activeBottomWidth: 250,
-        textPaddingLeft: 10,
-        textPaddingRight: 10,
-        normalBottomColor: 'rgba(0,0,0,0.4)',
-        normalBottomHeight: 1,
-        hasRightIcon: true,
-        rightOffset: 100
-    }
-};
-
-/***/ }),
-
-/***/ 12:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)();
-// imports
-
-
-// module
-exports.push([module.i, "\n.div[data-v-7203603b] {\n    align-items: center;\n    flex-direction: column;\n}\n.icon[data-v-7203603b] {\n    width: 50px;\n    height: 50px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 121:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(99);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(4)("0585a8dc", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-26c4533b\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./zhibo.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-26c4533b\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./zhibo.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 13:
-/***/ (function(module, exports, __webpack_require__) {
-
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "div",
@@ -520,13 +229,436 @@ if (false) {
 
 /***/ }),
 
-/***/ 14:
+/***/ 103:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _zhibo = __webpack_require__(70);
+
+var _zhibo2 = _interopRequireDefault(_zhibo);
+
+var _mixins = __webpack_require__(1);
+
+var _mixins2 = _interopRequireDefault(_mixins);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+Vue.mixin(_mixins2.default);
+
+_zhibo2.default.el = '#root';
+
+new Vue(_zhibo2.default);
+
+/***/ }),
+
+/***/ 104:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  videoInfo: {
+    default: function _default() {
+      return [
+      // {
+      //   channelName: 'CCTV1',
+      //   channelImg: 'cctv.png',
+      //   url: 'http://ivi.bupt.edu.cn/hls/cctv1hd.m3u8',
+      // },
+      {
+        channelName: 'CCTV1',
+        channelImg: 'cctv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225710/index.m3u8'
+      }, {
+        channelName: 'CCTV2',
+        channelImg: 'cctv.png',
+        url: 'http://183.207.248.71:80/cntv/live1/CCTV-2/cctv-2'
+      }, {
+        channelName: 'CCTV3',
+        channelImg: 'cctv.png',
+        url: 'http://ivi.bupt.edu.cn/hls/cctv3hd.m3u8'
+      },
+      // {
+      //   channelName: 'CCTV3',
+      //   channelImg: 'cctv.png',
+      //   url: 'http://223.110.243.136/PLTV/3/224/3221227206/index.m3u8',
+      // },
+      {
+        channelName: 'CCTV4',
+        channelImg: 'cctv.png',
+        url: 'http://183.207.248.71:80/cntv/live1/CCTV-4/cctv-4'
+      }, {
+        channelName: 'CCTV5',
+        channelImg: 'cctv.png',
+        url: 'http://183.207.248.71:80/cntv/live1/CCTV-5/cctv-5'
+      }, {
+        channelName: 'CCTV5-2',
+        channelImg: 'cctv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225711/index.m3u8'
+      }, {
+        channelName: 'CCTV5+',
+        channelImg: 'cctv.png',
+        url: 'http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8'
+      }, {
+        channelName: 'CCTV5+-2',
+        channelImg: 'cctv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225689/index.m3u8'
+      }, {
+        channelName: 'CCTV6',
+        channelImg: 'cctv.png',
+        url: 'http://ivi.bupt.edu.cn/hls/cctv6hd.m3u8'
+      }, {
+        channelName: 'CCTV6-2',
+        channelImg: 'cctv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225751/index.m3u8'
+      }, {
+        channelName: 'CCTV7',
+        channelImg: 'cctv.png',
+        url: 'http://183.207.248.71:80/cntv/live1/CCTV-7/cctv-7'
+      },
+      // {
+      //   channelName: 'CCTV7',
+      //   channelImg: 'cctv.png',
+      //   url: 'http://183.207.248.8:80/PLTV/3/224/3221225546/index.m3u8',
+      // },
+      {
+        channelName: 'CCTV8',
+        channelImg: 'cctv.png',
+        url: 'http://ivi.bupt.edu.cn/hls/cctv8hd.m3u8'
+      }, {
+        channelName: 'CCTV9',
+        channelImg: 'cctv.png',
+        url: 'http://183.207.248.71:80/cntv/live1/CCTV-9/cctv-news'
+      }, {
+        channelName: 'CCTV10',
+        channelImg: 'cctv.png',
+        url: 'http://183.207.248.71:80/cntv/live1/CCTV-10/cctv-10'
+      }, {
+        channelName: 'CCTV11',
+        channelImg: 'cctv.png',
+        url: 'http://183.207.248.71:80/cntv/live1/CCTV-11/cctv-11'
+      }, {
+        channelName: 'CCTV12',
+        channelImg: 'cctv.png',
+        url: 'http://183.207.248.71:80/cntv/live1/CCTV-12/cctv-12'
+      }, {
+        channelName: 'CCTV13',
+        channelImg: 'cctv.png',
+        url: 'http://183.207.248.71:80/cntv/live1/CCTV-13/cctv-13'
+      },
+      // {
+      //   channelName: 'CCTV13',
+      //   channelImg: 'cctv.png',
+      //   url: 'http://cctvalih5c.v.myalicdn.com/live/cctv13_1/index.m3u8',
+      // },
+      {
+        channelName: 'CCTV14',
+        channelImg: 'cctv.png',
+        url: 'http://183.207.248.71:80/cntv/live1/CCTV-14/cctv-14'
+      }, {
+        channelName: 'CCTV15',
+        channelImg: 'cctv.png',
+        url: 'http://183.207.248.71:80/cntv/live1/CCTV-15/cctv-15'
+      }, {
+        channelName: 'CETV-1',
+        channelImg: 'cetv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225652/index.m3u8'
+      }, {
+        channelName: '湖南卫视',
+        channelImg: 'hunan.png',
+        url: 'http://ivi.bupt.edu.cn/hls/hunanhd.m3u8'
+      }, {
+        channelName: '北京卫视',
+        channelImg: 'beijing.png',
+        url: 'http://ivi.bupt.edu.cn/hls/btv1hd.m3u8'
+      }, {
+        channelName: '深圳卫视',
+        channelImg: 'shenzhen.png',
+        url: 'http://ivi.bupt.edu.cn/hls/szhd.m3u8'
+      }, {
+        channelName: '东方卫视',
+        channelImg: 'dongfangweishi.png',
+        url: 'http://ivi.bupt.edu.cn/hls/dfhd.m3u8'
+      }, {
+        channelName: '江苏卫视',
+        channelImg: 'jiangsu.png',
+        url: 'http://ivi.bupt.edu.cn/hls/jshd.m3u8'
+      }, {
+        channelName: '浙江卫视',
+        channelImg: 'zhejiang.png',
+        url: 'http://ivi.bupt.edu.cn/hls/zjhd.m3u8'
+      }, {
+        channelName: '广东卫视',
+        channelImg: 'guangdong.png',
+        url: 'http://ivi.bupt.edu.cn/hls/gdhd.m3u8'
+      }, {
+        channelName: '天津卫视',
+        channelImg: 'tianjin.png',
+        url: 'http://ivi.bupt.edu.cn/hls/tjhd.m3u8'
+      }, {
+        channelName: '山东卫视',
+        channelImg: 'shandong.png',
+        url: 'http://ivi.bupt.edu.cn/hls/sdhd.m3u8'
+      }, {
+        channelName: '山东教育',
+        channelImg: 'shandong.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225655/index.m3u8'
+      }, {
+        channelName: '江西卫视',
+        channelImg: 'jiangxi.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225615/index.m3u8'
+      }, {
+        channelName: '湖北卫视',
+        channelImg: 'hubei.png',
+        url: 'http://ivi.bupt.edu.cn/hls/hbhd.m3u8'
+      }, {
+        channelName: '黑龙江卫视',
+        channelImg: 'heilongjiang.png',
+        url: 'http://ivi.bupt.edu.cn/hls/hljhd.m3u8'
+      }, {
+        channelName: '四川卫视',
+        channelImg: 'sichuan.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225621/index.m3u8'
+      }, {
+        channelName: '安徽卫视',
+        channelImg: 'anhui.png',
+        url: 'http://ivi.bupt.edu.cn/hls/ahhd.m3u8'
+      }, {
+        channelName: '辽宁卫视',
+        channelImg: 'liaoning.png',
+        url: 'http://ivi.bupt.edu.cn/hls/lnhd.m3u8'
+      }, {
+        channelName: '河北卫视',
+        channelImg: 'hebei.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225623/index.m3u8'
+      }, {
+        channelName: '重庆卫视',
+        channelImg: 'chongqing.png',
+        url: 'http://ivi.bupt.edu.cn/hls/cqhd.m3u8'
+      }, {
+        channelName: '东南卫视',
+        channelImg: 'dongnanweishi.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225620/index.m3u8'
+      }, {
+        channelName: '甘肃卫视',
+        channelImg: 'gansu.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225633/index.m3u8'
+      }, {
+        channelName: '吉林卫视',
+        channelImg: 'jilin.png',
+        url: 'http://cctvtxyh5c.liveplay.myqcloud.com/wstv/jilin_2/index.m3u8'
+      }, {
+        channelName: '山西卫视',
+        channelImg: 'shanxi.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225624/index.m3u8'
+      }, {
+        channelName: '陕西卫视',
+        channelImg: 'shanxiweishi.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225625/index.m3u8'
+      }, {
+        channelName: '广西卫视',
+        channelImg: 'guangxi.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225622/index.m3u8'
+      }, {
+        channelName: '贵州卫视',
+        channelImg: 'guizhou.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225626/index.m3u8'
+      }, {
+        channelName: '河南卫视',
+        channelImg: 'henan.png',
+        url: 'http://cctvtxyh5c.liveplay.myqcloud.com/wstv/henan_2/index.m3u8'
+      }, {
+        channelName: '内蒙古卫视',
+        channelImg: 'neimenggu.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225634/index.m3u8'
+      }, {
+        channelName: '宁夏卫视',
+        channelImg: 'ningxia.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225632/index.m3u8'
+      }, {
+        channelName: '新疆卫视',
+        channelImg: 'xinjiang.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225635/index.m3u8'
+      }, {
+        channelName: '西藏卫视',
+        channelImg: 'xizang.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225638/index.m3u8'
+      }, {
+        channelName: '云南卫视',
+        channelImg: 'yunnan.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225636/index.m3u8'
+      }, {
+        channelName: '海南卫视',
+        channelImg: 'lvyouweishi.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225639/index.m3u8'
+      },
+      // {
+      //     channelName: '兵团卫视',
+      //     channelImg: 'bingtuanweishi.png',
+      //     url: 'http://v.btzx.com.cn:1935/live/weishi.stream/chunklist_w846804169.m3u8',
+      // },
+      // {
+      //     channelName: '三沙卫视',
+      //     channelImg: 'sanshaweishi.png',
+      //     url: 'http://stream1.hnntv.cn/ssws/sd/live.m3u8',
+      // },
+      // {
+      //     channelName: '南方卫视',
+      //     channelImg: 'nanfangweishi.png',
+      //     url: 'http://stream1.grtn.cn/tvs2/sd/live.m3u8',
+      // },
+      {
+        channelName: '纪实频道',
+        channelImg: 'jishi.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225748/index.m3u8'
+      }, {
+        channelName: '香港卫视',
+        channelImg: 'xianggang.png',
+        url: 'http://zhibo.hkstv.tv/livestream/zb2yhapo/playlist.m3u8'
+      }, {
+        channelName: '澳亚卫视',
+        channelImg: 'aoshi.png',
+        url: 'http://stream.mastvnet.com/MASTV/sd/live.m3u8'
+      },
+      // {
+      //     channelName: '奇妙台',
+      //     channelImg: 'qimiao.png',
+      //     url: 'http://media.fantv.hk/m3u8/archive/channel2_stream1.m3u8',
+      // },
+      // {
+      //     channelName: '凤凰中文',
+      //     channelImg: 'fenghuang.png',
+      //     url: 'http://117.169.72.6:8080/ysten-businessmobile/live/fhchinese/1.m3u8',
+      // },
+      // {
+      //     channelName: '凤凰资讯',
+      //     channelImg: 'fenghuang.png',
+      //     url: 'http://45.126.83.51/qwr9ew/s/s21/index2.m3u8',
+      // },
+      // {
+      //     channelName: '翡翠台',
+      //     channelImg: 'feicuitai.png',
+      //     url: 'http://acm.gg/jade.m3u8',
+      // },
+      // {
+      //     channelName: '翠明珠',
+      //     channelImg: 'feicuitai.png',
+      //     url: 'http://acm.gg/j2.m3u8',
+      // },
+      // {
+      //     channelName: '电影频道',
+      //     channelImg: 'dianyingpindao.png',
+      //     url: 'http://edge.music-choice-play-chaina1.top.comcast.net/PlayMetadataInserter/play/chunklist.m3u8',
+      // },
+      {
+        channelName: 'Newstv动作电影',
+        channelImg: 'newsTv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225661/index.m3u8'
+      }, {
+        channelName: 'Newstv动画王国',
+        channelImg: 'newsTv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225662/index.m3u8'
+      }, {
+        channelName: 'Newstv明星大片',
+        channelImg: 'newsTv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225664/index.m3u8'
+      }, {
+        channelName: 'Newstv军旅剧场',
+        channelImg: 'newsTv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225676/index.m3u8'
+      }, {
+        channelName: 'Newstv古装剧场',
+        channelImg: 'newsTv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225663/index.m3u8'
+      }, {
+        channelName: 'Newstv惊悚悬疑',
+        channelImg: 'newsTv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225665/index.m3u8'
+      }, {
+        channelName: 'Newstv爱情喜剧',
+        channelImg: 'newsTv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225669/index.m3u8'
+      }, {
+        channelName: 'Newstv精品大剧',
+        channelImg: 'newsTv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225670/index.m3u8'
+      }, {
+        channelName: 'Newstv精品记录',
+        channelImg: 'newsTv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225672/index.m3u8'
+      }, {
+        channelName: 'Newstv中国功夫',
+        channelImg: 'newsTv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225681/index.m3u8'
+      }, {
+        channelName: 'Newstv海外剧场',
+        channelImg: 'newsTv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225671/index.m3u8'
+      }, {
+        channelName: 'Newstv金牌综艺',
+        channelImg: 'newsTv.png',
+        url: 'http://111.40.205.87/PLTV/88888888/224/3221225666/index.m3u8'
+      }, {
+        channelName: '港片电影轮播1',
+        channelImg: 'newsTv.png',
+        url: 'http://dlhls.cdn.zhanqi.tv/zqlive/35349_iXsXw.m3u8'
+      }, {
+        channelName: '港片电影轮播2',
+        channelImg: 'newsTv.png',
+        url: 'http://aldirect.hls.huya.com/huyalive/29106097-2689453724-11551115788685410304-2847687506-10057-A-1525422901-1_1200.m3u8'
+      },
+      // {
+      //   channelName: '港片电影轮播3',
+      //   channelImg: 'newsTv.png',
+      //   url: 'vjms://58.215.133.189:8500:3502/live/cid=352&delay=400&httpbuf=400&memory=50',
+      // },
+      {
+        channelName: '港好莱电影轮播 1',
+        channelImg: 'newsTv.png',
+        url: 'http://aldirect.hls.huya.com/huyalive/29169025-2686219962-11537226886652362752-2710080226-10057-A-0-1_1200.m3u8'
+      }, {
+        channelName: '港好莱电影轮播 2',
+        channelImg: 'newsTv.png',
+        url: 'http://js.hls.huya.com/huyalive/30765679-2478268764-10644083292078342144-2847699106-10057-A-0-1_1200.m3u8'
+      }, {
+        channelName: '港好莱电影轮播 3',
+        channelImg: 'newsTv.png',
+        url: 'http://aldirect.hls.huya.com/huyalive/30765679-2504742278-10757786168918540288-3049003128-10057-A-0-1_1200.m3u8'
+      }];
+    }
+  }
+};
+
+/***/ }),
+
+/***/ 107:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 11:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(12);
+var content = __webpack_require__(9);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -547,6 +679,115 @@ if(false) {
 
 /***/ }),
 
+/***/ 121:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticStyle: _vm.$processStyle({
+      "background-color": "rgba(244,244,244,0.96)",
+      "position": "absolute",
+      "top": "0",
+      "bottom": "0",
+      "left": "0",
+      "right": "0"
+    }),
+    style: (_vm.$processStyle(undefined))
+  }, [_c('list', {
+    staticStyle: _vm.$processStyle({
+      "background-color": "rgba(244,244,244,0.96)"
+    }),
+    style: (_vm.$processStyle(undefined))
+  }, _vm._l((_vm.datas), function(item, i) {
+    return _c('cell', {
+      key: i,
+      staticStyle: _vm.$processStyle(undefined),
+      style: (_vm.$processStyle(undefined)),
+      attrs: {
+        "append": "tree"
+      }
+    }, [_c('item', {
+      staticStyle: _vm.$processStyle(undefined),
+      style: (_vm.$processStyle(undefined)),
+      attrs: {
+        "imgUrl": item.channelImg,
+        "itemName": item.channelName,
+        "imgFilePath": "taibiao/",
+        "iconSize": "80"
+      },
+      on: {
+        "onClick": function($event) {
+          _vm.jump(item.url, _vm.datas, i)
+        }
+      }
+    })], 1)
+  }))], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-26c4533b", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 136:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(107);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("0585a8dc", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-26c4533b\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./zhibo.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-26c4533b\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./zhibo.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 14:
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+
 /***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -558,232 +799,239 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var modal = weex.requireModule('modal');
 module.exports = {
 
-    parseQueryString: function parseQueryString(str) {
-        if (str.indexOf('?') === -1 || str.indexOf('=') === -1) return null;
-        str = str.split("?")[1];
-        var reg = /(([^?&=]+)(?:=([^?&=]*))*)/g;
-        // let reg = /\s*([\w\-]+?)\s*=\s*([^;]*?)\s*(?:;|$)\s*/g;
-        var result = {};
-        var match = void 0;
-        var key = void 0;
-        var value = void 0;
-        while (match = reg.exec(str)) {
-            key = match[2];
-            if (key === 'hot-reload_controller' || key === '_wx_tpl') continue;
-            value = match[3] || '';
-            result[key] = decodeURIComponent(value);
-        }
-        return result;
-    },
-    toDateString: function toDateString(value) {
-        var date = void 0;
-        if (this.isNotNull(value)) {
-            date = new Date(value);
-        } else {
-            date = new Date();
-        }
-        var Y = date.getFullYear() + '-';
-        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-        var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
-        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
-        var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
-        var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-        return Y + M + D + h + m + s;
-    },
-    toTimeSpan: function toTimeSpan() {
-        //let date = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
-        // 可以这样做
-        var date = new Date(strtime.replace(/-/g, '/'));
-        // 有三种方式获取，在后面会讲到三种方式的区别
-        // return date.getTime();
-        // return date.valueOf();
-        return Date.parse(date);
-
-        /*
-         三种获取的区别：
-         第一、第二种：会精确到毫秒
-         第三种：只能精确到秒，毫秒将用0来代替
-         比如上面代码输出的结果(一眼就能看出区别)：
-         1398250549123
-         1398250549123
-         1398250549000
-         */
-    },
-    compareDate: function compareDate(startDate, endDate) {
-        var d1 = new Date(startDate.replace(/-/g, "/"));
-        var d2 = new Date(endDate.replace(/-/g, "/"));
-
-        return !(startDate !== "" && endDate !== "" && d1 > d2);
-    },
-    isNotNull: function isNotNull(str) {
-        return str !== undefined && str !== "" && str != null;
-    },
-    //获取日期 传1代表当月第一天 传其他代表当前日期
-    getDate: function getDate(v) {
-        var now = new Date();
-        var year = now.getFullYear(); //年
-        var month = now.getMonth() + 1; //月
-        var day = now.getDate(); //日
-
-        /*let hh = now.getHours();            //时
-         let mm = now.getMinutes();          //分
-         let ss = now.getSeconds();*/
-        var clock = year + "-"; //加""的作用是转成字符串，不然会以整型计算
-
-        if (month < 10) clock += "" + "0";
-        clock += month + "-";
-
-        if (day < 10) clock += "" + "0";
-        clock += v === 1 ? '1' : day;
-
-        /*if(hh < 10)
-         clock += ""+"0";
-         clock += hh;
-           if (mm < 10)
-         clock += ""+"0";
-         clock += mm;
-           if (ss < 10)
-         clock += ""+"0";
-         clock += ss;*/
-        return clock;
-    },
-
-    /**
-     * 获取图片的高度
-     * @param url
-     * @param callback
-     * @returns {*}
-     */
-    checkPicurl: function checkPicurl(url, callback) {
-        var img = new Image();
-        img.src = url;
-        var ratio = 0;
-        var clientWidth = 750;
-        img.onerror = function () {
-            ratio = 0;
-            return callback(ratio);
-        };
-        if (img.complete) {
-            ratio = img.width / img.height;
-            return callback(ratio === 0 ? 0 : clientWidth / ratio);
-        } else {
-            img.onload = function () {
-                ratio = img.width / img.height;
-                img.onload = null; //避免重复加载
-                return callback(ratio === 0 ? 0 : clientWidth / ratio);
-            };
-        }
-    },
-    /**
-     *  适配不同情况下的字体大小
-     * @param size dp值的大小
-     * @returns {*} 适配后的值的大小
-     */
-    getFontSize: function getFontSize(size) {
-        if (this.isweb()) {
-            var clientWith = document.body.clientWidth;
-            if (weex.config.env.osName.toLocaleString() === "android") {
-                return 2 * size + 'px';
-            } else {
-                if (clientWith > 900) {
-                    return size * weex.config.env.scale + 'px';
-                } else if (clientWith > 750) {
-                    return 2 * size * weex.config.env.scale + 'px';
-                } else {
-                    return 4 * size * weex.config.env.scale + 'px';
-                }
-            }
-        } else {
-            var _clientWith = weex.config.env.deviceWidth;
-            var ratio = 750 / _clientWith;
-            var fontSize = size * ratio * weex.config.env.scale;
-            return fontSize.toFixed(0);
-        }
-    },
-    getMatchSize: function getMatchSize(size) {
-        if (this.isweb()) {
-            return size * weex.config.env.scale + 'px';
-        } else {
-            return size;
-        }
-    },
-    isweb: function isweb() {
-        return weex.config.env.platform.toLocaleLowerCase() === "web";
-    },
-    registerModules: function registerModules() {
-        if (this.isweb()) {
-            var _weex$registerModule;
-
-            weex.registerModule('event', (_weex$registerModule = {
-                openWeexView: function openWeexView(viewName, viewTitle) {
-                    if (weex.config.env.osName.toLowerCase() === "android") {
-                        ltwc.openWeexView(viewName, viewTitle);
-                    }
-                }
-            }, _defineProperty(_weex$registerModule, 'openWeexView', function openWeexView(viewName, title, shareUrl) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.openWeexView(viewName, title, shareUrl);
-                }
-            }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.openWebView(webUrl, title);
-                }
-            }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title, shareUrl) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.openWebView(webUrl, title, shareUrl);
-                }
-            }), _defineProperty(_weex$registerModule, 'openView', function openView(uri) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.openView(uri);
-                }
-            }), _defineProperty(_weex$registerModule, 'getFilePath', function getFilePath(name, type, callback) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    window.getFilePathCallback = callback;
-                    ltwc.getFilePath(name, type, callback);
-                }
-            }), _defineProperty(_weex$registerModule, 'showMessage', function showMessage(msg) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.showMessage(msg);
-                }
-            }), _defineProperty(_weex$registerModule, 'getVersion', function getVersion(callback) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    window.getVersionCallback = callback;
-                    ltwc.getVersion(callback);
-                }
-            }), _defineProperty(_weex$registerModule, 'update', function update(url) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.update(url);
-                }
-            }), _defineProperty(_weex$registerModule, 'setConfig', function setConfig(tabs, adImgUrl, adSchemeUrl) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.setConfig(tabs, adImgUrl, adSchemeUrl);
-                }
-            }), _defineProperty(_weex$registerModule, 'playVideo', function playVideo(url) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.playVideo(url);
-                }
-            }), _weex$registerModule));
-            weex.registerModule('net', {
-                requestNetData: function requestNetData(methodType, url, api, jsonParams, showLoading, callback) {
-                    if (weex.config.env.osName.toLowerCase() === "android") {
-                        window.requestNetDataCallback = callback;
-                        ltwc.requestNetData(methodType, url, api, jsonParams, showLoading);
-                    }
-                }
-            });
-        }
+  parseQueryString: function parseQueryString(str) {
+    if (str.indexOf('?') === -1 || str.indexOf('=') === -1) return null;
+    str = str.split("?")[1];
+    var reg = /(([^?&=]+)(?:=([^?&=]*))*)/g;
+    // let reg = /\s*([\w\-]+?)\s*=\s*([^;]*?)\s*(?:;|$)\s*/g;
+    var result = {};
+    var match = void 0;
+    var key = void 0;
+    var value = void 0;
+    while (match = reg.exec(str)) {
+      key = match[2];
+      if (key === 'hot-reload_controller' || key === '_wx_tpl') continue;
+      value = match[3] || '';
+      result[key] = decodeURIComponent(value);
     }
+    return result;
+  },
+  toDateString: function toDateString(value) {
+    var date = void 0;
+    if (this.isNotNull(value)) {
+      date = new Date(value);
+    } else {
+      date = new Date();
+    }
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+    var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+    return Y + M + D + h + m + s;
+  },
+  toTimeSpan: function toTimeSpan() {
+    //let date = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
+    // 可以这样做
+    var date = new Date(strtime.replace(/-/g, '/'));
+    // 有三种方式获取，在后面会讲到三种方式的区别
+    // return date.getTime();
+    // return date.valueOf();
+    return Date.parse(date);
+
+    /*
+     三种获取的区别：
+     第一、第二种：会精确到毫秒
+     第三种：只能精确到秒，毫秒将用0来代替
+     比如上面代码输出的结果(一眼就能看出区别)：
+     1398250549123
+     1398250549123
+     1398250549000
+     */
+  },
+  compareDate: function compareDate(startDate, endDate) {
+    var d1 = new Date(startDate.replace(/-/g, "/"));
+    var d2 = new Date(endDate.replace(/-/g, "/"));
+
+    return !(startDate !== "" && endDate !== "" && d1 > d2);
+  },
+  isNotNull: function isNotNull(str) {
+    return str !== undefined && str !== "" && str != null;
+  },
+  //获取日期 传1代表当月第一天 传其他代表当前日期
+  getDate: function getDate(v) {
+    var now = new Date();
+    var year = now.getFullYear(); //年
+    var month = now.getMonth() + 1; //月
+    var day = now.getDate(); //日
+
+    /*let hh = now.getHours();            //时
+     let mm = now.getMinutes();          //分
+     let ss = now.getSeconds();*/
+    var clock = year + "-"; //加""的作用是转成字符串，不然会以整型计算
+
+    if (month < 10) clock += "" + "0";
+    clock += month + "-";
+
+    if (day < 10) clock += "" + "0";
+    clock += v === 1 ? '1' : day;
+
+    /*if(hh < 10)
+     clock += ""+"0";
+     clock += hh;
+       if (mm < 10)
+     clock += ""+"0";
+     clock += mm;
+       if (ss < 10)
+     clock += ""+"0";
+     clock += ss;*/
+    return clock;
+  },
+
+  /**
+   * 获取图片的高度
+   * @param url
+   * @param callback
+   * @returns {*}
+   */
+  checkPicurl: function checkPicurl(url, callback) {
+    var img = new Image();
+    img.src = url;
+    var ratio = 0;
+    var clientWidth = 750;
+    img.onerror = function () {
+      ratio = 0;
+      return callback(ratio);
+    };
+    if (img.complete) {
+      ratio = img.width / img.height;
+      return callback(ratio === 0 ? 0 : clientWidth / ratio);
+    } else {
+      img.onload = function () {
+        ratio = img.width / img.height;
+        img.onload = null; //避免重复加载
+        return callback(ratio === 0 ? 0 : clientWidth / ratio);
+      };
+    }
+  },
+  /**
+   *  适配不同情况下的字体大小
+   * @param size dp值的大小
+   * @returns {*} 适配后的值的大小
+   */
+  getFontSize: function getFontSize(size) {
+    if (this.isweb()) {
+      var clientWith = document.body.clientWidth;
+      if (weex.config.env.osName.toLocaleString() === "android") {
+        return 2 * size + 'px';
+      } else {
+        if (clientWith > 900) {
+          return size * weex.config.env.scale + 'px';
+        } else if (clientWith > 750) {
+          return 2 * size * weex.config.env.scale + 'px';
+        } else {
+          return 4 * size * weex.config.env.scale + 'px';
+        }
+      }
+    } else {
+      var _clientWith = weex.config.env.deviceWidth;
+      var ratio = 750 / _clientWith;
+      var fontSize = size * ratio * weex.config.env.scale;
+      return fontSize.toFixed(0);
+    }
+  },
+  getMatchSize: function getMatchSize(size) {
+    if (this.isweb()) {
+      return size * weex.config.env.scale + 'px';
+    } else {
+      return size;
+    }
+  },
+  delHtmlTag: function delHtmlTag(str) {
+    return str.replace(/<[^>]+>/g, "").replace(/&quot;/g, "\"").replace(/&lt;/g, '<').replace(/&gt;/g, '>'); //去掉所有的html标记
+  },
+  isweb: function isweb() {
+    return weex.config.env.platform.toLocaleLowerCase() === "web";
+  },
+  is_weixn: function is_weixn() {
+    var ua = navigator.userAgent.toLowerCase();
+    return ua.match(/MicroMessenger/i) == "micromessenger";
+  },
+  registerModules: function registerModules() {
+    if (this.isweb()) {
+      var _weex$registerModule;
+
+      weex.registerModule('event', (_weex$registerModule = {
+        openWeexView: function openWeexView(viewName, viewTitle) {
+          if (weex.config.env.osName.toLowerCase() === "android") {
+            ltwc.openWeexView(viewName, viewTitle);
+          }
+        }
+      }, _defineProperty(_weex$registerModule, 'openWeexView', function openWeexView(viewName, title, shareUrl) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.openWeexView(viewName, title, shareUrl);
+        }
+      }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.openWebView(webUrl, title);
+        }
+      }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title, shareUrl) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.openWebView(webUrl, title, shareUrl);
+        }
+      }), _defineProperty(_weex$registerModule, 'openView', function openView(uri) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.openView(uri);
+        }
+      }), _defineProperty(_weex$registerModule, 'getFilePath', function getFilePath(name, type, callback) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          window.getFilePathCallback = callback;
+          ltwc.getFilePath(name, type, callback);
+        }
+      }), _defineProperty(_weex$registerModule, 'showMessage', function showMessage(msg) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.showMessage(msg);
+        }
+      }), _defineProperty(_weex$registerModule, 'getVersion', function getVersion(callback) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          window.getVersionCallback = callback;
+          ltwc.getVersion(callback);
+        }
+      }), _defineProperty(_weex$registerModule, 'update', function update(url) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.update(url);
+        }
+      }), _defineProperty(_weex$registerModule, 'setConfig', function setConfig(tabs, adImgUrl, adSchemeUrl) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.setConfig(tabs, adImgUrl, adSchemeUrl);
+        }
+      }), _defineProperty(_weex$registerModule, 'playVideo', function playVideo(url, datas, position) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.playVideo(url, datas, position);
+        }
+      }), _weex$registerModule));
+      weex.registerModule('net', {
+        requestNetData: function requestNetData(methodType, url, api, jsonParams, showLoading, callback) {
+          if (weex.config.env.osName.toLowerCase() === "android") {
+            window.requestNetDataCallback = callback;
+            ltwc.requestNetData(methodType, url, api, jsonParams, showLoading);
+          }
+        }
+      });
+    }
+  }
 };
 if (module.exports.isweb()) {
-    window.getReturnData = function (type, data) {
-        if (type === "getFilePath") {
-            window.getFilePathCallback(data);
-        } else if (type === "requestNetData") {
-            window.requestNetDataCallback(data);
-        } else if (type === "getVersion") {
-            window.getVersionCallback(data);
-        }
-    };
+  window.getReturnData = function (type, data) {
+    if (type === "getFilePath") {
+      window.getFilePathCallback(data);
+    } else if (type === "requestNetData") {
+      window.requestNetDataCallback(data);
+    } else if (type === "getVersion") {
+      window.getVersionCallback(data);
+    }
+  };
 }
 
 /***/ }),
@@ -987,7 +1235,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
     components: {
-        iconImg: __webpack_require__(9),
+        iconImg: __webpack_require__(6),
         icon: __webpack_require__(27)
     },
     name: "item",
@@ -1037,6 +1285,9 @@ exports.default = {
     }, methods: {
         onClick: function onClick() {
             this.$emit('onClick');
+        },
+        onLongpress: function onLongpress() {
+            this.$emit('onLongpress');
         },
         font: function font(size) {
             return _methods2.default.getFontSize(size);
@@ -1441,7 +1692,7 @@ exports.push([module.i, "\n.item[data-v-7b020242] {\n    flex-direction: row;\n 
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(51)(module), __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(51)(module), __webpack_require__(14)))
 
 /***/ }),
 
@@ -1756,7 +2007,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       borderBottomWidth: _vm.bottom_border ? '1px' : '0px'
     })),
     on: {
-      "click": _vm.onClick
+      "click": _vm.onClick,
+      "longpress": _vm.onLongpress
     }
   }, [_c('div', {
     staticStyle: _vm.$processStyle({
@@ -1930,19 +2182,150 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ 68:
+/***/ 6:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(121)
+  __webpack_require__(11)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(82),
+  __webpack_require__(7),
   /* template */
-  __webpack_require__(109),
+  __webpack_require__(10),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-7203603b",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\customview\\icon-img.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] icon-img.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7203603b", Component.options)
+  } else {
+    hotAPI.reload("data-v-7203603b", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 7:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _methods = __webpack_require__(2);
+
+var _methods2 = _interopRequireDefault(_methods);
+
+var _Config = __webpack_require__(8);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    props: {
+        imgw: {
+            default: 50
+        },
+        imgh: {
+            default: 0
+        },
+        imgUrl: {
+            default: ''
+        },
+        padding_left: {
+            default: 0
+        },
+        padding_right: {
+            default: 0
+        },
+        bgColor: {
+            default: '#00000000'
+        },
+        resize: {
+            default: 'contain'
+        },
+        imgFilePath: {
+            default: 'image_icon/'
+        }
+    },
+    methods: {
+        onClick: function onClick() {
+            this.$emit('onClick');
+        },
+        font: function font(size) {
+            return _methods2.default.getFontSize(size);
+        },
+        getSrc: function getSrc(imgUrl) {
+            return _Config2.default.HostImgUrl + this.imgFilePath + imgUrl;
+        },
+        getImgHeight: function getImgHeight(imgh) {
+            return imgh != 0 ? imgh : this.imgw;
+        }
+    }
+};
+
+/***/ }),
+
+/***/ 70:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(136)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(87),
+  /* template */
+  __webpack_require__(121),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -1976,34 +2359,121 @@ module.exports = Component.exports
 /***/ }),
 
 /***/ 8:
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-var g;
+"use strict";
 
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
 
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Created by Tw93 on 2016/11/4.
+ */
 
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
+exports.default = {
+  channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
+  adImgUrl: 'http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
+  adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
+  newVersion: 318318,
+  updateUrl: 'http://imengu.cn/Ahuangshang/html/downLoadApp.html',
+  downLoadUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
+  HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
+  defaultHost: 'http://imengu.cn/',
+  getContent: function getContent(e) {
+    var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
+    var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
+    var result = "\n" + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + "<html>" + head + style + "<body>" + this.getButtonInfo(e) + "</body></html>";
+    result = encodeURI(result);
+    return result;
+  },
+  getButtonInfo: function getButtonInfo(e) {
+    var content = e.content.replace(/(<\/?a.*?>)/g, '');
+    var title = e.title;
+    return "<h2>" + title + "</h2>" + content + "<p style='color: #88000000;font-size: 13px'>&nbsp;&nbsp;本文系第三方观点，不代表李唐科技的观点和立场</p><p  onClick='linkThird()' style='color: #33B5E5;font-size: 13px'>&nbsp;&nbsp;原文链接>></p><script>function linkThird() {ltwc.linkThird();}</script>";
+  },
+  getWeatherTypeImg: function getWeatherTypeImg(currentType) {
+    if (this.contains(currentType, '晴')) {
+      return 'qing.jpg';
+    } else if (this.contains(currentType, '阴')) {
+      return 'yin.jpg';
+    } else if (this.contains(currentType, '多云')) {
+      return 'duoyun.gif';
+    } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
+      return 'xiaoyu.gif';
+    } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
+      return 'dayu.gif';
+    } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
+      return 'daxue.gif';
+    } else if (this.contains(currentType, '雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '雨')) {
+      return 'xiaoyu.gif';
+    }
+  },
 
-module.exports = g;
-
+  contains: function contains(str, s) {
+    return str.indexOf(s) > -1;
+  },
+  getWeatherDec: function getWeatherDec(high, low) {
+    var nhigh = high.replace("高温", "");
+    nhigh = nhigh.replace('℃', '');
+    var nlow = low.replace('低温', '');
+    return nhigh + " ~" + nlow;
+  },
+  newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
+  newsTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 160,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 160,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  },
+  jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
+  jokeTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 250,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 250,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  }
+};
 
 /***/ }),
 
-/***/ 82:
+/***/ 87:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2017,7 +2487,7 @@ var _methods = __webpack_require__(2);
 
 var _methods2 = _interopRequireDefault(_methods);
 
-var _videoconfig = __webpack_require__(97);
+var _videoconfig = __webpack_require__(104);
 
 var _videoconfig2 = _interopRequireDefault(_videoconfig);
 
@@ -2033,26 +2503,37 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
 
 exports.default = {
   props: {
-    datas: _videoconfig2.default.videoInfo
+    datas: _videoconfig2.default.videoInfo,
+    oldVersion: ''
   },
   components: {
     item: __webpack_require__(40)
   },
   created: function created() {
+    var _this = this;
+
     if (_methods2.default.isweb()) {
       window.temp_this = this;
       _methods2.default.registerModules();
     }
+    weex.requireModule('event').getVersion(function (versionInfo) {
+      _this.versionInfo = versionInfo;
+      _this.oldVersion = versionInfo.replace(/\./ig, '').replace('V ', '') * 1;
+    });
   },
   methods: {
-    jump: function jump(e) {
-      weex.requireModule('event').playVideo(e);
+    jump: function jump(e, datas, position) {
+      if (this.oldVersion > 317317) {
+        weex.requireModule('event').playVideo(e, datas, position);
+      } else {
+        weex.requireModule('event').playVideo(e);
+      }
     }
   }
-
 };
 
 /***/ }),
@@ -2060,360 +2541,12 @@ exports.default = {
 /***/ 9:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(14)
-}
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(10),
-  /* template */
-  __webpack_require__(13),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  "data-v-7203603b",
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\customview\\icon-img.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] icon-img.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7203603b", Component.options)
-  } else {
-    hotAPI.reload("data-v-7203603b", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 96:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _zhibo = __webpack_require__(68);
-
-var _zhibo2 = _interopRequireDefault(_zhibo);
-
-var _mixins = __webpack_require__(1);
-
-var _mixins2 = _interopRequireDefault(_mixins);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-Vue.mixin(_mixins2.default);
-
-_zhibo2.default.el = '#root';
-
-new Vue(_zhibo2.default);
-
-/***/ }),
-
-/***/ 97:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = {
-  videoInfo: {
-    default: function _default() {
-      return [{
-        channelName: 'CCTV1',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-1/2.m3u8'
-      }, {
-        channelName: 'CCTV2',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-2/2.m3u8'
-      }, {
-        channelName: 'CCTV3',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-3/2.m3u8'
-      },
-      // {
-      //   channelName: 'CCTV3',
-      //   channelImg: 'cctv.png',
-      //   url: 'http://223.110.243.136/PLTV/3/224/3221227206/index.m3u8',
-      // },
-      {
-        channelName: 'CCTV4',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-4/2.m3u8'
-      }, {
-        channelName: 'CCTV5',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-5/2.m3u8'
-      }, {
-        channelName: 'CCTV6',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-6/2.m3u8'
-      }, {
-        channelName: 'CCTV7',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-7/2.m3u8'
-      },
-      // {
-      //   channelName: 'CCTV7',
-      //   channelImg: 'cctv.png',
-      //   url: 'http://183.207.248.8:80/PLTV/3/224/3221225546/index.m3u8',
-      // },
-      {
-        channelName: 'CCTV8',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-8/2.m3u8'
-      }, {
-        channelName: 'CCTV9',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-9/2.m3u8'
-      }, {
-        channelName: 'CCTV10',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-10/2.m3u8'
-      }, {
-        channelName: 'CCTV11',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-11/2.m3u8'
-      }, {
-        channelName: 'CCTV12',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-12/2.m3u8'
-      }, {
-        channelName: 'CCTV13',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-13/2.m3u8'
-      },
-      // {
-      //   channelName: 'CCTV13',
-      //   channelImg: 'cctv.png',
-      //   url: 'http://223.110.243.172/PLTV/2510088/224/3221227168/1.m3u8',
-      // },
-      {
-        channelName: 'CCTV14',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-14/2.m3u8'
-      }, {
-        channelName: 'CCTV15',
-        channelImg: 'cctv.png',
-        url: 'http://223.82.250.72/live/cctv-15/1.m3u8'
-      }, {
-        channelName: 'CETV-1',
-        channelImg: 'cetv.png',
-        url: 'http://223.110.243.170/PLTV/2510088/224/3221227333/1.m3u8'
-      }, {
-        channelName: '湖南卫视',
-        channelImg: 'hunan.png',
-        url: 'http://223.82.250.72/live/hdhunanstv/1.m3u8'
-      }, {
-        channelName: '北京卫视',
-        channelImg: 'beijing.png',
-        url: 'http://223.82.250.72/live/hdbeijingstv/1.m3u8'
-      }, {
-        channelName: '深圳卫视',
-        channelImg: 'shenzhen.png',
-        url: 'http://223.82.250.72/live/hdshenzhenstv/1.m3u8'
-      }, {
-        channelName: '东方卫视',
-        channelImg: 'dongfangweishi.png',
-        url: 'http://223.82.250.72/live/hddongfangstv/1.m3u8'
-      }, {
-        channelName: '江苏卫视',
-        channelImg: 'jiangsu.png',
-        url: 'http://223.82.250.72/live/hdjiangsustv/1.m3u8'
-      }, {
-        channelName: '浙江卫视',
-        channelImg: 'zhejiang.png',
-        url: 'http://223.82.250.72/live/hdzhejiangstv/1.m3u8'
-      }, {
-        channelName: '广东卫视',
-        channelImg: 'guangdong.png',
-        url: 'http://223.82.250.72/live/hdguangdongstv/1.m3u8'
-      }, {
-        channelName: '天津卫视',
-        channelImg: 'tianjin.png',
-        url: 'http://223.82.250.72/live/hdtianjinstv/1.m3u8'
-      }, {
-        channelName: '山东卫视',
-        channelImg: 'shandong.png',
-        url: 'http://223.82.250.72/live/hdshandongstv/1.m3u8'
-      }, {
-        channelName: '江西卫视',
-        channelImg: 'jiangxi.png',
-        url: 'http://223.82.250.72/live/jiangxistv/1.m3u8'
-      }, {
-        channelName: '湖北卫视',
-        channelImg: 'hubei.png',
-        url: 'http://223.82.250.72/live/hdhubeistv/1.m3u8'
-      }, {
-        channelName: '黑龙江卫视',
-        channelImg: 'heilongjiang.png',
-        url: 'http://223.82.250.72/live/hdheilongjiangstv/1.m3u8'
-      }, {
-        channelName: '四川卫视',
-        channelImg: 'sichuan.png',
-        url: 'http://223.82.250.72/live/sichuanstv/1.m3u8'
-      }, {
-        channelName: '安徽卫视',
-        channelImg: 'anhui.png',
-        url: 'http://223.82.250.72/live/anhuistv/1.m3u8'
-      }, {
-        channelName: '辽宁卫视',
-        channelImg: 'liaoning.png',
-        url: 'http://223.82.250.72/live/liaoningstv/1.m3u8'
-      }, {
-        channelName: '河北卫视',
-        channelImg: 'hebei.png',
-        url: 'http://223.82.250.72/live/hebeistv/1.m3u8'
-      }, {
-        channelName: '重庆卫视',
-        channelImg: 'chongqing.png',
-        url: 'http://223.82.250.72/live/chongqingstv/1.m3u8'
-      }, {
-        channelName: '东南卫视',
-        channelImg: 'dongnanweishi.png',
-        url: 'http://223.82.250.72/live/dongnanstv/1.m3u8'
-      }, {
-        channelName: '甘肃卫视',
-        channelImg: 'gansu.png',
-        url: 'http://223.82.250.72/live/gansustv/1.m3u8'
-      }, {
-        channelName: '吉林卫视',
-        channelImg: 'jilin.png',
-        url: 'http://223.82.250.72/live/jilinstv/1.m3u8'
-      }, {
-        channelName: '山西卫视',
-        channelImg: 'shanxi.png',
-        url: 'http://223.82.250.72/live/shanxistv/1.m3u8'
-      }, {
-        channelName: '陕西卫视',
-        channelImg: 'shanxiweishi.png',
-        url: 'http://223.82.250.72/live/shanxi1stv/1.m3u8'
-      }, {
-        channelName: '广西卫视',
-        channelImg: 'guangxi.png',
-        url: 'http://223.82.250.72/live/guangxistv/1.m3u8'
-      }, {
-        channelName: '贵州卫视',
-        channelImg: 'guizhou.png',
-        url: 'http://223.82.250.72/live/guizhoustv/1.m3u8'
-      }, {
-        channelName: '河南卫视',
-        channelImg: 'henan.png',
-        url: 'http://223.82.250.72/live/henanstv/1.m3u8'
-      }, {
-        channelName: '内蒙古卫视',
-        channelImg: 'neimenggu.png',
-        url: 'http://223.82.250.72/live/neimenggustv/1.m3u8'
-      }, {
-        channelName: '宁夏卫视',
-        channelImg: 'ningxia.png',
-        url: 'http://223.82.250.72/live/ningxiastv/1.m3u8'
-      }, {
-        channelName: '新疆卫视',
-        channelImg: 'xinjiang.png',
-        url: 'http://223.82.250.72/live/xinjiangstv/1.m3u8'
-      }, {
-        channelName: '西藏卫视',
-        channelImg: 'xizang.png',
-        url: 'http://223.82.250.72/live/xizangstv/1.m3u8'
-      }, {
-        channelName: '云南卫视',
-        channelImg: 'yunnan.png',
-        url: 'http://223.82.250.72/live/yunnanstv/1.m3u8'
-      }, {
-        channelName: '旅游卫视',
-        channelImg: 'lvyouweishi.png',
-        url: 'http://223.82.250.72/live/lvyoustv/1.m3u8'
-      }, {
-        channelName: '兵团卫视',
-        channelImg: 'bingtuanweishi.png',
-        url: 'http://v.btzx.com.cn:1935/live/weishi.stream/chunklist_w846804169.m3u8'
-      }, {
-        channelName: '三沙卫视',
-        channelImg: 'sanshaweishi.png',
-        url: 'http://stream1.hnntv.cn/ssws/sd/live.m3u8'
-      }, {
-        channelName: '南方卫视',
-        channelImg: 'nanfangweishi.png',
-        url: 'http://stream1.grtn.cn/tvs2/sd/live.m3u8'
-      }, {
-        channelName: '香港卫视',
-        channelImg: 'xianggang.png',
-        url: 'http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8'
-      }, {
-        channelName: '澳视高清',
-        channelImg: 'aoshi.png',
-        url: 'http://live3.tdm.com.mo:1935/ch6/hd_ch6.live/playlist.m3u8'
-      }, {
-        channelName: '奇妙台',
-        channelImg: 'qimiao.png',
-        url: 'http://media.fantv.hk/m3u8/archive/channel2_stream1.m3u8'
-      }, {
-        channelName: '凤凰中文',
-        channelImg: 'fenghuang.png',
-        url: 'http://live.fengshows.com/live/PCC_500k/index.m3u8'
-      }, {
-        channelName: '凤凰资讯',
-        channelImg: 'fenghuang.png',
-        url: 'http://live.fengshows.com/live/PIN_500k/index.m3u8'
-      }, {
-        channelName: '翡翠台',
-        channelImg: 'feicuitai.png',
-        url: 'http://acm.gg/jade.m3u8'
-      }, {
-        channelName: '翠明珠',
-        channelImg: 'feicuitai.png',
-        url: 'http://acm.gg/j2.m3u8'
-      }, {
-        channelName: '电影频道',
-        channelImg: 'dianyingpindao.png',
-        url: 'http://edge.music-choice-play-chaina1.top.comcast.net/PlayMetadataInserter/play/chunklist.m3u8'
-      },
-      // {
-      //   channelName: 'Newstv军旅剧场',
-      //   channelImg: 'newsTv.png',
-      //   url: 'http://183.207.249.7/PLTV/3/224/3221225531/index.m3u8',
-      // },
-      {
-        channelName: 'Newstv古装剧场',
-        channelImg: 'newsTv.png',
-        url: 'http://183.207.249.14/PLTV/3/224/3221225527/index.m3u8'
-      }];
-    }
-  }
-};
-
-/***/ }),
-
-/***/ 99:
-/***/ (function(module, exports, __webpack_require__) {
-
 exports = module.exports = __webpack_require__(3)();
 // imports
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.div[data-v-7203603b] {\n    align-items: center;\n    flex-direction: column;\n}\n.icon[data-v-7203603b] {\n    width: 50px;\n    height: 50px;\n}\n", ""]);
 
 // exports
 

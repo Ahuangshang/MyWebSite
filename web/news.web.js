@@ -65,7 +65,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 90);
+/******/ 	return __webpack_require__(__webpack_require__.s = 97);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -197,232 +197,239 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var modal = weex.requireModule('modal');
 module.exports = {
 
-    parseQueryString: function parseQueryString(str) {
-        if (str.indexOf('?') === -1 || str.indexOf('=') === -1) return null;
-        str = str.split("?")[1];
-        var reg = /(([^?&=]+)(?:=([^?&=]*))*)/g;
-        // let reg = /\s*([\w\-]+?)\s*=\s*([^;]*?)\s*(?:;|$)\s*/g;
-        var result = {};
-        var match = void 0;
-        var key = void 0;
-        var value = void 0;
-        while (match = reg.exec(str)) {
-            key = match[2];
-            if (key === 'hot-reload_controller' || key === '_wx_tpl') continue;
-            value = match[3] || '';
-            result[key] = decodeURIComponent(value);
-        }
-        return result;
-    },
-    toDateString: function toDateString(value) {
-        var date = void 0;
-        if (this.isNotNull(value)) {
-            date = new Date(value);
-        } else {
-            date = new Date();
-        }
-        var Y = date.getFullYear() + '-';
-        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-        var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
-        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
-        var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
-        var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
-        return Y + M + D + h + m + s;
-    },
-    toTimeSpan: function toTimeSpan() {
-        //let date = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
-        // 可以这样做
-        var date = new Date(strtime.replace(/-/g, '/'));
-        // 有三种方式获取，在后面会讲到三种方式的区别
-        // return date.getTime();
-        // return date.valueOf();
-        return Date.parse(date);
-
-        /*
-         三种获取的区别：
-         第一、第二种：会精确到毫秒
-         第三种：只能精确到秒，毫秒将用0来代替
-         比如上面代码输出的结果(一眼就能看出区别)：
-         1398250549123
-         1398250549123
-         1398250549000
-         */
-    },
-    compareDate: function compareDate(startDate, endDate) {
-        var d1 = new Date(startDate.replace(/-/g, "/"));
-        var d2 = new Date(endDate.replace(/-/g, "/"));
-
-        return !(startDate !== "" && endDate !== "" && d1 > d2);
-    },
-    isNotNull: function isNotNull(str) {
-        return str !== undefined && str !== "" && str != null;
-    },
-    //获取日期 传1代表当月第一天 传其他代表当前日期
-    getDate: function getDate(v) {
-        var now = new Date();
-        var year = now.getFullYear(); //年
-        var month = now.getMonth() + 1; //月
-        var day = now.getDate(); //日
-
-        /*let hh = now.getHours();            //时
-         let mm = now.getMinutes();          //分
-         let ss = now.getSeconds();*/
-        var clock = year + "-"; //加""的作用是转成字符串，不然会以整型计算
-
-        if (month < 10) clock += "" + "0";
-        clock += month + "-";
-
-        if (day < 10) clock += "" + "0";
-        clock += v === 1 ? '1' : day;
-
-        /*if(hh < 10)
-         clock += ""+"0";
-         clock += hh;
-           if (mm < 10)
-         clock += ""+"0";
-         clock += mm;
-           if (ss < 10)
-         clock += ""+"0";
-         clock += ss;*/
-        return clock;
-    },
-
-    /**
-     * 获取图片的高度
-     * @param url
-     * @param callback
-     * @returns {*}
-     */
-    checkPicurl: function checkPicurl(url, callback) {
-        var img = new Image();
-        img.src = url;
-        var ratio = 0;
-        var clientWidth = 750;
-        img.onerror = function () {
-            ratio = 0;
-            return callback(ratio);
-        };
-        if (img.complete) {
-            ratio = img.width / img.height;
-            return callback(ratio === 0 ? 0 : clientWidth / ratio);
-        } else {
-            img.onload = function () {
-                ratio = img.width / img.height;
-                img.onload = null; //避免重复加载
-                return callback(ratio === 0 ? 0 : clientWidth / ratio);
-            };
-        }
-    },
-    /**
-     *  适配不同情况下的字体大小
-     * @param size dp值的大小
-     * @returns {*} 适配后的值的大小
-     */
-    getFontSize: function getFontSize(size) {
-        if (this.isweb()) {
-            var clientWith = document.body.clientWidth;
-            if (weex.config.env.osName.toLocaleString() === "android") {
-                return 2 * size + 'px';
-            } else {
-                if (clientWith > 900) {
-                    return size * weex.config.env.scale + 'px';
-                } else if (clientWith > 750) {
-                    return 2 * size * weex.config.env.scale + 'px';
-                } else {
-                    return 4 * size * weex.config.env.scale + 'px';
-                }
-            }
-        } else {
-            var _clientWith = weex.config.env.deviceWidth;
-            var ratio = 750 / _clientWith;
-            var fontSize = size * ratio * weex.config.env.scale;
-            return fontSize.toFixed(0);
-        }
-    },
-    getMatchSize: function getMatchSize(size) {
-        if (this.isweb()) {
-            return size * weex.config.env.scale + 'px';
-        } else {
-            return size;
-        }
-    },
-    isweb: function isweb() {
-        return weex.config.env.platform.toLocaleLowerCase() === "web";
-    },
-    registerModules: function registerModules() {
-        if (this.isweb()) {
-            var _weex$registerModule;
-
-            weex.registerModule('event', (_weex$registerModule = {
-                openWeexView: function openWeexView(viewName, viewTitle) {
-                    if (weex.config.env.osName.toLowerCase() === "android") {
-                        ltwc.openWeexView(viewName, viewTitle);
-                    }
-                }
-            }, _defineProperty(_weex$registerModule, 'openWeexView', function openWeexView(viewName, title, shareUrl) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.openWeexView(viewName, title, shareUrl);
-                }
-            }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.openWebView(webUrl, title);
-                }
-            }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title, shareUrl) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.openWebView(webUrl, title, shareUrl);
-                }
-            }), _defineProperty(_weex$registerModule, 'openView', function openView(uri) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.openView(uri);
-                }
-            }), _defineProperty(_weex$registerModule, 'getFilePath', function getFilePath(name, type, callback) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    window.getFilePathCallback = callback;
-                    ltwc.getFilePath(name, type, callback);
-                }
-            }), _defineProperty(_weex$registerModule, 'showMessage', function showMessage(msg) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.showMessage(msg);
-                }
-            }), _defineProperty(_weex$registerModule, 'getVersion', function getVersion(callback) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    window.getVersionCallback = callback;
-                    ltwc.getVersion(callback);
-                }
-            }), _defineProperty(_weex$registerModule, 'update', function update(url) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.update(url);
-                }
-            }), _defineProperty(_weex$registerModule, 'setConfig', function setConfig(tabs, adImgUrl, adSchemeUrl) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.setConfig(tabs, adImgUrl, adSchemeUrl);
-                }
-            }), _defineProperty(_weex$registerModule, 'playVideo', function playVideo(url) {
-                if (weex.config.env.osName.toLowerCase() === "android") {
-                    ltwc.playVideo(url);
-                }
-            }), _weex$registerModule));
-            weex.registerModule('net', {
-                requestNetData: function requestNetData(methodType, url, api, jsonParams, showLoading, callback) {
-                    if (weex.config.env.osName.toLowerCase() === "android") {
-                        window.requestNetDataCallback = callback;
-                        ltwc.requestNetData(methodType, url, api, jsonParams, showLoading);
-                    }
-                }
-            });
-        }
+  parseQueryString: function parseQueryString(str) {
+    if (str.indexOf('?') === -1 || str.indexOf('=') === -1) return null;
+    str = str.split("?")[1];
+    var reg = /(([^?&=]+)(?:=([^?&=]*))*)/g;
+    // let reg = /\s*([\w\-]+?)\s*=\s*([^;]*?)\s*(?:;|$)\s*/g;
+    var result = {};
+    var match = void 0;
+    var key = void 0;
+    var value = void 0;
+    while (match = reg.exec(str)) {
+      key = match[2];
+      if (key === 'hot-reload_controller' || key === '_wx_tpl') continue;
+      value = match[3] || '';
+      result[key] = decodeURIComponent(value);
     }
+    return result;
+  },
+  toDateString: function toDateString(value) {
+    var date = void 0;
+    if (this.isNotNull(value)) {
+      date = new Date(value);
+    } else {
+      date = new Date();
+    }
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+    var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+    return Y + M + D + h + m + s;
+  },
+  toTimeSpan: function toTimeSpan() {
+    //let date = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
+    // 可以这样做
+    var date = new Date(strtime.replace(/-/g, '/'));
+    // 有三种方式获取，在后面会讲到三种方式的区别
+    // return date.getTime();
+    // return date.valueOf();
+    return Date.parse(date);
+
+    /*
+     三种获取的区别：
+     第一、第二种：会精确到毫秒
+     第三种：只能精确到秒，毫秒将用0来代替
+     比如上面代码输出的结果(一眼就能看出区别)：
+     1398250549123
+     1398250549123
+     1398250549000
+     */
+  },
+  compareDate: function compareDate(startDate, endDate) {
+    var d1 = new Date(startDate.replace(/-/g, "/"));
+    var d2 = new Date(endDate.replace(/-/g, "/"));
+
+    return !(startDate !== "" && endDate !== "" && d1 > d2);
+  },
+  isNotNull: function isNotNull(str) {
+    return str !== undefined && str !== "" && str != null;
+  },
+  //获取日期 传1代表当月第一天 传其他代表当前日期
+  getDate: function getDate(v) {
+    var now = new Date();
+    var year = now.getFullYear(); //年
+    var month = now.getMonth() + 1; //月
+    var day = now.getDate(); //日
+
+    /*let hh = now.getHours();            //时
+     let mm = now.getMinutes();          //分
+     let ss = now.getSeconds();*/
+    var clock = year + "-"; //加""的作用是转成字符串，不然会以整型计算
+
+    if (month < 10) clock += "" + "0";
+    clock += month + "-";
+
+    if (day < 10) clock += "" + "0";
+    clock += v === 1 ? '1' : day;
+
+    /*if(hh < 10)
+     clock += ""+"0";
+     clock += hh;
+       if (mm < 10)
+     clock += ""+"0";
+     clock += mm;
+       if (ss < 10)
+     clock += ""+"0";
+     clock += ss;*/
+    return clock;
+  },
+
+  /**
+   * 获取图片的高度
+   * @param url
+   * @param callback
+   * @returns {*}
+   */
+  checkPicurl: function checkPicurl(url, callback) {
+    var img = new Image();
+    img.src = url;
+    var ratio = 0;
+    var clientWidth = 750;
+    img.onerror = function () {
+      ratio = 0;
+      return callback(ratio);
+    };
+    if (img.complete) {
+      ratio = img.width / img.height;
+      return callback(ratio === 0 ? 0 : clientWidth / ratio);
+    } else {
+      img.onload = function () {
+        ratio = img.width / img.height;
+        img.onload = null; //避免重复加载
+        return callback(ratio === 0 ? 0 : clientWidth / ratio);
+      };
+    }
+  },
+  /**
+   *  适配不同情况下的字体大小
+   * @param size dp值的大小
+   * @returns {*} 适配后的值的大小
+   */
+  getFontSize: function getFontSize(size) {
+    if (this.isweb()) {
+      var clientWith = document.body.clientWidth;
+      if (weex.config.env.osName.toLocaleString() === "android") {
+        return 2 * size + 'px';
+      } else {
+        if (clientWith > 900) {
+          return size * weex.config.env.scale + 'px';
+        } else if (clientWith > 750) {
+          return 2 * size * weex.config.env.scale + 'px';
+        } else {
+          return 4 * size * weex.config.env.scale + 'px';
+        }
+      }
+    } else {
+      var _clientWith = weex.config.env.deviceWidth;
+      var ratio = 750 / _clientWith;
+      var fontSize = size * ratio * weex.config.env.scale;
+      return fontSize.toFixed(0);
+    }
+  },
+  getMatchSize: function getMatchSize(size) {
+    if (this.isweb()) {
+      return size * weex.config.env.scale + 'px';
+    } else {
+      return size;
+    }
+  },
+  delHtmlTag: function delHtmlTag(str) {
+    return str.replace(/<[^>]+>/g, "").replace(/&quot;/g, "\"").replace(/&lt;/g, '<').replace(/&gt;/g, '>'); //去掉所有的html标记
+  },
+  isweb: function isweb() {
+    return weex.config.env.platform.toLocaleLowerCase() === "web";
+  },
+  is_weixn: function is_weixn() {
+    var ua = navigator.userAgent.toLowerCase();
+    return ua.match(/MicroMessenger/i) == "micromessenger";
+  },
+  registerModules: function registerModules() {
+    if (this.isweb()) {
+      var _weex$registerModule;
+
+      weex.registerModule('event', (_weex$registerModule = {
+        openWeexView: function openWeexView(viewName, viewTitle) {
+          if (weex.config.env.osName.toLowerCase() === "android") {
+            ltwc.openWeexView(viewName, viewTitle);
+          }
+        }
+      }, _defineProperty(_weex$registerModule, 'openWeexView', function openWeexView(viewName, title, shareUrl) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.openWeexView(viewName, title, shareUrl);
+        }
+      }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.openWebView(webUrl, title);
+        }
+      }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title, shareUrl) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.openWebView(webUrl, title, shareUrl);
+        }
+      }), _defineProperty(_weex$registerModule, 'openView', function openView(uri) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.openView(uri);
+        }
+      }), _defineProperty(_weex$registerModule, 'getFilePath', function getFilePath(name, type, callback) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          window.getFilePathCallback = callback;
+          ltwc.getFilePath(name, type, callback);
+        }
+      }), _defineProperty(_weex$registerModule, 'showMessage', function showMessage(msg) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.showMessage(msg);
+        }
+      }), _defineProperty(_weex$registerModule, 'getVersion', function getVersion(callback) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          window.getVersionCallback = callback;
+          ltwc.getVersion(callback);
+        }
+      }), _defineProperty(_weex$registerModule, 'update', function update(url) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.update(url);
+        }
+      }), _defineProperty(_weex$registerModule, 'setConfig', function setConfig(tabs, adImgUrl, adSchemeUrl) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.setConfig(tabs, adImgUrl, adSchemeUrl);
+        }
+      }), _defineProperty(_weex$registerModule, 'playVideo', function playVideo(url, datas, position) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.playVideo(url, datas, position);
+        }
+      }), _weex$registerModule));
+      weex.registerModule('net', {
+        requestNetData: function requestNetData(methodType, url, api, jsonParams, showLoading, callback) {
+          if (weex.config.env.osName.toLowerCase() === "android") {
+            window.requestNetDataCallback = callback;
+            ltwc.requestNetData(methodType, url, api, jsonParams, showLoading);
+          }
+        }
+      });
+    }
+  }
 };
 if (module.exports.isweb()) {
-    window.getReturnData = function (type, data) {
-        if (type === "getFilePath") {
-            window.getFilePathCallback(data);
-        } else if (type === "requestNetData") {
-            window.requestNetDataCallback(data);
-        } else if (type === "getVersion") {
-            window.getVersionCallback(data);
-        }
-    };
+  window.getReturnData = function (type, data) {
+    if (type === "getFilePath") {
+      window.getFilePathCallback(data);
+    } else if (type === "requestNetData") {
+      window.requestNetDataCallback(data);
+    } else if (type === "getVersion") {
+      window.getVersionCallback(data);
+    }
+  };
 }
 
 /***/ }),
@@ -736,7 +743,13 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 6 */
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1048,115 +1061,121 @@ const Utils = {
 
 
 /***/ }),
-/* 7 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 /**
  * Created by Tw93 on 2016/11/4.
  */
 
 exports.default = {
-    channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-    adImgUrl: 'http://imengu.cn/Ahuangshang/img/newYear.jpg', //图片尺寸1080*1800
-    adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=springFestival&ltkj&webTitle=春节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/springFestival.html',
-    newVersion: 313301,
-    updateUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
-    HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
-    defaultHost: 'http://imengu.cn/',
-    getContent: function getContent(e) {
-        var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{max-width: 100%; width:auto; height:auto;}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
-        var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
-        var result = "<html>" + head + style + "<body>" + e + "</body></html>";
-        result = encodeURI(result);
-        return result;
-    },
-    getWeatherTypeImg: function getWeatherTypeImg(currentType) {
-        if (this.contains(currentType, '晴')) {
-            return 'qing.jpg';
-        } else if (this.contains(currentType, '阴')) {
-            return 'yin.jpg';
-        } else if (this.contains(currentType, '多云')) {
-            return 'duoyun.gif';
-        } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
-            return 'xiaoyu.gif';
-        } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
-            return 'dayu.gif';
-        } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
-            return 'xiaoxue.gif';
-        } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
-            return 'daxue.gif';
-        } else if (this.contains(currentType, '雪')) {
-            return 'xiaoxue.gif';
-        } else if (this.contains(currentType, '雨')) {
-            return 'xiaoyu.gif';
-        }
-    },
-
-    contains: function contains(str, s) {
-        return str.indexOf(s) > -1;
-    },
-    getWeatherDec: function getWeatherDec(high, low) {
-        var nhigh = high.replace("高温", "");
-        nhigh = nhigh.replace('℃', '');
-        var nlow = low.replace('低温', '');
-        return nhigh + " ~" + nlow;
-    },
-    newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
-    newsTabStyles: {
-        bgColor: '#ffffff',
-        titleColor: '#dd000000',
-        activeTitleColor: '#31A9A5',
-        activeBgColor: '#ffffff',
-        isActiveTitleBold: true,
-        iconWidth: 70,
-        iconHeight: 70,
-        width: 160,
-        height: 75,
-        fontSize: 28,
-        hasActiveBottom: true,
-        activeBottomColor: '#31A9A5',
-        activeBottomHeight: 1,
-        activeBottomWidth: 160,
-        textPaddingLeft: 10,
-        textPaddingRight: 10,
-        normalBottomColor: 'rgba(0,0,0,0.4)',
-        normalBottomHeight: 1,
-        hasRightIcon: true,
-        rightOffset: 100
-    },
-    jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
-    jokeTabStyles: {
-        bgColor: '#ffffff',
-        titleColor: '#dd000000',
-        activeTitleColor: '#31A9A5',
-        activeBgColor: '#ffffff',
-        isActiveTitleBold: true,
-        iconWidth: 70,
-        iconHeight: 70,
-        width: 250,
-        height: 75,
-        fontSize: 28,
-        hasActiveBottom: true,
-        activeBottomColor: '#31A9A5',
-        activeBottomHeight: 1,
-        activeBottomWidth: 250,
-        textPaddingLeft: 10,
-        textPaddingRight: 10,
-        normalBottomColor: 'rgba(0,0,0,0.4)',
-        normalBottomHeight: 1,
-        hasRightIcon: true,
-        rightOffset: 100
+  channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
+  adImgUrl: 'http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
+  adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
+  newVersion: 318318,
+  updateUrl: 'http://imengu.cn/Ahuangshang/html/downLoadApp.html',
+  downLoadUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
+  HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
+  defaultHost: 'http://imengu.cn/',
+  getContent: function getContent(e) {
+    var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
+    var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
+    var result = "\n" + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + "<html>" + head + style + "<body>" + this.getButtonInfo(e) + "</body></html>";
+    result = encodeURI(result);
+    return result;
+  },
+  getButtonInfo: function getButtonInfo(e) {
+    var content = e.content.replace(/(<\/?a.*?>)/g, '');
+    var title = e.title;
+    return "<h2>" + title + "</h2>" + content + "<p style='color: #88000000;font-size: 13px'>&nbsp;&nbsp;本文系第三方观点，不代表李唐科技的观点和立场</p><p  onClick='linkThird()' style='color: #33B5E5;font-size: 13px'>&nbsp;&nbsp;原文链接>></p><script>function linkThird() {ltwc.linkThird();}</script>";
+  },
+  getWeatherTypeImg: function getWeatherTypeImg(currentType) {
+    if (this.contains(currentType, '晴')) {
+      return 'qing.jpg';
+    } else if (this.contains(currentType, '阴')) {
+      return 'yin.jpg';
+    } else if (this.contains(currentType, '多云')) {
+      return 'duoyun.gif';
+    } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
+      return 'xiaoyu.gif';
+    } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
+      return 'dayu.gif';
+    } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
+      return 'daxue.gif';
+    } else if (this.contains(currentType, '雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '雨')) {
+      return 'xiaoyu.gif';
     }
+  },
+
+  contains: function contains(str, s) {
+    return str.indexOf(s) > -1;
+  },
+  getWeatherDec: function getWeatherDec(high, low) {
+    var nhigh = high.replace("高温", "");
+    nhigh = nhigh.replace('℃', '');
+    var nlow = low.replace('低温', '');
+    return nhigh + " ~" + nlow;
+  },
+  newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
+  newsTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 160,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 160,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  },
+  jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
+  jokeTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 250,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 250,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  }
 };
 
 /***/ }),
-/* 8 */
+/* 14 */
 /***/ (function(module, exports) {
 
 var g;
@@ -1183,12 +1202,6 @@ module.exports = g;
 
 
 /***/ }),
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
 /* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1992,7 +2005,7 @@ module.exports = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_weex_bindingx_lib_index_weex_js__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_weex_bindingx_lib_index_weex_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_weex_bindingx_lib_index_weex_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(12);
 /**
  * CopyRight (C) 2017-2022 Alibaba Group Holding Limited.
  * Created by Tw93 on 18/03/22
@@ -2040,7 +2053,7 @@ var _type = __webpack_require__(26);
 
 var _type2 = _interopRequireDefault(_type);
 
-var _utils = __webpack_require__(6);
+var _utils = __webpack_require__(12);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -2774,7 +2787,7 @@ Url.qs = qs;
 
 module.exports = Url;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(14)))
 
 /***/ }),
 /* 22 */
@@ -2970,7 +2983,7 @@ var _indexWeex = __webpack_require__(15);
 
 var _indexWeex2 = _interopRequireDefault(_indexWeex);
 
-var _utils = __webpack_require__(6);
+var _utils = __webpack_require__(12);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -3071,7 +3084,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _utils = __webpack_require__(6);
+var _utils = __webpack_require__(12);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -4063,19 +4076,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* 59 */,
 /* 60 */,
 /* 61 */,
-/* 62 */
+/* 62 */,
+/* 63 */,
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(120)
+  __webpack_require__(134)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(76),
+  __webpack_require__(81),
   /* template */
-  __webpack_require__(107),
+  __webpack_require__(118),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -4107,8 +4122,6 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 63 */,
-/* 64 */,
 /* 65 */,
 /* 66 */,
 /* 67 */,
@@ -4120,14 +4133,19 @@ module.exports = Component.exports
 /* 73 */,
 /* 74 */,
 /* 75 */,
-/* 76 */
+/* 76 */,
+/* 77 */,
+/* 78 */,
+/* 79 */,
+/* 80 */,
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _bindEnv = __webpack_require__(52);
@@ -4150,7 +4168,7 @@ var _methods = __webpack_require__(2);
 
 var _methods2 = _interopRequireDefault(_methods);
 
-var _config = __webpack_require__(7);
+var _config = __webpack_require__(13);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -4205,158 +4223,156 @@ var modal = weex.requireModule('modal');
 //
 
 exports.default = {
-    components: {
-        WxcTabPage: _wxcTabPage2.default, WxcResult: _wxcResult2.default, WxcPanItem: _wxcPanItem2.default,
-        pullrefreshListview: __webpack_require__(41)
+  components: {
+    WxcTabPage: _wxcTabPage2.default, WxcResult: _wxcResult2.default, WxcPanItem: _wxcPanItem2.default,
+    pullrefreshListview: __webpack_require__(41)
+  },
+  data: function data() {
+    return {
+      tabTitles: _config2.default.newsTabTitles,
+      tabStyles: _config2.default.newsTabStyles
+    };
+  },
+  props: {
+    show: {
+      default: false
     },
-    data: function data() {
-        return {
-            tabTitles: _config2.default.newsTabTitles,
-            tabStyles: _config2.default.newsTabStyles
-        };
+    type: {
+      default: 'errorPage'
     },
-    props: {
-        show: {
-            default: false
-        },
-        type: {
-            default: 'errorPage'
-        },
-        // customSet:{
-        //       errorPage: {
-        //         button: '立即反馈',
-        //         content: '亲，出错了',
-        //         pic: 'https://gw.alicdn.com/tfs/TB1lgzNfBHH8KJjy0FbXXcqlpXa-320-320.png'
-        //       }
-        // },
-        pageSize: {
-            default: 10
-        },
-        list: {
-            default: function _default() {
-                function getList() {
-                    var temp = [[]];
-                    for (var i = 0; i < _config2.default.newsTabTitles.length; i++) {
-                        temp[i] = [];
-                    }
-                    return temp;
-                }
-
-                return getList();
-            }
-        },
-        params: {
-            default: function _default() {
-                return {};
-            }
-        },
-        loadImg: {
-            default: null
-        },
-        channel: {
-            default: ''
+    // customSet:{
+    //       errorPage: {
+    //         button: '立即反馈',
+    //         content: '亲，出错了',
+    //         pic: 'https://gw.alicdn.com/tfs/TB1lgzNfBHH8KJjy0FbXXcqlpXa-320-320.png'
+    //       }
+    // },
+    pageSize: {
+      default: 10
+    },
+    list: {
+      default: function _default() {
+        function getList() {
+          var temp = [[]];
+          for (var i = 0; i < _config2.default.newsTabTitles.length; i++) {
+            temp[i] = [];
+          }
+          return temp;
         }
-    },
-    created: function created() {
-        var _this = this;
 
-        if (_methods2.default.isweb()) {
-            window.temp_this = this;
-            _methods2.default.registerModules();
-        }
-        weex.requireModule('event').setConfig(_config2.default.adImgUrl, _config2.default.adImgSchemeUrl);
-        weex.requireModule('event').getFilePath('load_failed', 'png', function (url) {
-            _this.loadImg = url;
-        });
+        return getList();
+      }
     },
-    methods: {
-        rootclass: function rootclass() {
-            return _methods2.default.isweb() ? "rootWeb" : "root";
-        },
-        font: function font(size) {
-            return _methods2.default.getFontSize(size);
-        },
-        getData: function getData(iaLoadMore, showLoading, length, callback) {
-            var that = this;
-            if (_methods2.default.isweb()) {
-                this.pageSize = 20;
-            }
-            this.params = {
-                channel: this.channel,
-                num: this.pageSize,
-                start: length * this.pageSize,
-                appkey: '66d9a1e50f17e306c18fa3c3cfa01228'
-            };
-            weex.requireModule('net').requestNetData('get', 'https://way.jd.com/jisuapi/get/', '', JSON.stringify(this.params), showLoading, function (ret) {
-                that.dealData(ret, callback);
-            });
-        },
-        dealData: function dealData(ret, callback) {
-            if (ret != null) {
-                var result = JSON.parse(ret).result;
-                if (result != null) {
-                    var result2 = result.result;
-                    if (result2 != null) {
-                        var list = result2.list;
-                        callback(list);
-                    } else {
-                        callback(null);
-                    }
-                } else {
-                    callback(null);
-                }
-            } else {
-                callback(null);
-            }
-        },
-        resultButtonClick: function resultButtonClick(e) {
-            this.getDataAgain(e);
-        },
-
-        getDataAgain: function getDataAgain(index) {
-            var that = this;
-            if (that.list[index] === 'undefined' || that.list[index].length === 0) {
-                this.getData(false, true, 0, function (res) {
-                    if (_methods2.default.isNotNull(res)) {
-                        that.show = false;
-                        that.list[index].splice(0, that.list.length[index]);
-                        res.map(function (item) {
-                            that.list[index].push(item);
-                        });
-                    } else {
-                        that.show = true;
-                    }
-                });
-            }
-        },
-        wxcTabPageCurrentTabSelected: function wxcTabPageCurrentTabSelected(e) {
-            var self = this;
-            var index = e.page;
-            this.channel = this.tabTitles[index].title;
-            this.getDataAgain(index);
-        },
-
-        itemClick: function itemClick(e) {
-            weex.requireModule('event').openView('className=cn.ltwc.cft.activity.NewsDetailActivity&ltkj&title=资讯详情&ltkj&content=' + _config2.default.getContent(e.content) + '&ltkj&webUrl=' + e.weburl + '&ltkj&imgUrl=' + e.pic + '&ltkj&shareUrl=' + e.url + '&ltkj&shareDec=' + e.title);
-        },
-        //该方法压根没有触发，不知道为什么
-        wxcPanItemPan: function wxcPanItemPan(e) {
-            if (_bindEnv2.default.supportsEBForAndroid()) {
-                this.$refs['wxc-tab-page'].bindExp(e.element);
-            }
-        }
+    params: {
+      default: function _default() {
+        return {};
+      }
     },
-    mounted: function mounted() {
-        this.getDataAgain(0);
+    loadImg: {
+      default: null
+    },
+    channel: {
+      default: ''
     }
+  },
+  created: function created() {
+    var _this = this;
+
+    if (_methods2.default.isweb()) {
+      window.temp_this = this;
+      _methods2.default.registerModules();
+    }
+    weex.requireModule('event').setConfig(_config2.default.adImgUrl, _config2.default.adImgSchemeUrl);
+    weex.requireModule('event').getFilePath('load_failed', 'png', function (url) {
+      _this.loadImg = url;
+    });
+  },
+  methods: {
+    rootclass: function rootclass() {
+      return _methods2.default.isweb() ? "rootWeb" : "root";
+    },
+    font: function font(size) {
+      return _methods2.default.getFontSize(size);
+    },
+    getData: function getData(iaLoadMore, showLoading, length, callback) {
+      var that = this;
+      if (_methods2.default.isweb()) {
+        this.pageSize = 20;
+      }
+      this.params = {
+        channel: this.channel,
+        num: this.pageSize,
+        start: length * this.pageSize,
+        appkey: '66d9a1e50f17e306c18fa3c3cfa01228'
+      };
+      weex.requireModule('net').requestNetData('get', 'https://way.jd.com/jisuapi/get/', '', JSON.stringify(this.params), showLoading, function (ret) {
+        that.dealData(ret, callback);
+      });
+    },
+    dealData: function dealData(ret, callback) {
+      if (ret != null) {
+        var result = JSON.parse(ret).result;
+        if (result != null) {
+          var result2 = result.result;
+          if (result2 != null) {
+            var list = result2.list;
+            callback(list);
+          } else {
+            callback(null);
+          }
+        } else {
+          callback(null);
+        }
+      } else {
+        callback(null);
+      }
+    },
+    resultButtonClick: function resultButtonClick(e) {
+      this.getDataAgain(e);
+    },
+
+    getDataAgain: function getDataAgain(index) {
+      var that = this;
+      if (that.list[index] === 'undefined' || that.list[index].length === 0) {
+        this.getData(false, true, 0, function (res) {
+          if (_methods2.default.isNotNull(res)) {
+            that.show = false;
+            that.list[index].splice(0, that.list.length[index]);
+            res.map(function (item) {
+              that.list[index].push(item);
+            });
+          } else {
+            that.show = true;
+          }
+        });
+      }
+    },
+    wxcTabPageCurrentTabSelected: function wxcTabPageCurrentTabSelected(e) {
+      var self = this;
+      var index = e.page;
+      this.channel = this.tabTitles[index].title;
+      this.getDataAgain(index);
+    },
+
+    itemClick: function itemClick(e) {
+      weex.requireModule('event').openView('className=cn.ltwc.cft.activity.NewsDetailActivity&ltkj&title=资讯详情&ltkj&content=' + _config2.default.getContent(e) + '&ltkj&webUrl=' + e.url + '&ltkj&imgUrl=' + e.pic + '&ltkj&shareUrl=' + e.url + '&ltkj&shareDec=' + e.title);
+    },
+    //该方法压根没有触发，不知道为什么
+    wxcPanItemPan: function wxcPanItemPan(e) {
+      if (_bindEnv2.default.supportsEBForAndroid()) {
+        this.$refs['wxc-tab-page'].bindExp(e.element);
+      }
+    },
+    dealMsg: function dealMsg(str) {
+      return _methods2.default.delHtmlTag(str);
+    }
+  },
+  mounted: function mounted() {
+    this.getDataAgain(0);
+  }
 };
 
 /***/ }),
-/* 77 */,
-/* 78 */,
-/* 79 */,
-/* 80 */,
-/* 81 */,
 /* 82 */,
 /* 83 */,
 /* 84 */,
@@ -4365,13 +4381,20 @@ exports.default = {
 /* 87 */,
 /* 88 */,
 /* 89 */,
-/* 90 */
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _news = __webpack_require__(62);
+var _news = __webpack_require__(64);
 
 var _news2 = _interopRequireDefault(_news);
 
@@ -4387,14 +4410,14 @@ _news2.default.el = '#root';
 new Vue(_news2.default);
 
 /***/ }),
-/* 91 */,
-/* 92 */,
-/* 93 */,
-/* 94 */,
-/* 95 */,
-/* 96 */,
-/* 97 */,
-/* 98 */
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -4402,21 +4425,25 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "\n.slider-item[data-v-08111870] {\n    width: 750px;\n    justify-content: center;\n    align-items: center;\n}\n.root[data-v-08111870] {\n}\n.rootWeb[data-v-08111870] {\n    position: absolute;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    right: 0\n}\n.title[data-v-08111870] {\n    padding-top: 40px;\n    padding-bottom: 40px;\n    padding-left: 15px;\n    padding-right: 15px;\n    lines: 2;\n    max-lines: 2;\n    text-overflow: ellipsis;\n    justify-content: center;\n    justify-items: center;\n    color: rgb(11, 11, 11);\n}\n.cell[data-v-08111870] {\n    width: 750px;\n    border-bottom-width: 1px;\n    border-top-width: 0px;\n    border-color: rgb(229, 229, 229);\n    background-color: rgb(255, 255, 255);\n    justify-items: center;\n}\n.item[data-v-08111870] {\n    background-color: rgb(255, 255, 255);\n}\n.item[data-v-08111870]:active {\n    background-color: rgb(240, 240, 240);\n}\n.empty_view[data-v-08111870] {\n    width: 750px;\n    height: 1300px;\n}\n", ""]);
+exports.push([module.i, "\n.slider-item[data-v-08111870] {\n  width: 750px;\n  justify-content: center;\n  align-items: center;\n}\n.root[data-v-08111870] {\n}\n.rootWeb[data-v-08111870] {\n  position: absolute;\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0\n}\n.title[data-v-08111870] {\n  padding-top: 40px;\n  padding-bottom: 40px;\n  padding-left: 15px;\n  padding-right: 15px;\n  lines: 2;\n  max-lines: 2;\n  text-overflow: ellipsis;\n  justify-content: center;\n  justify-items: center;\n  color: rgb(11, 11, 11);\n}\n.cell[data-v-08111870] {\n  width: 750px;\n  border-bottom-width: 1px;\n  border-top-width: 0px;\n  border-color: rgb(229, 229, 229);\n  background-color: rgb(255, 255, 255);\n  justify-items: center;\n}\n.item[data-v-08111870] {\n  background-color: rgb(255, 255, 255);\n}\n.item[data-v-08111870]:active {\n  background-color: rgb(240, 240, 240);\n}\n.empty_view[data-v-08111870] {\n  width: 750px;\n  height: 1300px;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 99 */,
-/* 100 */,
-/* 101 */,
-/* 102 */,
-/* 103 */,
-/* 104 */,
-/* 105 */,
 /* 106 */,
-/* 107 */
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -4503,7 +4530,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               fontSize: _vm.font(18)
             })),
             attrs: {
-              "value": props.item.title
+              "value": _vm.dealMsg(props.item.title)
             }
           }), _vm._v(" "), _c('image', {
             staticStyle: _vm.$processStyle({
@@ -4535,7 +4562,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
               fontSize: _vm.font(18)
             })),
             attrs: {
-              "value": props.item.title
+              "value": _vm.dealMsg(props.item.title)
             }
           })])])], 1)
         }
@@ -4552,25 +4579,28 @@ if (false) {
 }
 
 /***/ }),
-/* 108 */,
-/* 109 */,
-/* 110 */,
-/* 111 */,
-/* 112 */,
-/* 113 */,
-/* 114 */,
-/* 115 */,
-/* 116 */,
-/* 117 */,
-/* 118 */,
 /* 119 */,
-/* 120 */
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */,
+/* 128 */,
+/* 129 */,
+/* 130 */,
+/* 131 */,
+/* 132 */,
+/* 133 */,
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(98);
+var content = __webpack_require__(105);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM

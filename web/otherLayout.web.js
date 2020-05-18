@@ -65,7 +65,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 91);
+/******/ 	return __webpack_require__(__webpack_require__.s = 98);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -189,7 +189,47 @@ exports.default = mixins;
 
 /***/ }),
 
-/***/ 102:
+/***/ 10:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "div",
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      width: _vm.imgw,
+      height: _vm.getImgHeight(_vm.imgh),
+      backgroundColor: _vm.bgColor
+    })),
+    on: {
+      "click": _vm.onClick
+    }
+  }, [_c('image', {
+    staticClass: "icon",
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      width: _vm.imgw,
+      height: _vm.getImgHeight(_vm.imgh),
+      marginLeft: _vm.padding_left,
+      marginRight: _vm.padding_right
+    })),
+    attrs: {
+      "resize": _vm.resize,
+      "src": _vm.getSrc(_vm.imgUrl)
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7203603b", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 106:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -197,24 +237,413 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n.ssq[data-v-1321d8e3] {\n    border-radius: 25px;\n    width: 50px;\n    height: 50px;\n    justify-content: center;\n    align-items: center;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 113:
+/***/ 11:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(9);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("9aa8cbfa", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7203603b\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7203603b\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 111:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+// imports
+
+
+// module
+exports.push([module.i, "\n.moreLottery[data-v-70e323cd] {\n  flex-direction: row;\n  align-items: center\n}\n.moreLottery[data-v-70e323cd]:active {\n  flex-direction: row;\n  align-items: center;\n  background-color: rgb(240, 240, 240);\n}\n.ssq[data-v-70e323cd] {\n}\n.ssq[data-v-70e323cd]:active {\n  background-color: rgb(240, 240, 240);\n}\n.left_and_right_sides_layout[data-v-70e323cd] {\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 116:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(135)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(72),
+  /* template */
+  __webpack_require__(120),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-1321d8e3",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\customview\\lottery-item.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] lottery-item.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1321d8e3", Component.options)
+  } else {
+    hotAPI.reload("data-v-1321d8e3", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 120:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('text', {
+  return _c('div', {
+    staticClass: "ssq",
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      width: _vm.font(_vm.w),
+      height: _vm.font(_vm.w),
+      borderRadius: _vm.font(_vm.w / 2),
+      backgroundColor: _vm.bg
+    }))
+  }, [_c('text', {
+    staticStyle: _vm.$processStyle({
+      "color": "white"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(14)
+    })),
+    attrs: {
+      "value": _vm.value
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-1321d8e3", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 126:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [(_vm.showLottery) ? _c('div', {
+    staticStyle: _vm.$processStyle({
+      "background-color": "white"
+    }),
+    style: (_vm.$processStyle(undefined))
+  }, [_c('div', {
+    staticClass: "left_and_right_sides_layout",
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle(undefined))
+  }, [_c('text', {
+    staticStyle: _vm.$processStyle({
+      "color": "black"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(16),
+      marginLeft: _vm.font(17),
+      paddingTop: _vm.font(9),
+      paddingBottom: _vm.font(9)
+    })),
+    attrs: {
+      "value": "彩票开奖"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "moreLottery",
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      paddingTop: _vm.font(9),
+      paddingBottom: _vm.font(9),
+      paddingLeft: _vm.font(7)
+    })),
+    on: {
+      "click": function($event) {
+        _vm.moreLotteryClick()
+      }
+    }
+  }, [_c('text', {
+    staticStyle: _vm.$processStyle({
+      "color": "rgba(0,0,0,0.5)"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(15)
+    })),
+    attrs: {
+      "value": "更多开奖"
+    }
+  }), _vm._v(" "), _c('icon-img', {
     staticStyle: _vm.$processStyle(undefined),
     style: (_vm.$processStyle(undefined)),
     attrs: {
-      "value": "我加载出来了"
+      "imgUrl": "jiantou.png",
+      "imgw": "50"
     }
-  })])
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticStyle: _vm.$processStyle({
+      "background-color": "rgba(0,0,0,0.2)",
+      "height": "0.5px"
+    }),
+    style: (_vm.$processStyle(undefined))
+  }), _vm._v(" "), _c('div', {
+    staticClass: "ssq",
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      padding: _vm.font(17)
+    })),
+    on: {
+      "click": function($event) {
+        _vm.ssqClick()
+      }
+    }
+  }, [_c('div', {
+    staticStyle: _vm.$processStyle({
+      "flex-direction": "row"
+    }),
+    style: (_vm.$processStyle(undefined))
+  }, [_c('text', {
+    staticStyle: _vm.$processStyle({
+      "color": "rgba(0,0,0,0.8)"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(14)
+    })),
+    attrs: {
+      "value": "双色球"
+    }
+  }), _vm._v(" "), _c('text', {
+    staticStyle: _vm.$processStyle({
+      "color": "rgba(0,0,0,0.5)"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(14),
+      marginLeft: _vm.font(3)
+    })),
+    attrs: {
+      "value": _vm.qh
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticStyle: _vm.$processStyle({
+      "flex-direction": "row"
+    }),
+    style: (_vm.$processStyle({
+      marginTop: _vm.font(7)
+    }))
+  }, [_c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle(undefined)),
+    attrs: {
+      "value": _vm.red1
+    }
+  }), _vm._v(" "), _c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      marginLeft: _vm.font(6)
+    })),
+    attrs: {
+      "value": _vm.red2
+    }
+  }), _vm._v(" "), _c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      marginLeft: _vm.font(6)
+    })),
+    attrs: {
+      "value": _vm.red3
+    }
+  }), _vm._v(" "), _c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      marginLeft: _vm.font(6)
+    })),
+    attrs: {
+      "value": _vm.red4
+    }
+  }), _vm._v(" "), _c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      marginLeft: _vm.font(6)
+    })),
+    attrs: {
+      "value": _vm.red5
+    }
+  }), _vm._v(" "), _c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      marginLeft: _vm.font(6)
+    })),
+    attrs: {
+      "value": _vm.red6
+    }
+  }), _vm._v(" "), _c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      marginLeft: _vm.font(6)
+    })),
+    attrs: {
+      "value": _vm.blue,
+      "bg": "#37a1ff"
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticStyle: _vm.$processStyle({
+      "background-color": "rgba(0,0,0,0.2)",
+      "height": "0.5px"
+    }),
+    style: (_vm.$processStyle(undefined))
+  }), _vm._v(" "), _c('div', {
+    staticClass: "ssq",
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      padding: _vm.font(17)
+    })),
+    on: {
+      "click": function($event) {
+        _vm.dltClick()
+      }
+    }
+  }, [_c('div', {
+    staticStyle: _vm.$processStyle({
+      "flex-direction": "row"
+    }),
+    style: (_vm.$processStyle(undefined))
+  }, [_c('text', {
+    staticStyle: _vm.$processStyle({
+      "color": "rgba(0,0,0,0.8)"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(14)
+    })),
+    attrs: {
+      "value": "大乐透"
+    }
+  }), _vm._v(" "), _c('text', {
+    staticStyle: _vm.$processStyle({
+      "color": "rgba(0,0,0,0.5)"
+    }),
+    style: (_vm.$processStyle({
+      fontSize: _vm.font(14),
+      marginLeft: _vm.font(3)
+    })),
+    attrs: {
+      "value": _vm.dltqh
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticStyle: _vm.$processStyle({
+      "flex-direction": "row"
+    }),
+    style: (_vm.$processStyle({
+      marginTop: _vm.font(7)
+    }))
+  }, [_c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle(undefined)),
+    attrs: {
+      "value": _vm.dred1,
+      "bg": "#ed8431"
+    }
+  }), _vm._v(" "), _c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      marginLeft: _vm.font(6)
+    })),
+    attrs: {
+      "value": _vm.dred2,
+      "bg": "#ed8431"
+    }
+  }), _vm._v(" "), _c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      marginLeft: _vm.font(6)
+    })),
+    attrs: {
+      "value": _vm.dred3,
+      "bg": "#ed8431"
+    }
+  }), _vm._v(" "), _c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      marginLeft: _vm.font(6)
+    })),
+    attrs: {
+      "value": _vm.dred4,
+      "bg": "#ed8431"
+    }
+  }), _vm._v(" "), _c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      marginLeft: _vm.font(6)
+    })),
+    attrs: {
+      "value": _vm.dred5,
+      "bg": "#ed8431"
+    }
+  }), _vm._v(" "), _c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      marginLeft: _vm.font(6)
+    })),
+    attrs: {
+      "value": _vm.dblue1,
+      "bg": "#696bc9"
+    }
+  }), _vm._v(" "), _c('lotteryItem', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      marginLeft: _vm.font(6)
+    })),
+    attrs: {
+      "value": _vm.dblue2,
+      "bg": "#696bc9"
+    }
+  })], 1)])]) : _vm._e(), _vm._v(" "), (_vm.showLottery) ? _c('div', {
+    staticStyle: _vm.$processStyle(undefined),
+    style: (_vm.$processStyle({
+      height: _vm.font(12)
+    }))
+  }) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -226,13 +655,40 @@ if (false) {
 
 /***/ }),
 
-/***/ 124:
+/***/ 135:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(102);
+var content = __webpack_require__(106);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("67a29897", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1321d8e3\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./lottery-item.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-1321d8e3\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./lottery-item.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 140:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(111);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -249,6 +705,254 @@ if(false) {
  }
  // When the module is disposed, remove the <style> tags
  module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var modal = weex.requireModule('modal');
+module.exports = {
+
+  parseQueryString: function parseQueryString(str) {
+    if (str.indexOf('?') === -1 || str.indexOf('=') === -1) return null;
+    str = str.split("?")[1];
+    var reg = /(([^?&=]+)(?:=([^?&=]*))*)/g;
+    // let reg = /\s*([\w\-]+?)\s*=\s*([^;]*?)\s*(?:;|$)\s*/g;
+    var result = {};
+    var match = void 0;
+    var key = void 0;
+    var value = void 0;
+    while (match = reg.exec(str)) {
+      key = match[2];
+      if (key === 'hot-reload_controller' || key === '_wx_tpl') continue;
+      value = match[3] || '';
+      result[key] = decodeURIComponent(value);
+    }
+    return result;
+  },
+  toDateString: function toDateString(value) {
+    var date = void 0;
+    if (this.isNotNull(value)) {
+      date = new Date(value);
+    } else {
+      date = new Date();
+    }
+    var Y = date.getFullYear() + '-';
+    var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+    var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+    var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+    var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+    var s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+    return Y + M + D + h + m + s;
+  },
+  toTimeSpan: function toTimeSpan() {
+    //let date = new Date(strtime); //传入一个时间格式，如果不传入就是获取现在的时间了，这样做不兼容火狐。
+    // 可以这样做
+    var date = new Date(strtime.replace(/-/g, '/'));
+    // 有三种方式获取，在后面会讲到三种方式的区别
+    // return date.getTime();
+    // return date.valueOf();
+    return Date.parse(date);
+
+    /*
+     三种获取的区别：
+     第一、第二种：会精确到毫秒
+     第三种：只能精确到秒，毫秒将用0来代替
+     比如上面代码输出的结果(一眼就能看出区别)：
+     1398250549123
+     1398250549123
+     1398250549000
+     */
+  },
+  compareDate: function compareDate(startDate, endDate) {
+    var d1 = new Date(startDate.replace(/-/g, "/"));
+    var d2 = new Date(endDate.replace(/-/g, "/"));
+
+    return !(startDate !== "" && endDate !== "" && d1 > d2);
+  },
+  isNotNull: function isNotNull(str) {
+    return str !== undefined && str !== "" && str != null;
+  },
+  //获取日期 传1代表当月第一天 传其他代表当前日期
+  getDate: function getDate(v) {
+    var now = new Date();
+    var year = now.getFullYear(); //年
+    var month = now.getMonth() + 1; //月
+    var day = now.getDate(); //日
+
+    /*let hh = now.getHours();            //时
+     let mm = now.getMinutes();          //分
+     let ss = now.getSeconds();*/
+    var clock = year + "-"; //加""的作用是转成字符串，不然会以整型计算
+
+    if (month < 10) clock += "" + "0";
+    clock += month + "-";
+
+    if (day < 10) clock += "" + "0";
+    clock += v === 1 ? '1' : day;
+
+    /*if(hh < 10)
+     clock += ""+"0";
+     clock += hh;
+       if (mm < 10)
+     clock += ""+"0";
+     clock += mm;
+       if (ss < 10)
+     clock += ""+"0";
+     clock += ss;*/
+    return clock;
+  },
+
+  /**
+   * 获取图片的高度
+   * @param url
+   * @param callback
+   * @returns {*}
+   */
+  checkPicurl: function checkPicurl(url, callback) {
+    var img = new Image();
+    img.src = url;
+    var ratio = 0;
+    var clientWidth = 750;
+    img.onerror = function () {
+      ratio = 0;
+      return callback(ratio);
+    };
+    if (img.complete) {
+      ratio = img.width / img.height;
+      return callback(ratio === 0 ? 0 : clientWidth / ratio);
+    } else {
+      img.onload = function () {
+        ratio = img.width / img.height;
+        img.onload = null; //避免重复加载
+        return callback(ratio === 0 ? 0 : clientWidth / ratio);
+      };
+    }
+  },
+  /**
+   *  适配不同情况下的字体大小
+   * @param size dp值的大小
+   * @returns {*} 适配后的值的大小
+   */
+  getFontSize: function getFontSize(size) {
+    if (this.isweb()) {
+      var clientWith = document.body.clientWidth;
+      if (weex.config.env.osName.toLocaleString() === "android") {
+        return 2 * size + 'px';
+      } else {
+        if (clientWith > 900) {
+          return size * weex.config.env.scale + 'px';
+        } else if (clientWith > 750) {
+          return 2 * size * weex.config.env.scale + 'px';
+        } else {
+          return 4 * size * weex.config.env.scale + 'px';
+        }
+      }
+    } else {
+      var _clientWith = weex.config.env.deviceWidth;
+      var ratio = 750 / _clientWith;
+      var fontSize = size * ratio * weex.config.env.scale;
+      return fontSize.toFixed(0);
+    }
+  },
+  getMatchSize: function getMatchSize(size) {
+    if (this.isweb()) {
+      return size * weex.config.env.scale + 'px';
+    } else {
+      return size;
+    }
+  },
+  delHtmlTag: function delHtmlTag(str) {
+    return str.replace(/<[^>]+>/g, "").replace(/&quot;/g, "\"").replace(/&lt;/g, '<').replace(/&gt;/g, '>'); //去掉所有的html标记
+  },
+  isweb: function isweb() {
+    return weex.config.env.platform.toLocaleLowerCase() === "web";
+  },
+  is_weixn: function is_weixn() {
+    var ua = navigator.userAgent.toLowerCase();
+    return ua.match(/MicroMessenger/i) == "micromessenger";
+  },
+  registerModules: function registerModules() {
+    if (this.isweb()) {
+      var _weex$registerModule;
+
+      weex.registerModule('event', (_weex$registerModule = {
+        openWeexView: function openWeexView(viewName, viewTitle) {
+          if (weex.config.env.osName.toLowerCase() === "android") {
+            ltwc.openWeexView(viewName, viewTitle);
+          }
+        }
+      }, _defineProperty(_weex$registerModule, 'openWeexView', function openWeexView(viewName, title, shareUrl) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.openWeexView(viewName, title, shareUrl);
+        }
+      }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.openWebView(webUrl, title);
+        }
+      }), _defineProperty(_weex$registerModule, 'openWebView', function openWebView(webUrl, title, shareUrl) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.openWebView(webUrl, title, shareUrl);
+        }
+      }), _defineProperty(_weex$registerModule, 'openView', function openView(uri) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.openView(uri);
+        }
+      }), _defineProperty(_weex$registerModule, 'getFilePath', function getFilePath(name, type, callback) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          window.getFilePathCallback = callback;
+          ltwc.getFilePath(name, type, callback);
+        }
+      }), _defineProperty(_weex$registerModule, 'showMessage', function showMessage(msg) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.showMessage(msg);
+        }
+      }), _defineProperty(_weex$registerModule, 'getVersion', function getVersion(callback) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          window.getVersionCallback = callback;
+          ltwc.getVersion(callback);
+        }
+      }), _defineProperty(_weex$registerModule, 'update', function update(url) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.update(url);
+        }
+      }), _defineProperty(_weex$registerModule, 'setConfig', function setConfig(tabs, adImgUrl, adSchemeUrl) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.setConfig(tabs, adImgUrl, adSchemeUrl);
+        }
+      }), _defineProperty(_weex$registerModule, 'playVideo', function playVideo(url, datas, position) {
+        if (weex.config.env.osName.toLowerCase() === "android") {
+          ltwc.playVideo(url, datas, position);
+        }
+      }), _weex$registerModule));
+      weex.registerModule('net', {
+        requestNetData: function requestNetData(methodType, url, api, jsonParams, showLoading, callback) {
+          if (weex.config.env.osName.toLowerCase() === "android") {
+            window.requestNetDataCallback = callback;
+            ltwc.requestNetData(methodType, url, api, jsonParams, showLoading);
+          }
+        }
+      });
+    }
+  }
+};
+if (module.exports.isweb()) {
+  window.getReturnData = function (type, data) {
+    if (type === "getFilePath") {
+      window.getFilePathCallback(data);
+    } else if (type === "requestNetData") {
+      window.requestNetDataCallback(data);
+    } else if (type === "getVersion") {
+      window.getVersionCallback(data);
+    }
+  };
 }
 
 /***/ }),
@@ -566,19 +1270,64 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 63:
+/***/ 6:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(124)
+  __webpack_require__(11)
 }
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(77),
+  __webpack_require__(7),
   /* template */
-  __webpack_require__(113),
+  __webpack_require__(10),
+  /* styles */
+  injectStyle,
+  /* scopeId */
+  "data-v-7203603b",
+  /* moduleIdentifier (server only) */
+  null
+)
+Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\customview\\icon-img.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] icon-img.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7203603b", Component.options)
+  } else {
+    hotAPI.reload("data-v-7203603b", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 65:
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__(140)
+}
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(82),
+  /* template */
+  __webpack_require__(126),
   /* styles */
   injectStyle,
   /* scopeId */
@@ -611,7 +1360,138 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 77:
+/***/ 7:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _methods = __webpack_require__(2);
+
+var _methods2 = _interopRequireDefault(_methods);
+
+var _Config = __webpack_require__(8);
+
+var _Config2 = _interopRequireDefault(_Config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    props: {
+        imgw: {
+            default: 50
+        },
+        imgh: {
+            default: 0
+        },
+        imgUrl: {
+            default: ''
+        },
+        padding_left: {
+            default: 0
+        },
+        padding_right: {
+            default: 0
+        },
+        bgColor: {
+            default: '#00000000'
+        },
+        resize: {
+            default: 'contain'
+        },
+        imgFilePath: {
+            default: 'image_icon/'
+        }
+    },
+    methods: {
+        onClick: function onClick() {
+            this.$emit('onClick');
+        },
+        font: function font(size) {
+            return _methods2.default.getFontSize(size);
+        },
+        getSrc: function getSrc(imgUrl) {
+            return _Config2.default.HostImgUrl + this.imgFilePath + imgUrl;
+        },
+        getImgHeight: function getImgHeight(imgh) {
+            return imgh != 0 ? imgh : this.imgw;
+        }
+    }
+};
+
+/***/ }),
+
+/***/ 72:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _methods = __webpack_require__(2);
+
+var _methods2 = _interopRequireDefault(_methods);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    name: "lottery-item",
+    props: {
+        value: {
+            default: ''
+        },
+        bg: {
+            default: '#f45531'
+        },
+        w: {
+            default: 30
+        }
+    },
+    methods: {
+        font: function font(size) {
+            return _methods2.default.getFontSize(size);
+        }
+    }
+}; //
+//
+//
+//
+//
+//
+//
+//
+
+/***/ }),
+
+/***/ 8:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -620,6 +1500,192 @@ module.exports = Component.exports
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+/**
+ * Created by Tw93 on 2016/11/4.
+ */
+
+exports.default = {
+  channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
+  adImgUrl: 'http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
+  adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
+  newVersion: 318318,
+  updateUrl: 'http://imengu.cn/Ahuangshang/html/downLoadApp.html',
+  downLoadUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
+  HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
+  defaultHost: 'http://imengu.cn/',
+  getContent: function getContent(e) {
+    var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
+    var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
+    var result = "\n" + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + "<html>" + head + style + "<body>" + this.getButtonInfo(e) + "</body></html>";
+    result = encodeURI(result);
+    return result;
+  },
+  getButtonInfo: function getButtonInfo(e) {
+    var content = e.content.replace(/(<\/?a.*?>)/g, '');
+    var title = e.title;
+    return "<h2>" + title + "</h2>" + content + "<p style='color: #88000000;font-size: 13px'>&nbsp;&nbsp;本文系第三方观点，不代表李唐科技的观点和立场</p><p  onClick='linkThird()' style='color: #33B5E5;font-size: 13px'>&nbsp;&nbsp;原文链接>></p><script>function linkThird() {ltwc.linkThird();}</script>";
+  },
+  getWeatherTypeImg: function getWeatherTypeImg(currentType) {
+    if (this.contains(currentType, '晴')) {
+      return 'qing.jpg';
+    } else if (this.contains(currentType, '阴')) {
+      return 'yin.jpg';
+    } else if (this.contains(currentType, '多云')) {
+      return 'duoyun.gif';
+    } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
+      return 'xiaoyu.gif';
+    } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
+      return 'dayu.gif';
+    } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
+      return 'daxue.gif';
+    } else if (this.contains(currentType, '雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '雨')) {
+      return 'xiaoyu.gif';
+    }
+  },
+
+  contains: function contains(str, s) {
+    return str.indexOf(s) > -1;
+  },
+  getWeatherDec: function getWeatherDec(high, low) {
+    var nhigh = high.replace("高温", "");
+    nhigh = nhigh.replace('℃', '');
+    var nlow = low.replace('低温', '');
+    return nhigh + " ~" + nlow;
+  },
+  newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
+  newsTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 160,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 160,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  },
+  jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
+  jokeTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 250,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 250,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  }
+};
+
+/***/ }),
+
+/***/ 82:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _methods = __webpack_require__(2);
+
+var _methods2 = _interopRequireDefault(_methods);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -630,34 +1696,166 @@ Object.defineProperty(exports, "__esModule", {
 var modal = weex.requireModule('modal');
 exports.default = {
   props: {
-    otherLayoutInfo: {
+    showLottery: {
+      default: true
+    },
+    qh: {
+      default: '-正在努力在加中....'
+    },
+    dltqh: {
+      default: '-正在努力在加中....'
+    },
+    dred1: {
+      default: '正'
+    },
+    dred2: {
+      default: '在'
+    },
+    dred3: {
+      default: '努'
+    },
+    dred4: {
+      default: '力'
+    },
+    dred5: {
+      default: '加'
+    },
+    dblue1: {
+      default: '载'
+    },
+    dblue2: {
+      default: '中'
+    },
+    red1: {
+      default: '正'
+    },
+    red2: {
+      default: '在'
+    },
+    red3: {
+      default: '努'
+    },
+    red4: {
+      default: '力'
+    },
+    red5: {
+      default: '加'
+    },
+    red6: {
+      default: '载'
+    },
+    blue: {
+      default: '中'
+    },
+    lotterParams: {
       default: function _default() {
         return {};
       }
     }
   },
-  created: function created() {
-    this.getOptions();
+  components: {
+    iconImg: __webpack_require__(6),
+    lotteryItem: __webpack_require__(116)
   },
   methods: {
-    getOptions: function getOptions() {
-      this.otherLayoutInfo = this.$getConfig().otherLayoutInfo;
-      modal.alert({ message: '****' + JSON.stringify(this.otherLayoutInfo) });
-      //this.$getConfig().otherLayoutInfo;
-      console.log({ message: '****' + this.$getConfig().otherLayoutInfo });
+    getLot: function getLot() {
+      if (this.showLottery) {
+        var that = this;
+        weex.requireModule('net').requestNetData('get', 'http://f.apiplus.net/ssq-1.json/', '', "", false, function (ret) {
+          that.dealSSq(ret);
+        });
+      }
+    },
+    getDlt: function getDlt() {
+      if (this.showLottery) {
+        var that = this;
+        weex.requireModule('net').requestNetData('get', 'http://f.apiplus.net/dlt-1.json/', '', "", false, function (ret) {
+          that.dealDLt(ret);
+        });
+      }
+    },
+    font: function font(size) {
+      return _methods2.default.getFontSize(size);
+    },
+    dealSSq: function dealSSq(ret) {
+      var kaijiang = JSON.parse(ret).data;
+      if (_methods2.default.isNotNull(kaijiang)) {
+        if (kaijiang.length > 0) {
+          var data = kaijiang[0];
+          this.qh = '-第' + data.expect + '期';
+          var lot = data.opencode;
+          var s = lot.split("+");
+          this.blue = s[1];
+          var reds = s[0].split(',');
+          this.red1 = reds[0];
+          this.red2 = reds[1];
+          this.red3 = reds[2];
+          this.red4 = reds[3];
+          this.red5 = reds[4];
+          this.red6 = reds[5];
+        }
+      }
+    },
+    dealDLt: function dealDLt(ret) {
+      var kaijiang = JSON.parse(ret).data;
+      if (_methods2.default.isNotNull(kaijiang)) {
+        if (kaijiang.length > 0) {
+          var data = kaijiang[0];
+          this.dltqh = '-第' + data.expect + '期';
+          var lot = data.opencode;
+          var s = lot.split("+");
+          var blues = s[1].split(',');
+          this.dblue1 = blues[0];
+          this.dblue2 = blues[1];
+          var reds = s[0].split(',');
+          this.dred1 = reds[0];
+          this.dred2 = reds[1];
+          this.dred3 = reds[2];
+          this.dred4 = reds[3];
+          this.dred5 = reds[4];
+        }
+      }
+    },
+    moreLotteryClick: function moreLotteryClick() {
+      weex.requireModule('event').openView('className=cn.ltwc.cft.activity.MyX5WebView&ltkj&webUrl=https://m.500.com/info/kaijiang/#h5&ltkj&webTitle=开奖公告');
+    },
+    ssqClick: function ssqClick() {
+      weex.requireModule('event').openView('className=cn.ltwc.cft.activity.MyX5WebView&ltkj&webUrl=https://m.500.com/info/kaijiang/moreexpect/ssq/?from=index&ltkj&webTitle=双色球开奖详情');
+    },
+    dltClick: function dltClick() {
+      weex.requireModule('event').openView('className=cn.ltwc.cft.activity.MyX5WebView&ltkj&webUrl=https://m.500.com/info/kaijiang/moreexpect/dlt/?from=index&ltkj&webTitle=大乐透开奖详情');
     }
+  },
+  created: function created() {
+    this.getLot();
+    this.getDlt();
   }
 };
 
 /***/ }),
 
-/***/ 91:
+/***/ 9:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+// imports
+
+
+// module
+exports.push([module.i, "\n.div[data-v-7203603b] {\n    align-items: center;\n    flex-direction: column;\n}\n.icon[data-v-7203603b] {\n    width: 50px;\n    height: 50px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 98:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _otherLayout = __webpack_require__(63);
+var _otherLayout = __webpack_require__(65);
 
 var _otherLayout2 = _interopRequireDefault(_otherLayout);
 
