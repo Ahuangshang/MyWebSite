@@ -71,28 +71,32 @@
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = normalizeComponent;
 /* globals __VUE_SSR_CONTEXT__ */
 
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
 
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
   injectStyles,
   scopeId,
-  moduleIdentifier /* server only */
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
 ) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
+  scriptExports = scriptExports || {}
 
   // ES6 modules interop
-  var type = typeof rawScriptExports.default
+  var type = typeof scriptExports.default
   if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
+    scriptExports = scriptExports.default
   }
 
   // Vue.extend constructor export interop
@@ -101,9 +105,15 @@ module.exports = function normalizeComponent (
     : scriptExports
 
   // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
   }
 
   // scopedId
@@ -136,30 +146,32 @@ module.exports = function normalizeComponent (
     // never gets called
     options._ssrRegister = hook
   } else if (injectStyles) {
-    hook = injectStyles
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
   }
 
   if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
       // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
     }
   }
 
   return {
-    esModule: esModule,
     exports: scriptExports,
     options: options
   }
@@ -195,7 +207,7 @@ exports.default = mixins;
 "use strict";
 
 
-var _yieryisan = __webpack_require__(69);
+var _yieryisan = __webpack_require__(86);
 
 var _yieryisan2 = _interopRequireDefault(_yieryisan);
 
@@ -213,112 +225,141 @@ new Vue(_yieryisan2.default);
 
 /***/ }),
 
-/***/ 128:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 120:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.font(_vm.contentMargin),
-      marginRight: _vm.font(_vm.contentMargin)
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#000000",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.title
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#1d1d1d"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": " 来源：江苏新闻广播"
-    }
-  })]), _vm._v(" "), _c('scroller', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "show-scrollbar": "false"
-    }
-  }, [_c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.font(_vm.contentMargin),
-      marginRight: _vm.font(_vm.contentMargin)
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#161616"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_3),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_1
-    }
-  }), _vm._v(" "), (_vm.isweb) ? _c('a', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "href": "http://news.jstv.com/wap/tvlive/20171212/1513059469134.shtml"
-    }
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#255fff",
-      "padding-top": "20px",
-      "padding-bottom": "20px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin),
-      marginBottom: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": "点击查看纪念活动视频 >>"
-    }
-  })]) : _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#255fff",
-      "padding-top": "20px",
-      "padding-bottom": "20px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin),
-      marginBottom: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": "点击查看纪念活动视频 >>"
-    },
-    on: {
-      "click": _vm.jump
-    }
-  })])])], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "div",
+        {
+          staticStyle: _vm.$processStyle(undefined),
+          style: _vm.$processStyle({
+            marginLeft: _vm.font(_vm.contentMargin),
+            marginRight: _vm.font(_vm.contentMargin)
+          })
+        },
+        [
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#000000",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.title }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#1d1d1d" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_2),
+              marginTop: _vm.font(_vm.contentMargin)
+            }),
+            attrs: { value: " 来源：江苏新闻广播" }
+          })
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "scroller",
+        {
+          staticStyle: _vm.$processStyle(undefined),
+          style: _vm.$processStyle(undefined),
+          attrs: { "show-scrollbar": "false" }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticStyle: _vm.$processStyle(undefined),
+              style: _vm.$processStyle({
+                marginLeft: _vm.font(_vm.contentMargin),
+                marginRight: _vm.font(_vm.contentMargin)
+              })
+            },
+            [
+              _c("text", {
+                staticStyle: _vm.$processStyle({ color: "#161616" }),
+                style: _vm.$processStyle({
+                  fontSize: _vm.font(_vm.tex_size_3),
+                  marginTop: _vm.font(_vm.topMargin),
+                  margin: _vm.font(_vm.contentMargin),
+                  lineHeight: _vm.font(_vm.line_height)
+                }),
+                attrs: { value: _vm.content_1 }
+              }),
+              _vm._v(" "),
+              _vm.isweb
+                ? _c(
+                    "a",
+                    {
+                      staticStyle: _vm.$processStyle(undefined),
+                      style: _vm.$processStyle(undefined),
+                      attrs: {
+                        href:
+                          "http://news.jstv.com/wap/tvlive/20171212/1513059469134.shtml"
+                      }
+                    },
+                    [
+                      _c("text", {
+                        staticStyle: _vm.$processStyle({
+                          color: "#255fff",
+                          "padding-top": "20px",
+                          "padding-bottom": "20px"
+                        }),
+                        style: _vm.$processStyle({
+                          fontSize: _vm.font(_vm.tex_size_2),
+                          marginTop: _vm.font(_vm.contentMargin),
+                          marginBottom: _vm.font(_vm.topMargin),
+                          margin: _vm.font(_vm.contentMargin)
+                        }),
+                        attrs: { value: "点击查看纪念活动视频 >>" }
+                      })
+                    ]
+                  )
+                : _c("text", {
+                    staticStyle: _vm.$processStyle({
+                      color: "#255fff",
+                      "padding-top": "20px",
+                      "padding-bottom": "20px"
+                    }),
+                    style: _vm.$processStyle({
+                      fontSize: _vm.font(_vm.tex_size_2),
+                      marginTop: _vm.font(_vm.contentMargin),
+                      marginBottom: _vm.font(_vm.topMargin),
+                      margin: _vm.font(_vm.contentMargin)
+                    }),
+                    attrs: { value: "点击查看纪念活动视频 >>" },
+                    on: { click: _vm.jump }
+                  })
+            ]
+          )
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-81ae8e34", module.exports)
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-11cd2eaf", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 
@@ -572,48 +613,7 @@ if (module.exports.isweb()) {
 
 /***/ }),
 
-/***/ 69:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(86),
-  /* template */
-  __webpack_require__(128),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\yieryisan.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] yieryisan.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-81ae8e34", Component.options)
-  } else {
-    hotAPI.reload("data-v-81ae8e34", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 86:
+/***/ 70:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -739,6 +739,63 @@ exports.default = {
     }
   }
 };
+
+/***/ }),
+
+/***/ 86:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_yieryisan_vue__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_yieryisan_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_yieryisan_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_yieryisan_vue__) if(["default","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_yieryisan_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_11cd2eaf_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_yieryisan_vue__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
+var disposed = false
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_yieryisan_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_11cd2eaf_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_yieryisan_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_11cd2eaf_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_yieryisan_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\views\\yieryisan.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-11cd2eaf", Component.options)
+  } else {
+    hotAPI.reload("data-v-11cd2eaf", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
 
 /***/ })
 

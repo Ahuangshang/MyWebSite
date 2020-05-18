@@ -71,28 +71,32 @@
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = normalizeComponent;
 /* globals __VUE_SSR_CONTEXT__ */
 
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
 
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
   injectStyles,
   scopeId,
-  moduleIdentifier /* server only */
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
 ) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
+  scriptExports = scriptExports || {}
 
   // ES6 modules interop
-  var type = typeof rawScriptExports.default
+  var type = typeof scriptExports.default
   if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
+    scriptExports = scriptExports.default
   }
 
   // Vue.extend constructor export interop
@@ -101,9 +105,15 @@ module.exports = function normalizeComponent (
     : scriptExports
 
   // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
   }
 
   // scopedId
@@ -136,30 +146,32 @@ module.exports = function normalizeComponent (
     // never gets called
     options._ssrRegister = hook
   } else if (injectStyles) {
-    hook = injectStyles
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
   }
 
   if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
       // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
     }
   }
 
   return {
-    esModule: esModule,
     exports: scriptExports,
     options: options
   }
@@ -189,7 +201,7 @@ exports.default = mixins;
 
 /***/ }),
 
-/***/ 108:
+/***/ 110:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -197,56 +209,91 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "\n.item[data-v-46c0d07a] {\n  padding-top: 25px;\n  padding-bottom: 25px;\n  padding-left: 35px;\n  padding-right: 35px;\n  min-height: 200px;\n  justify-content: center;\n  /*margin-bottom: 1px; FUTURE */\n  border-bottom-width: 1px;\n  border-color: #dddddd;\n}\n.item[data-v-46c0d07a]:active {\n  background-color: rgb(240, 240, 240);\n}\n.item-title[data-v-46c0d07a] {\n  font-size: 40px;\n  color: #303030;\n}\n.item-content[data-v-46c0d07a] {\n  margin-top: 5px;\n  font-size: 32px;\n  color: #000000;\n}\n.item-time[data-v-46c0d07a] {\n  font-size: 32px;\n  color: #6c6c6c;\n  text-align: right;\n}\n", ""]);
+exports.push([module.i, "\n.item[data-v-432bb6fa] {\n  padding-top: 25px;\n  padding-bottom: 25px;\n  padding-left: 35px;\n  padding-right: 35px;\n  min-height: 200px;\n  justify-content: center;\n  /*margin-bottom: 1px; FUTURE */\n  border-bottom-width: 1px;\n  border-color: #dddddd;\n}\n.item[data-v-432bb6fa]:active {\n  background-color: rgb(240, 240, 240);\n}\n.item-title[data-v-432bb6fa] {\n  font-size: 40px;\n  color: #303030;\n}\n.item-content[data-v-432bb6fa] {\n  margin-top: 5px;\n  font-size: 32px;\n  color: #000000;\n}\n.item-time[data-v-432bb6fa] {\n  font-size: 32px;\n  color: #6c6c6c;\n  text-align: right;\n}\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 123:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 126:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('list', _vm._l((_vm.datas), function(item, i) {
-    return _c('cell', {
-      key: i,
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle(undefined)),
-      attrs: {
-        "append": "tree"
-      }
-    }, [_c('div', {
-      staticClass: "item",
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle({
-        backgroundColor: _vm.bgColor
-      })),
-      on: {
-        "click": function($event) {
-          _vm.click(i)
-        }
-      }
-    }, [_c('text', {
-      staticClass: "item-title",
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle(undefined))
-    }, [_vm._v(_vm._s(item.title))]), _vm._v(" "), _c('text', {
-      staticClass: "item-content",
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle(undefined))
-    }, [_vm._v(_vm._s(item.content))]), _vm._v(" "), _c('text', {
-      staticClass: "item-time",
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle(undefined))
-    }, [_vm._v(_vm._s(item.time))])])])
-  }))
-},staticRenderFns: []}
-module.exports.render._withStripped = true
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "list",
+    _vm._l(_vm.datas, function(item, i) {
+      return _c(
+        "cell",
+        {
+          key: i,
+          staticStyle: _vm.$processStyle(undefined),
+          style: _vm.$processStyle(undefined),
+          attrs: { append: "tree" }
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "item",
+              staticStyle: _vm.$processStyle(undefined),
+              style: _vm.$processStyle({ backgroundColor: _vm.bgColor }),
+              on: {
+                click: function($event) {
+                  _vm.click(i)
+                }
+              }
+            },
+            [
+              _c(
+                "text",
+                {
+                  staticClass: "item-title",
+                  staticStyle: _vm.$processStyle(undefined),
+                  style: _vm.$processStyle(undefined)
+                },
+                [_vm._v(_vm._s(item.title))]
+              ),
+              _vm._v(" "),
+              _c(
+                "text",
+                {
+                  staticClass: "item-content",
+                  staticStyle: _vm.$processStyle(undefined),
+                  style: _vm.$processStyle(undefined)
+                },
+                [_vm._v(_vm._s(item.content))]
+              ),
+              _vm._v(" "),
+              _c(
+                "text",
+                {
+                  staticClass: "item-time",
+                  staticStyle: _vm.$processStyle(undefined),
+                  style: _vm.$processStyle(undefined)
+                },
+                [_vm._v(_vm._s(item.time))]
+              )
+            ]
+          )
+        ]
+      )
+    })
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-46c0d07a", module.exports)
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-432bb6fa", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 
@@ -267,13 +314,13 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = {
   channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-  adImgUrl: 'http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
+  adImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
   adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
   newVersion: 318318,
-  updateUrl: 'http://imengu.cn/Ahuangshang/html/downLoadApp.html',
-  downLoadUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
-  HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
-  defaultHost: 'http://imengu.cn/',
+  updateUrl: 'https://ahuangshang.github.io/MyWebsite/html/downLoadApp.html',
+  downLoadUrl: 'https://ahuangshang.github.io/MyWebsite/apk/latest.apk',
+  HostImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/',
+  defaultHost: 'https://ahuangshang.github.io/MyWebsite/',
   getContent: function getContent(e) {
     var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
     var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
@@ -367,23 +414,24 @@ exports.default = {
 
 /***/ }),
 
-/***/ 137:
+/***/ 139:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(108);
+var content = __webpack_require__(110);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("ecafead4", content, false);
+var add = __webpack_require__(4).default
+var update = add("9a0736d6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-46c0d07a\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./message.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-46c0d07a\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./message.vue");
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-432bb6fa\",\"scoped\":true,\"sourceMap\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./message.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-432bb6fa\",\"scoped\":true,\"sourceMap\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./message.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -700,13 +748,19 @@ module.exports = function() {
 /***/ }),
 
 /***/ 4:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = addStylesClient;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__listToStyles__ = __webpack_require__(5);
 /*
   MIT License http://www.opensource.org/licenses/mit-license.php
   Author Tobias Koppers @sokra
   Modified by Evan You @yyx990803
 */
+
+
 
 var hasDocument = typeof document !== 'undefined'
 
@@ -717,8 +771,6 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
     "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
   ) }
 }
-
-var listToStyles = __webpack_require__(5)
 
 /*
 type StyleObject = {
@@ -746,15 +798,19 @@ var singletonElement = null
 var singletonCounter = 0
 var isProduction = false
 var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
 
 // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
 // tags it will allow on a page
 var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
 
-module.exports = function (parentId, list, _isProduction) {
+function addStylesClient (parentId, list, _isProduction, _options) {
   isProduction = _isProduction
 
-  var styles = listToStyles(parentId, list)
+  options = _options || {}
+
+  var styles = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__listToStyles__["a" /* default */])(parentId, list)
   addStylesToDom(styles)
 
   return function update (newList) {
@@ -766,7 +822,7 @@ module.exports = function (parentId, list, _isProduction) {
       mayRemove.push(domStyle)
     }
     if (newList) {
-      styles = listToStyles(parentId, newList)
+      styles = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__listToStyles__["a" /* default */])(parentId, newList)
       addStylesToDom(styles)
     } else {
       styles = []
@@ -817,7 +873,7 @@ function createStyleElement () {
 
 function addStyle (obj /* StyleObjectPart */) {
   var update, remove
-  var styleElement = document.querySelector('style[data-vue-ssr-id~="' + obj.id + '"]')
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
 
   if (styleElement) {
     if (isProduction) {
@@ -899,6 +955,9 @@ function applyToTag (styleElement, obj) {
   if (media) {
     styleElement.setAttribute('media', media)
   }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
 
   if (sourceMap) {
     // https://developer.chrome.com/devtools/docs/javascript-debugging
@@ -922,13 +981,15 @@ function applyToTag (styleElement, obj) {
 /***/ }),
 
 /***/ 5:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = listToStyles;
 /**
  * Translates the list format produced by css-loader into something
  * easier to manipulate.
  */
-module.exports = function listToStyles (parentId, list) {
+function listToStyles (parentId, list) {
   var styles = []
   var newStyles = {}
   for (var i = 0; i < list.length; i++) {
@@ -955,52 +1016,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 61:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(137)
-}
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(78),
-  /* template */
-  __webpack_require__(123),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  "data-v-46c0d07a",
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\message.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] message.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-46c0d07a", Component.options)
-  } else {
-    hotAPI.reload("data-v-46c0d07a", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 78:
+/***/ 62:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1081,7 +1097,7 @@ exports.default = {
         title: "端午节",
         content: "农历五月初五是端午节，中国传统节日。又称“端阳节”、“午日节”等，中国国家法定节假日之一，已并被列入世界非物质文化遗产名录。",
         time: "2019-05-30",
-        shareUrl: _config2.default.defaultHost + "Ahuangshang/html/dragonBoatFestival.html",
+        shareUrl: _config2.default.defaultHost + "/html/dragonBoatFestival.html",
         shareImagePaht: _config2.default.HostImgUrl + 'dragonBoatFestival/dragonBoat_1.jpg'
       }, {
         viewName: "yuanxiao",
@@ -1095,42 +1111,42 @@ exports.default = {
         title: "春节",
         content: "春节是指汉字文化圈传统上的农历新年，俗称“年节”，传统名称为新年、大年、新岁，但口头上又称度岁、庆新岁、过年。",
         time: "2018-02-15",
-        shareUrl: _config2.default.defaultHost + "Ahuangshang/html/springFestival.html",
+        shareUrl: _config2.default.defaultHost + "/html/springFestival.html",
         shareImagePaht: _config2.default.HostImgUrl + 'springFestival/img_1.jpg'
       }, {
         viewName: "dongzhi",
         title: "冬至",
         content: "冬至是农历的重要节气，也是中华民族的传统节日。早在春秋时代，中国就已经用土圭观测出冬至，古人认为自冬至起阳气回升，代表着下一个循环的开始。冬至是重要的养生时期，应注意防寒保暖、保肝护肝。",
         time: "2017-12-22",
-        shareUrl: _config2.default.defaultHost + "Ahuangshang/html/dongzhi.html",
+        shareUrl: _config2.default.defaultHost + "/html/dongzhi.html",
         shareImagePaht: _config2.default.HostImgUrl + 'dongzhi/dongzhi_1.jpg'
       }, {
         viewName: "yieryisan",
         title: "国家公祭日",
         content: "南京大屠杀死难者国家公祭仪式于12月13日上午10时举行。",
         time: "2017-12-12",
-        shareUrl: _config2.default.defaultHost + "Ahuangshang/html/yieryisan.html",
+        shareUrl: _config2.default.defaultHost + "/html/yieryisan.html",
         shareImagePaht: ''
       }, {
         viewName: "mid-autumn-festival",
         title: "中秋节",
         content: "中秋节自古便有祭月、赏月、拜月、吃月饼、赏桂花、饮桂花酒等习俗，流传至今，久经不息。中秋节以月之圆兆人之团圆，为寄托思念故乡，思念亲人之情，祈盼丰收、幸福，成为丰富多彩、弥足珍贵的文化遗产。中秋节与端午节、春节、清明节并称为中国四大传统节日。",
         time: "2017-10-04",
-        shareUrl: _config2.default.defaultHost + "Ahuangshang/html/mid-Autumn-festival.html",
+        shareUrl: _config2.default.defaultHost + "/html/mid-Autumn-festival.html",
         shareImagePaht: _config2.default.HostImgUrl + 'mid_autumn/mid-autumn.jpg'
       }, {
         viewName: "guanggao",
         title: "开业大吉",
         content: "视频VIP豪送|庆国庆、迎中秋，万份视频VIP等你来领！",
         time: "2017-10-01",
-        shareUrl: _config2.default.defaultHost + "Ahuangshang/html/guanggao.html",
+        shareUrl: _config2.default.defaultHost + "/html/guanggao.html",
         shareImagePaht: _config2.default.HostImgUrl + 'advertisement/ad.jpg'
       }, {
         viewName: "bailu",
         title: "白露",
         content: "白露是农历二十四节气中的第十五个节气，当太阳到达黄经165度时为白露。",
         time: "2017-09-07",
-        shareUrl: _config2.default.defaultHost + 'Ahuangshang/html/bailu.html',
+        shareUrl: _config2.default.defaultHost + '/html/bailu.html',
         shareImagePaht: _config2.default.HostImgUrl + 'bailu/img_1.jpg'
       }],
       bgColor: "#ffffff",
@@ -1160,13 +1176,74 @@ exports.default = {
 
 /***/ }),
 
+/***/ 78:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_message_vue__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_message_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_message_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_message_vue__) if(["default","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_message_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_432bb6fa_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_message_vue__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
+var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__(139)
+}
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-432bb6fa"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_message_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_432bb6fa_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_message_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_432bb6fa_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_message_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\views\\message.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-432bb6fa", Component.options)
+  } else {
+    hotAPI.reload("data-v-432bb6fa", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+
 /***/ 94:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _message = __webpack_require__(61);
+var _message = __webpack_require__(78);
 
 var _message2 = _interopRequireDefault(_message);
 

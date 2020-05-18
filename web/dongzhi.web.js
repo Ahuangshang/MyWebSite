@@ -71,28 +71,32 @@
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = normalizeComponent;
 /* globals __VUE_SSR_CONTEXT__ */
 
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
 
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
   injectStyles,
   scopeId,
-  moduleIdentifier /* server only */
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
 ) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
+  scriptExports = scriptExports || {}
 
   // ES6 modules interop
-  var type = typeof rawScriptExports.default
+  var type = typeof scriptExports.default
   if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
+    scriptExports = scriptExports.default
   }
 
   // Vue.extend constructor export interop
@@ -101,9 +105,15 @@ module.exports = function normalizeComponent (
     : scriptExports
 
   // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
   }
 
   // scopedId
@@ -136,30 +146,32 @@ module.exports = function normalizeComponent (
     // never gets called
     options._ssrRegister = hook
   } else if (injectStyles) {
-    hook = injectStyles
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
   }
 
   if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
       // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
     }
   }
 
   return {
-    esModule: esModule,
     exports: scriptExports,
     options: options
   }
@@ -189,184 +201,310 @@ exports.default = mixins;
 
 /***/ }),
 
-/***/ 117:
+/***/ 13:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('scroller', [_c('div', [_c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w_top,
-      height: _vm.img_1_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/dongzhi/dongzhi_1.jpg",
-      "placeholder": ""
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Created by Tw93 on 2016/11/4.
+ */
+
+exports.default = {
+  channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
+  adImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
+  adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
+  newVersion: 318318,
+  updateUrl: 'https://ahuangshang.github.io/MyWebsite/html/downLoadApp.html',
+  downLoadUrl: 'https://ahuangshang.github.io/MyWebsite/apk/latest.apk',
+  HostImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/',
+  defaultHost: 'https://ahuangshang.github.io/MyWebsite/',
+  getContent: function getContent(e) {
+    var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
+    var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
+    var result = "\n" + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + "<html>" + head + style + "<body>" + this.getButtonInfo(e) + "</body></html>";
+    result = encodeURI(result);
+    return result;
+  },
+  getButtonInfo: function getButtonInfo(e) {
+    var content = e.content.replace(/(<\/?a.*?>)/g, '');
+    var title = e.title;
+    return "<h2>" + title + "</h2>" + content + "<p style='color: #88000000;font-size: 13px'>&nbsp;&nbsp;本文系第三方观点，不代表李唐科技的观点和立场</p><p  onClick='linkThird()' style='color: #33B5E5;font-size: 13px'>&nbsp;&nbsp;原文链接>></p><script>function linkThird() {ltwc.linkThird();}</script>";
+  },
+  getWeatherTypeImg: function getWeatherTypeImg(currentType) {
+    if (this.contains(currentType, '晴')) {
+      return 'qing.jpg';
+    } else if (this.contains(currentType, '阴')) {
+      return 'yin.jpg';
+    } else if (this.contains(currentType, '多云')) {
+      return 'duoyun.gif';
+    } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
+      return 'xiaoyu.gif';
+    } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
+      return 'dayu.gif';
+    } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
+      return 'daxue.gif';
+    } else if (this.contains(currentType, '雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '雨')) {
+      return 'xiaoyu.gif';
     }
-  }), _vm._v(" "), _c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.font(_vm.contentMargin),
-      marginRight: _vm.font(_vm.contentMargin)
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.title
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin)
-    }))
-  }, [_vm._v(" 起源")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_1
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_3_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/dongzhi/dongzhi_3.jpg"
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2)
-    }))
-  }, [_vm._v(" 天文意义")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_2
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_2_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/dongzhi/dongzhi_2.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2)
-    }))
-  }, [_vm._v(" 历史渊源")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_3
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_4_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/dongzhi/dongzhi_4.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2)
-    }))
-  }, [_vm._v(" 民俗活动")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_4
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_5_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/dongzhi/dongzhi_5.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2)
-    }))
-  }, [_vm._v("传统饮食")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_5
-    }
-  })])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
+  },
+
+  contains: function contains(str, s) {
+    return str.indexOf(s) > -1;
+  },
+  getWeatherDec: function getWeatherDec(high, low) {
+    var nhigh = high.replace("高温", "");
+    nhigh = nhigh.replace('℃', '');
+    var nlow = low.replace('低温', '');
+    return nhigh + " ~" + nlow;
+  },
+  newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
+  newsTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 160,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 160,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  },
+  jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
+  jokeTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 250,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 250,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  }
+};
+
+/***/ }),
+
+/***/ 133:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("scroller", [
+    _c("div", [
+      _c("image", {
+        staticStyle: _vm.$processStyle(undefined),
+        style: _vm.$processStyle({ width: _vm.img_w_top, height: _vm.img_1_h }),
+        attrs: {
+          src: _vm.defaultHost + "img/dongzhi/dongzhi_1.jpg",
+          placeholder: ""
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticStyle: _vm.$processStyle(undefined),
+          style: _vm.$processStyle({
+            marginLeft: _vm.font(_vm.contentMargin),
+            marginRight: _vm.font(_vm.contentMargin)
+          })
+        },
+        [
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.title }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle(undefined),
+              style: _vm.$processStyle({
+                fontSize: _vm.font(_vm.tex_size_2),
+                marginTop: _vm.font(_vm.contentMargin)
+              })
+            },
+            [_vm._v(" 起源")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_1 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_3_h }),
+            attrs: { src: _vm.defaultHost + "img/dongzhi/dongzhi_3.jpg" }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({ "margin-top": "15px" }),
+              style: _vm.$processStyle({ fontSize: _vm.font(_vm.tex_size_2) })
+            },
+            [_vm._v(" 天文意义")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_2 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_2_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/dongzhi/dongzhi_2.jpg",
+              placeholder: ""
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({ "margin-top": "15px" }),
+              style: _vm.$processStyle({ fontSize: _vm.font(_vm.tex_size_2) })
+            },
+            [_vm._v(" 历史渊源")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_3 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_4_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/dongzhi/dongzhi_4.jpg",
+              placeholder: ""
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({ "margin-top": "15px" }),
+              style: _vm.$processStyle({ fontSize: _vm.font(_vm.tex_size_2) })
+            },
+            [_vm._v(" 民俗活动")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_4 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_5_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/dongzhi/dongzhi_5.jpg",
+              placeholder: ""
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({ "margin-top": "15px" }),
+              style: _vm.$processStyle({ fontSize: _vm.font(_vm.tex_size_2) })
+            },
+            [_vm._v("传统饮食")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_5 }
+          })
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-03cca52c", module.exports)
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-d479fd1a", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 
@@ -620,48 +758,7 @@ if (module.exports.isweb()) {
 
 /***/ }),
 
-/***/ 56:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(73),
-  /* template */
-  __webpack_require__(117),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\dongzhi.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] dongzhi.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-03cca52c", Component.options)
-  } else {
-    hotAPI.reload("data-v-03cca52c", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 73:
+/***/ 57:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -670,6 +767,13 @@ module.exports = Component.exports
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _config = __webpack_require__(13);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 //
 //
 //
@@ -782,6 +886,12 @@ exports.default = {
             default: "        冬至是养生的大好时机，主要是因为“气始于冬至”。因为从冬季开始，生命活动开始由衰转盛，由静转动。此时科学养生有助于保证旺盛的精力而防早衰，达到延年益寿的目的。冬至时节饮食宜多样，谷、果、肉、蔬合理搭配，适当选用高钙食品。\n" + "       各地在冬至时有不同的风俗，中国北方多数地方有冬至吃饺子的习俗。冬至经过数千年发展，形成了独特的节令食文化。吃饺子成为多数中国人冬至的风俗。当然也有例外如在山东省滕州市流行冬至当天喝羊肉汤的习俗，寓意驱除寒冷之意。\n" + "       古人喜贺冬至，今人虽多不以为节，但冬节再怎么说也是“年时八节”之一，吃货们还是不会放过这有着各种冬至特色美食的节日的：如北方水饺、潮汕汤圆、东南麻糍、台州擂圆、合肥南瓜饼、宁波番薯汤果、滕州羊肉汤、江南米饭、苏州酿酒等。\n" + "北方普遍吃水饺\n" + "       每年农历冬至这天，不论贫富，饺子是必不可少的节日饭。谚云：“十月一，冬至到，家家户户吃水饺。”这种习俗，是因纪念“医圣”张仲景冬至舍药留下的。\n" + "合肥南瓜饼\n" + "       冬至过了眼看年，合肥人到了冬至都要吃南瓜饼，大街小巷弥漫着南瓜饼的香味，并且还有一句谚语叫做“吃了冬至面，一天长一线”，就是说过了冬至，就会夜短日长了。\n" + "1.准备好所有食材。把糯米粉和粘米粉混合拌匀。\n" + "2.把南瓜削皮去籽切成薄片放在碗中。\n" + "3.盖上盖子，把南瓜碗放入微波炉，分次转8分钟左右，直至南瓜软烂。\n" + "4.南瓜碗从微波炉中拿出，趁热加入白砂糖，搅拌均匀。\n" + "5.用汤匙把南瓜压成南瓜泥。\n" + "6.把南瓜泥倒入糯米和粘米粉盆中。\n" + "7.用筷子把南瓜和粉搅拌成雪花状，如太干可以稍微加入一点牛奶或者清水。\n" + "8.用手把面糊揉成光滑的面团，然后搓成长条，分成大小相当的坯子。\n" + "9.把坯子放在手中压扁。\n" + "10.放入适量的红豆沙。\n" + "11.把放有红豆沙的面团收口，轻轻地在砧板上按成饼状。\n" + "12.把南瓜饼两面沾上面包糠。\n" + "13.锅中倒入适量的植物油，放入南瓜饼，用小火煎至两面金黄色即可。\n" + "       出锅后的南瓜饼放在厨房餐巾纸上吸走多余的油即可装盘食用。"
         }
     },
+    data: function data() {
+        return {
+            defaultHost: _config2.default.defaultHost
+        };
+    },
+
     methods: {
         font: function font(size) {
             return util.getFontSize(size);
@@ -791,13 +901,70 @@ exports.default = {
 
 /***/ }),
 
+/***/ 73:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dongzhi_vue__ = __webpack_require__(57);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dongzhi_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dongzhi_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dongzhi_vue__) if(["default","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dongzhi_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_d479fd1a_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_dongzhi_vue__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
+var disposed = false
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dongzhi_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_d479fd1a_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_dongzhi_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_d479fd1a_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_dongzhi_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\views\\dongzhi.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d479fd1a", Component.options)
+  } else {
+    hotAPI.reload("data-v-d479fd1a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+
 /***/ 89:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _dongzhi = __webpack_require__(56);
+var _dongzhi = __webpack_require__(73);
 
 var _dongzhi2 = _interopRequireDefault(_dongzhi);
 

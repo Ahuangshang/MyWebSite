@@ -71,28 +71,32 @@
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = normalizeComponent;
 /* globals __VUE_SSR_CONTEXT__ */
 
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
 
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
   injectStyles,
   scopeId,
-  moduleIdentifier /* server only */
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
 ) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
+  scriptExports = scriptExports || {}
 
   // ES6 modules interop
-  var type = typeof rawScriptExports.default
+  var type = typeof scriptExports.default
   if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
+    scriptExports = scriptExports.default
   }
 
   // Vue.extend constructor export interop
@@ -101,9 +105,15 @@ module.exports = function normalizeComponent (
     : scriptExports
 
   // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
   }
 
   // scopedId
@@ -136,30 +146,32 @@ module.exports = function normalizeComponent (
     // never gets called
     options._ssrRegister = hook
   } else if (injectStyles) {
-    hook = injectStyles
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
   }
 
   if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
       // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
     }
   }
 
   return {
-    esModule: esModule,
     exports: scriptExports,
     options: options
   }
@@ -195,7 +207,7 @@ exports.default = mixins;
 "use strict";
 
 
-var _todayOnHistory = __webpack_require__(67);
+var _todayOnHistory = __webpack_require__(84);
 
 var _todayOnHistory2 = _interopRequireDefault(_todayOnHistory);
 
@@ -213,83 +225,95 @@ new Vue(_todayOnHistory2.default);
 
 /***/ }),
 
-/***/ 131:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 124:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#555555"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.contentMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.year
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#000000",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.title_size),
-      marginTop: _vm.font(_vm.contentMargin),
-      marginBottom: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.title
-    }
-  }), _vm._v(" "), _c('list', _vm._l((_vm.dealPicUrl), function(item) {
-    return _c('cell', [_c('image', {
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle({
-        width: _vm.img_w,
-        height: item.height
-      })),
-      attrs: {
-        "src": item.url,
-        "placeholder": ""
-      }
-    }), _vm._v(" "), _c('text', {
-      staticStyle: _vm.$processStyle({
-        "color": "#555555",
-        "justify-content": "center",
-        "text-align": "center"
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("text", {
+        staticStyle: _vm.$processStyle({ color: "#555555" }),
+        style: _vm.$processStyle({
+          fontSize: _vm.font(_vm.tex_size_1),
+          marginTop: _vm.font(_vm.contentMargin),
+          margin: _vm.font(_vm.contentMargin),
+          lineHeight: _vm.font(_vm.line_height)
+        }),
+        attrs: { value: _vm.year }
       }),
-      style: (_vm.$processStyle({
-        fontSize: _vm.font(_vm.tex_size_1),
-        lineHeight: _vm.font(_vm.line_height)
-      })),
-      attrs: {
-        "value": item.title
-      }
-    })])
-  })), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#0a0a0a"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.topMargin),
-      lineHeight: _vm.font(_vm.line_height),
-      margin: _vm.font(_vm.contentMargin)
-    })),
-    attrs: {
-      "value": _vm.content
-    }
-  })], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
+      _vm._v(" "),
+      _c("text", {
+        staticStyle: _vm.$processStyle({
+          color: "#000000",
+          "justify-content": "center",
+          "text-align": "center"
+        }),
+        style: _vm.$processStyle({
+          fontSize: _vm.font(_vm.title_size),
+          marginTop: _vm.font(_vm.contentMargin),
+          marginBottom: _vm.font(_vm.contentMargin),
+          lineHeight: _vm.font(_vm.line_height)
+        }),
+        attrs: { value: _vm.title }
+      }),
+      _vm._v(" "),
+      _c(
+        "list",
+        _vm._l(_vm.dealPicUrl, function(item) {
+          return _c("cell", [
+            _c("image", {
+              staticStyle: _vm.$processStyle(undefined),
+              style: _vm.$processStyle({
+                width: _vm.img_w,
+                height: item.height
+              }),
+              attrs: { src: item.url, placeholder: "" }
+            }),
+            _vm._v(" "),
+            _c("text", {
+              staticStyle: _vm.$processStyle({
+                color: "#555555",
+                "justify-content": "center",
+                "text-align": "center"
+              }),
+              style: _vm.$processStyle({
+                fontSize: _vm.font(_vm.tex_size_1),
+                lineHeight: _vm.font(_vm.line_height)
+              }),
+              attrs: { value: item.title }
+            })
+          ])
+        })
+      ),
+      _vm._v(" "),
+      _c("text", {
+        staticStyle: _vm.$processStyle({ color: "#0a0a0a" }),
+        style: _vm.$processStyle({
+          fontSize: _vm.font(_vm.tex_size_2),
+          marginTop: _vm.font(_vm.topMargin),
+          lineHeight: _vm.font(_vm.line_height),
+          margin: _vm.font(_vm.contentMargin)
+        }),
+        attrs: { value: _vm.content }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-ee9f9b5e", module.exports)
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-3a8af228", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 
@@ -543,48 +567,7 @@ if (module.exports.isweb()) {
 
 /***/ }),
 
-/***/ 67:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(84),
-  /* template */
-  __webpack_require__(131),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\todayOnHistory.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] todayOnHistory.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ee9f9b5e", Component.options)
-  } else {
-    hotAPI.reload("data-v-ee9f9b5e", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 84:
+/***/ 68:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -695,6 +678,63 @@ exports.default = {
         this.getOptions();
     }
 };
+
+/***/ }),
+
+/***/ 84:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_todayOnHistory_vue__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_todayOnHistory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_todayOnHistory_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_todayOnHistory_vue__) if(["default","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_todayOnHistory_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3a8af228_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_todayOnHistory_vue__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
+var disposed = false
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_todayOnHistory_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3a8af228_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_todayOnHistory_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3a8af228_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_todayOnHistory_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\views\\todayOnHistory.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3a8af228", Component.options)
+  } else {
+    hotAPI.reload("data-v-3a8af228", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
 
 /***/ })
 

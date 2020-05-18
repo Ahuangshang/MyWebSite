@@ -345,9 +345,23 @@ if (module.exports.isweb()) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_url_parse__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_url_parse___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_url_parse__);
-/**
- * CopyRight (C) 2017-2022 Alibaba Group Holding Limited.
- * Created by Tw93 on 17/11/01
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 
 
@@ -355,19 +369,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 const Utils = {
   UrlParser: __WEBPACK_IMPORTED_MODULE_0_url_parse___default.a,
   _typeof (obj) {
-    return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
+    return Object.prototype.toString
+      .call(obj)
+      .slice(8, -1)
+      .toLowerCase();
   },
   isPlainObject (obj) {
     return Utils._typeof(obj) === 'object';
   },
   isString (obj) {
-    return typeof (obj) === 'string';
+    return typeof obj === 'string';
   },
   isNonEmptyArray (obj = []) {
     return obj && obj.length > 0 && Array.isArray(obj) && typeof obj !== 'undefined';
   },
   isObject (item) {
-    return (item && typeof item === 'object' && !Array.isArray(item));
+    return item && typeof item === 'object' && !Array.isArray(item);
   },
   isEmptyObject (obj) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
@@ -405,9 +422,7 @@ const Utils = {
   },
   appendProtocol (url) {
     if (/^\/\//.test(url)) {
-      const {
-        bundleUrl
-      } = weex.config;
+      const { bundleUrl } = weex.config;
       return `http${/^https:/.test(bundleUrl) ? 's' : ''}:${url}`;
     }
     return url;
@@ -420,10 +435,13 @@ const Utils = {
     const Navigator = weex.requireModule('navigator');
     const jumpUrlObj = new Utils.UrlParser(jumpUrl, true);
     const url = Utils.appendProtocol(jumpUrlObj.toString());
-    Navigator.push({
-      url: Utils.encodeURLParams(url),
-      animated: animated.toString()
-    }, callback);
+    Navigator.push(
+      {
+        url: Utils.encodeURLParams(url),
+        animated: animated.toString()
+      },
+      callback
+    );
   },
   env: {
     isTaobao () {
@@ -440,7 +458,7 @@ const Utils = {
     },
     isWeb () {
       const { platform } = weex.config.env;
-      return typeof (window) === 'object' && platform.toLowerCase() === 'web';
+      return typeof window === 'object' && platform.toLowerCase() === 'web';
     },
     isIOS () {
       const { platform } = weex.config.env;
@@ -453,11 +471,19 @@ const Utils = {
     isIPhoneX () {
       const { deviceHeight } = weex.config.env;
       if (Utils.env.isWeb()) {
-        return typeof window !== undefined && window.screen && window.screen.width && window.screen.height 
-        && ((parseInt(window.screen.width, 10) === 375) && (parseInt(window.screen.height, 10) === 812)
-        || (parseInt(window.screen.width, 10) === 414) && (parseInt(window.screen.height, 10) === 896));
+        return (
+          typeof window !== undefined &&
+          window.screen &&
+          window.screen.width &&
+          window.screen.height &&
+          ((parseInt(window.screen.width, 10) === 375 && parseInt(window.screen.height, 10) === 812) ||
+            (parseInt(window.screen.width, 10) === 414 && parseInt(window.screen.height, 10) === 896))
+        );
       }
-      return Utils.env.isIOS() && (deviceHeight === 2436 || deviceHeight === 2688 || deviceHeight == 1792);
+      return (
+        Utils.env.isIOS() &&
+        (deviceHeight === 2436 || deviceHeight === 2688 || deviceHeight === 1792 || deviceHeight === 1624)
+      );
     },
     isAndroid () {
       const { platform } = weex.config.env;
@@ -480,8 +506,8 @@ const Utils = {
      */
     getPageHeight () {
       const { env } = weex.config;
-      const navHeight = Utils.env.isWeb() ? 0 : (Utils.env.isIPhoneX() ? 176 : 132);
-      return env.deviceHeight / env.deviceWidth * 750 - navHeight;
+      const navHeight = Utils.env.isWeb() ? 0 : Utils.env.isIPhoneX() ? 176 : 132;
+      return (env.deviceHeight / env.deviceWidth) * 750 - navHeight;
     },
     /**
      * 获取weex屏幕真实的设置高度
@@ -489,7 +515,7 @@ const Utils = {
      */
     getScreenHeight () {
       const { env } = weex.config;
-      return env.deviceHeight / env.deviceWidth * 750;
+      return (env.deviceHeight / env.deviceWidth) * 750;
     }
   },
 
@@ -530,11 +556,13 @@ const Utils = {
   arrayChunk (arr = [], size = 4) {
     let groups = [];
     if (arr && arr.length > 0) {
-      groups = arr.map((e, i) => {
-        return i % size === 0 ? arr.slice(i, i + size) : null;
-      }).filter(e => {
-        return e;
-      });
+      groups = arr
+        .map((e, i) => {
+          return i % size === 0 ? arr.slice(i, i + size) : null;
+        })
+        .filter(e => {
+          return e;
+        });
     }
     return groups;
   },
@@ -575,12 +603,12 @@ const Utils = {
    * @returns {String}
    */
   objToParams (obj) {
-    let str = "";
-    for (let key in obj) {
-      if (str !== "") {
-        str += "&";
+    let str = '';
+    for (const key in obj) {
+      if (str !== '') {
+        str += '&';
       }
-      str += key + "=" + encodeURIComponent(obj[key]);
+      str += key + '=' + encodeURIComponent(obj[key]);
     }
     return str;
   },
@@ -592,7 +620,14 @@ const Utils = {
   paramsToObj (str) {
     let obj = {};
     try {
-      obj = JSON.parse('{"' + decodeURI(str).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
+      obj = JSON.parse(
+        '{"' +
+          decodeURI(str)
+            .replace(/"/g, '\\"')
+            .replace(/&/g, '","')
+            .replace(/=/g, '":"') +
+          '"}'
+      );
     } catch (e) {
       console.log(e);
     }
@@ -608,16 +643,20 @@ const Utils = {
      */
     pageTransitionAnimation (ref, transform, status, callback) {
       const animation = weex.requireModule('animation');
-      animation.transition(ref, {
-        styles: {
-          transform: transform
+      animation.transition(
+        ref,
+        {
+          styles: {
+            transform: transform
+          },
+          duration: status ? 250 : 300, // ms
+          timingFunction: status ? 'ease-in' : 'ease-out',
+          delay: 0 // ms
         },
-        duration: status ? 250 : 300, // ms
-        timingFunction: status ? 'ease-in' : 'ease-out',
-        delay: 0 // ms
-      }, function () {
-        callback && callback();
-      });
+        function () {
+          callback && callback();
+        }
+      );
     }
   },
   uiStyle: {
@@ -632,16 +671,16 @@ const Utils = {
         return {
           left: '750px',
           top: '0px',
-          height: (weex.config.env.deviceHeight / weex.config.env.deviceWidth * 750) + 'px'
-        }
+          height: (weex.config.env.deviceHeight / weex.config.env.deviceWidth) * 750 + 'px'
+        };
       } else if (animationType === 'model') {
         return {
-          top: (weex.config.env.deviceHeight / weex.config.env.deviceWidth * 750) + 'px',
+          top: (weex.config.env.deviceHeight / weex.config.env.deviceWidth) * 750 + 'px',
           left: '0px',
-          height: (weex.config.env.deviceHeight / weex.config.env.deviceWidth * 750) + 'px'
-        }
+          height: (weex.config.env.deviceHeight / weex.config.env.deviceWidth) * 750 + 'px'
+        };
       }
-      return {}
+      return {};
     }
   }
 };
@@ -668,13 +707,13 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = {
   channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-  adImgUrl: 'http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
+  adImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
   adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
   newVersion: 318318,
-  updateUrl: 'http://imengu.cn/Ahuangshang/html/downLoadApp.html',
-  downLoadUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
-  HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
-  defaultHost: 'http://imengu.cn/',
+  updateUrl: 'https://ahuangshang.github.io/MyWebsite/html/downLoadApp.html',
+  downLoadUrl: 'https://ahuangshang.github.io/MyWebsite/apk/latest.apk',
+  HostImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/',
+  defaultHost: 'https://ahuangshang.github.io/MyWebsite/',
   getContent: function getContent(e) {
     var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
     var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
@@ -1598,10 +1637,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_weex_bindingx_lib_index_weex_js__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_weex_bindingx_lib_index_weex_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_weex_bindingx_lib_index_weex_js__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__index__ = __webpack_require__(4);
-/**
- * CopyRight (C) 2017-2022 Alibaba Group Holding Limited.
- * Created by Tw93 on 18/03/22
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
+
 
 
 
@@ -1615,7 +1669,7 @@ const BindEnv = {
    * @returns {boolean}
    */
   supportsEBForAndroid () {
-    return (__WEBPACK_IMPORTED_MODULE_1__index__["default"].env.isAndroid()) && BindEnv.supportsEB();
+    return __WEBPACK_IMPORTED_MODULE_1__index__["default"].env.isAndroid() && BindEnv.supportsEB();
   },
 
   /**
@@ -1623,9 +1677,9 @@ const BindEnv = {
    * @returns {boolean}
    */
   supportsEBForIos () {
-    return (__WEBPACK_IMPORTED_MODULE_1__index__["default"].env.isIOS()) && BindEnv.supportsEB();
+    return __WEBPACK_IMPORTED_MODULE_1__index__["default"].env.isIOS() && BindEnv.supportsEB();
   }
-}
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (BindEnv);
 
@@ -1644,11 +1698,30 @@ var has = Object.prototype.hasOwnProperty
  * Decode a URI encoded string.
  *
  * @param {String} input The URI encoded string.
- * @returns {String} The decoded string.
+ * @returns {String|Null} The decoded string.
  * @api private
  */
 function decode(input) {
-  return decodeURIComponent(input.replace(/\+/g, ' '));
+  try {
+    return decodeURIComponent(input.replace(/\+/g, ' '));
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
+ * Attempts to encode a given input.
+ *
+ * @param {String} input The string that needs to be encoded.
+ * @returns {String|Null} The encoded string.
+ * @api private
+ */
+function encode(input) {
+  try {
+    return encodeURIComponent(input);
+  } catch (e) {
+    return null;
+  }
 }
 
 /**
@@ -1672,7 +1745,10 @@ function querystring(query) {
     // methods like `toString` or __proto__ are not overriden by malicious
     // querystrings.
     //
-    if (key in result) continue;
+    // In the case if failed decoding, we want to omit the key/value pairs
+    // from the result.
+    //
+    if (key === null || value === null || key in result) continue;
     result[key] = value;
   }
 
@@ -1711,7 +1787,15 @@ function querystringify(obj, prefix) {
         value = '';
       }
 
-      pairs.push(encodeURIComponent(key) +'='+ encodeURIComponent(value));
+      key = encodeURIComponent(key);
+      value = encodeURIComponent(value);
+
+      //
+      // If we failed to encode the strings, we should bail out as we don't
+      // want to add invalid strings to the query.
+      //
+      if (key === null || value === null) continue;
+      pairs.push(key +'='+ value);
     }
   }
 
@@ -1779,8 +1863,20 @@ module.exports = function required(port, protocol) {
 
 var required = __webpack_require__(13)
   , qs = __webpack_require__(12)
+  , slashes = /^[A-Za-z][A-Za-z0-9+-.]*:\/\//
   , protocolre = /^([a-z][a-z0-9.+-]*:)?(\/\/)?([\S\s]*)/i
-  , slashes = /^[A-Za-z][A-Za-z0-9+-.]*:\/\//;
+  , whitespace = '[\\x09\\x0A\\x0B\\x0C\\x0D\\x20\\xA0\\u1680\\u180E\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200A\\u202F\\u205F\\u3000\\u2028\\u2029\\uFEFF]'
+  , left = new RegExp('^'+ whitespace +'+');
+
+/**
+ * Trim a given string.
+ *
+ * @param {String} str String to trim.
+ * @public
+ */
+function trimLeft(str) {
+  return (str ? str : '').toString().replace(left, '');
+}
 
 /**
  * These are the parse rules for the URL parser, it informs the parser
@@ -1879,6 +1975,7 @@ function lolcation(loc) {
  * @private
  */
 function extractProtocol(address) {
+  address = trimLeft(address);
   var match = protocolre.exec(address);
 
   return {
@@ -1897,6 +1994,8 @@ function extractProtocol(address) {
  * @private
  */
 function resolve(relative, base) {
+  if (relative === '') return base;
+
   var path = (base || '/').split('/').slice(0, -1).concat(relative.split('/'))
     , i = path.length
     , last = path[i - 1]
@@ -1937,6 +2036,8 @@ function resolve(relative, base) {
  * @private
  */
 function Url(address, location, parser) {
+  address = trimLeft(address);
+
   if (!(this instanceof Url)) {
     return new Url(address, location, parser);
   }
@@ -2204,6 +2305,7 @@ Url.prototype = { set: set, toString: toString };
 //
 Url.extractProtocol = extractProtocol;
 Url.location = lolcation;
+Url.trimLeft = trimLeft;
 Url.qs = qs;
 
 module.exports = Url;
@@ -2237,10 +2339,10 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\node_modules\\weex-ui\\packages\\wxc-result\\index.vue"
+__vue_options__.__file = "E:\\work\\otherWork\\rili_weex\\node_modules\\weex-ui\\packages\\wxc-result\\index.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-bd0024ac"
+__vue_options__._scopeId = "data-v-301f2cbc"
 __vue_options__.style = __vue_options__.style || {}
 __vue_styles__.forEach(function (module) {
   for (var name in module) {
@@ -2272,10 +2374,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/**
- * CopyRight (C) 2017-2022 Alibaba Group Holding Limited.
- * Created by Tw93 on 2016/11/4.
- */
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   errorPage: {
@@ -2326,6 +2442,23 @@ var _utils2 = _interopRequireDefault(_utils);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2579,7 +2712,7 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\node_modules\\weex-ui\\packages\\wxc-pan-item\\index.vue"
+__vue_options__.__file = "E:\\work\\otherWork\\rili_weex\\node_modules\\weex-ui\\packages\\wxc-pan-item\\index.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
 __vue_options__.style = __vue_options__.style || {}
@@ -2622,10 +2755,10 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\node_modules\\weex-ui\\packages\\wxc-tab-page\\index.vue"
+__vue_options__.__file = "E:\\work\\otherWork\\rili_weex\\node_modules\\weex-ui\\packages\\wxc-tab-page\\index.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-91e081d8"
+__vue_options__._scopeId = "data-v-1adb81a6"
 __vue_options__.style = __vue_options__.style || {}
 __vue_styles__.forEach(function (module) {
   for (var name in module) {
@@ -2667,10 +2800,10 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\customview\\pullrefresh-listview.vue"
+__vue_options__.__file = "E:\\work\\otherWork\\rili_weex\\src\\views\\customview\\pullrefresh-listview.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-f27c81c2"
+__vue_options__._scopeId = "data-v-0b57dccd"
 __vue_options__.style = __vue_options__.style || {}
 __vue_styles__.forEach(function (module) {
   for (var name in module) {
@@ -2793,7 +2926,7 @@ exports.default = {
         if (e.state === 'start') {
           this.isPanning = true;
           var element = this.$refs['wxc-pan-item'];
-          element && this.$emit('wxcPanItemPan', { element: element });
+          element && this.$emit('wxcPanItemPan', { element: element, extId: this.extId });
         } else if (e.state === 'end') {
           setTimeout(function () {
             _this2.isPanning = false;
@@ -2803,6 +2936,23 @@ exports.default = {
     }
   }
 }; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2851,6 +3001,22 @@ var _indexWeex2 = _interopRequireDefault(_indexWeex);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3084,7 +3250,7 @@ exports.default = {
 
     if (titleType === 'iconFont' && tabStyles.iconFontUrl) {
       dom.addRule('fontFace', {
-        'fontFamily': "wxcIconFont",
+        'fontFamily': 'wxcIconFont',
         'src': 'url(' + tabStyles.iconFontUrl + ')'
       });
     }
@@ -3126,7 +3292,6 @@ exports.default = {
       var _this = this;
 
       if (element && element.ref) {
-
         if (this.isMoving && this.gesToken !== 0) {
           _indexWeex2.default.unbind({
             eventType: 'pan',
@@ -3369,8 +3534,7 @@ module.exports = {
     "bottom": 0
   },
   "tab-page-wrap": {
-    "width": "750",
-    "overflow": "hidden"
+    "width": "750"
   },
   "tab-container": {
     "flex": 1,
@@ -3653,10 +3817,10 @@ __vue_options__ = __vue_exports__ = __vue_exports__.default
 if (typeof __vue_options__ === "function") {
   __vue_options__ = __vue_options__.options
 }
-__vue_options__.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\news.vue"
+__vue_options__.__file = "E:\\work\\otherWork\\rili_weex\\src\\views\\news.vue"
 __vue_options__.render = __vue_template__.render
 __vue_options__.staticRenderFns = __vue_template__.staticRenderFns
-__vue_options__._scopeId = "data-v-ff9f24f8"
+__vue_options__._scopeId = "data-v-e0ff16d4"
 __vue_options__.style = __vue_options__.style || {}
 __vue_styles__.forEach(function (module) {
   for (var name in module) {

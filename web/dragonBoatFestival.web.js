@@ -71,28 +71,32 @@
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = normalizeComponent;
 /* globals __VUE_SSR_CONTEXT__ */
 
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
 
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
   injectStyles,
   scopeId,
-  moduleIdentifier /* server only */
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
 ) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
+  scriptExports = scriptExports || {}
 
   // ES6 modules interop
-  var type = typeof rawScriptExports.default
+  var type = typeof scriptExports.default
   if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
+    scriptExports = scriptExports.default
   }
 
   // Vue.extend constructor export interop
@@ -101,9 +105,15 @@ module.exports = function normalizeComponent (
     : scriptExports
 
   // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
   }
 
   // scopedId
@@ -136,30 +146,32 @@ module.exports = function normalizeComponent (
     // never gets called
     options._ssrRegister = hook
   } else if (injectStyles) {
-    hook = injectStyles
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
   }
 
   if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
       // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
     }
   }
 
   return {
-    esModule: esModule,
     exports: scriptExports,
     options: options
   }
@@ -189,7 +201,7 @@ exports.default = mixins;
 
 /***/ }),
 
-/***/ 109:
+/***/ 115:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
@@ -197,694 +209,850 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 124:
+/***/ 13:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('scroller', [_c('div', [_c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w_top,
-      height: _vm.img_1_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoat_1.jpg",
-      "placeholder": "http://imengu.cn/Ahuangshang/img/image_icon/default.png"
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Created by Tw93 on 2016/11/4.
+ */
+
+exports.default = {
+  channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
+  adImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
+  adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
+  newVersion: 318318,
+  updateUrl: 'https://ahuangshang.github.io/MyWebsite/html/downLoadApp.html',
+  downLoadUrl: 'https://ahuangshang.github.io/MyWebsite/apk/latest.apk',
+  HostImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/',
+  defaultHost: 'https://ahuangshang.github.io/MyWebsite/',
+  getContent: function getContent(e) {
+    var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
+    var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
+    var result = "\n" + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + "<html>" + head + style + "<body>" + this.getButtonInfo(e) + "</body></html>";
+    result = encodeURI(result);
+    return result;
+  },
+  getButtonInfo: function getButtonInfo(e) {
+    var content = e.content.replace(/(<\/?a.*?>)/g, '');
+    var title = e.title;
+    return "<h2>" + title + "</h2>" + content + "<p style='color: #88000000;font-size: 13px'>&nbsp;&nbsp;本文系第三方观点，不代表李唐科技的观点和立场</p><p  onClick='linkThird()' style='color: #33B5E5;font-size: 13px'>&nbsp;&nbsp;原文链接>></p><script>function linkThird() {ltwc.linkThird();}</script>";
+  },
+  getWeatherTypeImg: function getWeatherTypeImg(currentType) {
+    if (this.contains(currentType, '晴')) {
+      return 'qing.jpg';
+    } else if (this.contains(currentType, '阴')) {
+      return 'yin.jpg';
+    } else if (this.contains(currentType, '多云')) {
+      return 'duoyun.gif';
+    } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
+      return 'xiaoyu.gif';
+    } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
+      return 'dayu.gif';
+    } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
+      return 'daxue.gif';
+    } else if (this.contains(currentType, '雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '雨')) {
+      return 'xiaoyu.gif';
     }
-  }), _vm._v(" "), _c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.font(_vm.contentMargin),
-      marginRight: _vm.font(_vm.contentMargin)
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.title
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2),
-      marginTop: _vm.font(_vm.contentMargin)
-    }))
-  }, [_vm._v(" 起源")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_1
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_2
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_2_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoat_2.jpg",
-      "placeholder": "http://imengu.cn/Ahuangshang/img/image_icon/default.png"
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2)
-    }))
-  }, [_vm._v(" 历史渊源")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_3
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_4_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoat_4.jpg",
-      "placeholder": "http://imengu.cn/Ahuangshang/img/image_icon/default.png"
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2)
-    }))
-  }, [_vm._v(" 民俗活动")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 扒龙舟")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_4
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 挂艾草与菖蒲")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_5
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 端午食粽")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_6
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 放纸鸢")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_7
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 草药水（沐兰汤）\n      ")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_8
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 拴五色丝线")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_9
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 打午时水")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_10
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 铸阳燧")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_11
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 浸龙舟水")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_12
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 佩豆娘")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_13
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 画额")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_14
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 避五毒")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_15
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 采药、制凉茶")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_16
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 饮蒲酒、雄黄酒、朱砂酒\n      ")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_17
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 端午雨")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_18
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 跳钟馗")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_19
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 斗草")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_20
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 打马球")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_21
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "margin-left": "9px",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(18)
-    }))
-  }, [_vm._v(" 九狮拜象")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_22
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_2)
-    }))
-  }, [_vm._v("传统饮食")]), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_5_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoat_5.jpg",
-      "placeholder": "http://imengu.cn/Ahuangshang/img/image_icon/default.png"
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_23
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_6_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoat_6.jpg",
-      "placeholder": "http://imengu.cn/Ahuangshang/img/image_icon/default.png"
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_24
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_7_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoat_7.jpg",
-      "placeholder": "http://imengu.cn/Ahuangshang/img/image_icon/default.png"
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_25
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_8_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoat_8.jpg",
-      "placeholder": "http://imengu.cn/Ahuangshang/img/image_icon/default.png"
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_26
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_9_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoat_9.jpg",
-      "placeholder": "http://imengu.cn/Ahuangshang/img/image_icon/default.png"
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(_vm.tex_size_1),
-      marginTop: _vm.font(_vm.topMargin),
-      margin: _vm.font(_vm.contentMargin),
-      lineHeight: _vm.font(_vm.line_height)
-    })),
-    attrs: {
-      "value": _vm.content_27
-    }
-  })])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
+  },
+
+  contains: function contains(str, s) {
+    return str.indexOf(s) > -1;
+  },
+  getWeatherDec: function getWeatherDec(high, low) {
+    var nhigh = high.replace("高温", "");
+    nhigh = nhigh.replace('℃', '');
+    var nlow = low.replace('低温', '');
+    return nhigh + " ~" + nlow;
+  },
+  newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
+  newsTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 160,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 160,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  },
+  jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
+  jokeTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 250,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 250,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  }
+};
+
+/***/ }),
+
+/***/ 132:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("scroller", [
+    _c("div", [
+      _c("image", {
+        staticStyle: _vm.$processStyle(undefined),
+        style: _vm.$processStyle({ width: _vm.img_w_top, height: _vm.img_1_h }),
+        attrs: {
+          src: _vm.defaultHost + "img/dragonBoatFestival/dragonBoat_1.jpg",
+          placeholder: _vm.defaultHost + "img/image_icon/default.png"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticStyle: _vm.$processStyle(undefined),
+          style: _vm.$processStyle({
+            marginLeft: _vm.font(_vm.contentMargin),
+            marginRight: _vm.font(_vm.contentMargin)
+          })
+        },
+        [
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.title }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle(undefined),
+              style: _vm.$processStyle({
+                fontSize: _vm.font(_vm.tex_size_2),
+                marginTop: _vm.font(_vm.contentMargin)
+              })
+            },
+            [_vm._v(" 起源")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_1 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_2 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_2_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/dragonBoatFestival/dragonBoat_2.jpg",
+              placeholder: _vm.defaultHost + "img/image_icon/default.png"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({ "margin-top": "15px" }),
+              style: _vm.$processStyle({ fontSize: _vm.font(_vm.tex_size_2) })
+            },
+            [_vm._v(" 历史渊源")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_3 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_4_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/dragonBoatFestival/dragonBoat_4.jpg",
+              placeholder: _vm.defaultHost + "img/image_icon/default.png"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({ "margin-top": "15px" }),
+              style: _vm.$processStyle({ fontSize: _vm.font(_vm.tex_size_2) })
+            },
+            [_vm._v(" 民俗活动")]
+          ),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 扒龙舟")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_4 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 挂艾草与菖蒲")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_5 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 端午食粽")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_6 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 放纸鸢")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_7 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 草药水（沐兰汤）\n      ")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_8 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 拴五色丝线")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_9 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 打午时水")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_10 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 铸阳燧")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_11 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 浸龙舟水")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_12 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 佩豆娘")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_13 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 画额")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_14 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 避五毒")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_15 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 采药、制凉茶")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_16 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 饮蒲酒、雄黄酒、朱砂酒\n      ")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_17 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 端午雨")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_18 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 跳钟馗")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_19 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 斗草")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_20 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 打马球")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_21 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                "margin-top": "15px",
+                "margin-left": "9px",
+                "font-weight": "bold"
+              }),
+              style: _vm.$processStyle({ fontSize: _vm.font(18) })
+            },
+            [_vm._v(" 九狮拜象")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_22 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({ "margin-top": "15px" }),
+              style: _vm.$processStyle({ fontSize: _vm.font(_vm.tex_size_2) })
+            },
+            [_vm._v("传统饮食")]
+          ),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_5_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/dragonBoatFestival/dragonBoat_5.jpg",
+              placeholder: _vm.defaultHost + "img/image_icon/default.png"
+            }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_23 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_6_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/dragonBoatFestival/dragonBoat_6.jpg",
+              placeholder: _vm.defaultHost + "img/image_icon/default.png"
+            }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_24 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_7_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/dragonBoatFestival/dragonBoat_7.jpg",
+              placeholder: _vm.defaultHost + "img/image_icon/default.png"
+            }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_25 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_8_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/dragonBoatFestival/dragonBoat_8.jpg",
+              placeholder: _vm.defaultHost + "img/image_icon/default.png"
+            }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_26 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_9_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/dragonBoatFestival/dragonBoat_9.jpg",
+              placeholder: _vm.defaultHost + "img/image_icon/default.png"
+            }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.font(_vm.tex_size_1),
+              marginTop: _vm.font(_vm.topMargin),
+              margin: _vm.font(_vm.contentMargin),
+              lineHeight: _vm.font(_vm.line_height)
+            }),
+            attrs: { value: _vm.content_27 }
+          })
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-492c6d30", module.exports)
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-c0ba7482", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 
 /***/ }),
 
-/***/ 138:
+/***/ 144:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(109);
+var content = __webpack_require__(115);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("65ec4750", content, false);
+var add = __webpack_require__(4).default
+var update = add("6914a46e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-492c6d30\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./dragonBoatFestival.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-492c6d30\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./dragonBoatFestival.vue");
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-c0ba7482\",\"scoped\":true,\"sourceMap\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./dragonBoatFestival.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-c0ba7482\",\"scoped\":true,\"sourceMap\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./dragonBoatFestival.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -1201,13 +1369,19 @@ module.exports = function() {
 /***/ }),
 
 /***/ 4:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = addStylesClient;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__listToStyles__ = __webpack_require__(5);
 /*
   MIT License http://www.opensource.org/licenses/mit-license.php
   Author Tobias Koppers @sokra
   Modified by Evan You @yyx990803
 */
+
+
 
 var hasDocument = typeof document !== 'undefined'
 
@@ -1218,8 +1392,6 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
     "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
   ) }
 }
-
-var listToStyles = __webpack_require__(5)
 
 /*
 type StyleObject = {
@@ -1247,15 +1419,19 @@ var singletonElement = null
 var singletonCounter = 0
 var isProduction = false
 var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
 
 // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
 // tags it will allow on a page
 var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
 
-module.exports = function (parentId, list, _isProduction) {
+function addStylesClient (parentId, list, _isProduction, _options) {
   isProduction = _isProduction
 
-  var styles = listToStyles(parentId, list)
+  options = _options || {}
+
+  var styles = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__listToStyles__["a" /* default */])(parentId, list)
   addStylesToDom(styles)
 
   return function update (newList) {
@@ -1267,7 +1443,7 @@ module.exports = function (parentId, list, _isProduction) {
       mayRemove.push(domStyle)
     }
     if (newList) {
-      styles = listToStyles(parentId, newList)
+      styles = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__listToStyles__["a" /* default */])(parentId, newList)
       addStylesToDom(styles)
     } else {
       styles = []
@@ -1318,7 +1494,7 @@ function createStyleElement () {
 
 function addStyle (obj /* StyleObjectPart */) {
   var update, remove
-  var styleElement = document.querySelector('style[data-vue-ssr-id~="' + obj.id + '"]')
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
 
   if (styleElement) {
     if (isProduction) {
@@ -1400,6 +1576,9 @@ function applyToTag (styleElement, obj) {
   if (media) {
     styleElement.setAttribute('media', media)
   }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
 
   if (sourceMap) {
     // https://developer.chrome.com/devtools/docs/javascript-debugging
@@ -1423,13 +1602,15 @@ function applyToTag (styleElement, obj) {
 /***/ }),
 
 /***/ 5:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = listToStyles;
 /**
  * Translates the list format produced by css-loader into something
  * easier to manipulate.
  */
-module.exports = function listToStyles (parentId, list) {
+function listToStyles (parentId, list) {
   var styles = []
   var newStyles = {}
   for (var i = 0; i < list.length; i++) {
@@ -1456,52 +1637,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 58:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(138)
-}
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(75),
-  /* template */
-  __webpack_require__(124),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  "data-v-492c6d30",
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\dragonBoatFestival.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] dragonBoatFestival.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-492c6d30", Component.options)
-  } else {
-    hotAPI.reload("data-v-492c6d30", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 75:
+/***/ 59:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1510,7 +1646,14 @@ module.exports = Component.exports
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-//
+
+var _config = __webpack_require__(13);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var util = __webpack_require__(2); //
 //
 //
 //
@@ -1682,7 +1825,6 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 
-var util = __webpack_require__(2);
 exports.default = {
   name: "dragonBoatFestival",
   props: {
@@ -1821,6 +1963,12 @@ exports.default = {
       default: "        煎堆：福建晋江地区，端午节家家户户还要吃“煎堆”，就是用面粉、米粉或番薯粉和其他配料调成浓糊状煎成。相传古时闽南一带在端午节之前是雨季，阴雨连绵不止，民间说天公穿了洞，要“补天”。端午节吃了“煎堆”后雨便止了，人们说把天补好了。这种食俗由此而来。"
     }
   },
+  data: function data() {
+    return {
+      defaultHost: _config2.default.defaultHost
+    };
+  },
+
   methods: {
     font: function font(size) {
       return util.getFontSize(size);
@@ -1830,13 +1978,74 @@ exports.default = {
 
 /***/ }),
 
+/***/ 75:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dragonBoatFestival_vue__ = __webpack_require__(59);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dragonBoatFestival_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dragonBoatFestival_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dragonBoatFestival_vue__) if(["default","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dragonBoatFestival_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_c0ba7482_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_dragonBoatFestival_vue__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
+var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__(144)
+}
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-c0ba7482"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_dragonBoatFestival_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_c0ba7482_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_dragonBoatFestival_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_c0ba7482_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_dragonBoatFestival_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\views\\dragonBoatFestival.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c0ba7482", Component.options)
+  } else {
+    hotAPI.reload("data-v-c0ba7482", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+
 /***/ 91:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _dragonBoatFestival = __webpack_require__(58);
+var _dragonBoatFestival = __webpack_require__(75);
 
 var _dragonBoatFestival2 = _interopRequireDefault(_dragonBoatFestival);
 

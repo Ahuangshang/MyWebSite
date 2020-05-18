@@ -71,28 +71,32 @@
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = normalizeComponent;
 /* globals __VUE_SSR_CONTEXT__ */
 
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
 
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
   injectStyles,
   scopeId,
-  moduleIdentifier /* server only */
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
 ) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
+  scriptExports = scriptExports || {}
 
   // ES6 modules interop
-  var type = typeof rawScriptExports.default
+  var type = typeof scriptExports.default
   if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
+    scriptExports = scriptExports.default
   }
 
   // Vue.extend constructor export interop
@@ -101,9 +105,15 @@ module.exports = function normalizeComponent (
     : scriptExports
 
   // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
   }
 
   // scopedId
@@ -136,30 +146,32 @@ module.exports = function normalizeComponent (
     // never gets called
     options._ssrRegister = hook
   } else if (injectStyles) {
-    hook = injectStyles
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
   }
 
   if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
       // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
     }
   }
 
   return {
-    esModule: esModule,
     exports: scriptExports,
     options: options
   }
@@ -189,232 +201,204 @@ exports.default = mixins;
 
 /***/ }),
 
-/***/ 122:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 118:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('scroller', [_c('div', [_c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w_top,
-      height: _vm.img_1_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.contentMargin,
-      marginRight: _vm.contentMargin
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.title
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_2,
-      marginTop: _vm.contentMargin
-    }))
-  }, [_vm._v(" 起源")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_1
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_2_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn1.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_2
-    }))
-  }, [_vm._v(" 发展")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_2
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_3_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn5.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_2
-    }))
-  }, [_vm._v(" 假期")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_3
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_4_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn6.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_2
-    }))
-  }, [_vm._v(" 风俗习惯")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_4
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_5_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/mid_autumn/mid-autumn7.gif",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_2
-    }))
-  }, [_vm._v(" 神话传说")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#334f16"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_5
-    }
-  })])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("scroller", [
+    _c("div", [
+      _c("image", {
+        staticStyle: _vm.$processStyle(undefined),
+        style: _vm.$processStyle({ width: _vm.img_w_top, height: _vm.img_1_h }),
+        attrs: {
+          src: _vm.defaultHost + "img/mid_autumn/mid-autumn.jpg",
+          placeholder: ""
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticStyle: _vm.$processStyle(undefined),
+          style: _vm.$processStyle({
+            marginLeft: _vm.contentMargin,
+            marginRight: _vm.contentMargin
+          })
+        },
+        [
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.title }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle(undefined),
+              style: _vm.$processStyle({
+                fontSize: _vm.tex_size_2,
+                marginTop: _vm.contentMargin
+              })
+            },
+            [_vm._v(" 起源")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_1 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_2_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/mid_autumn/mid-autumn1.jpg",
+              placeholder: ""
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({ "margin-top": "15px" }),
+              style: _vm.$processStyle({ fontSize: _vm.tex_size_2 })
+            },
+            [_vm._v(" 发展")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_2 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_3_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/mid_autumn/mid-autumn5.jpg",
+              placeholder: ""
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({ "margin-top": "15px" }),
+              style: _vm.$processStyle({ fontSize: _vm.tex_size_2 })
+            },
+            [_vm._v(" 假期")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_3 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_4_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/mid_autumn/mid-autumn6.jpg",
+              placeholder: ""
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({ "margin-top": "15px" }),
+              style: _vm.$processStyle({ fontSize: _vm.tex_size_2 })
+            },
+            [_vm._v(" 风俗习惯")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_4 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_5_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/mid_autumn/mid-autumn7.gif",
+              placeholder: ""
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({ "margin-top": "15px" }),
+              style: _vm.$processStyle({ fontSize: _vm.tex_size_2 })
+            },
+            [_vm._v(" 神话传说")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#334f16" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_5 }
+          })
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-3858003d", module.exports)
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-0982e274", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 
 /***/ }),
 
-/***/ 62:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(79),
-  /* template */
-  __webpack_require__(122),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\mid-autumn-festival.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] mid-autumn-festival.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3858003d", Component.options)
-  } else {
-    hotAPI.reload("data-v-3858003d", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 79:
+/***/ 13:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -423,55 +407,127 @@ module.exports = Component.exports
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/**
+ * Created by Tw93 on 2016/11/4.
+ */
+
+exports.default = {
+  channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
+  adImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
+  adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
+  newVersion: 318318,
+  updateUrl: 'https://ahuangshang.github.io/MyWebsite/html/downLoadApp.html',
+  downLoadUrl: 'https://ahuangshang.github.io/MyWebsite/apk/latest.apk',
+  HostImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/',
+  defaultHost: 'https://ahuangshang.github.io/MyWebsite/',
+  getContent: function getContent(e) {
+    var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
+    var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
+    var result = "\n" + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + "<html>" + head + style + "<body>" + this.getButtonInfo(e) + "</body></html>";
+    result = encodeURI(result);
+    return result;
+  },
+  getButtonInfo: function getButtonInfo(e) {
+    var content = e.content.replace(/(<\/?a.*?>)/g, '');
+    var title = e.title;
+    return "<h2>" + title + "</h2>" + content + "<p style='color: #88000000;font-size: 13px'>&nbsp;&nbsp;本文系第三方观点，不代表李唐科技的观点和立场</p><p  onClick='linkThird()' style='color: #33B5E5;font-size: 13px'>&nbsp;&nbsp;原文链接>></p><script>function linkThird() {ltwc.linkThird();}</script>";
+  },
+  getWeatherTypeImg: function getWeatherTypeImg(currentType) {
+    if (this.contains(currentType, '晴')) {
+      return 'qing.jpg';
+    } else if (this.contains(currentType, '阴')) {
+      return 'yin.jpg';
+    } else if (this.contains(currentType, '多云')) {
+      return 'duoyun.gif';
+    } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
+      return 'xiaoyu.gif';
+    } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
+      return 'dayu.gif';
+    } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
+      return 'daxue.gif';
+    } else if (this.contains(currentType, '雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '雨')) {
+      return 'xiaoyu.gif';
+    }
+  },
+
+  contains: function contains(str, s) {
+    return str.indexOf(s) > -1;
+  },
+  getWeatherDec: function getWeatherDec(high, low) {
+    var nhigh = high.replace("高温", "");
+    nhigh = nhigh.replace('℃', '');
+    var nlow = low.replace('低温', '');
+    return nhigh + " ~" + nlow;
+  },
+  newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
+  newsTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 160,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 160,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  },
+  jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
+  jokeTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 250,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 250,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  }
+};
+
+/***/ }),
+
+/***/ 63:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _config = __webpack_require__(13);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   props: {
@@ -533,8 +589,119 @@ exports.default = {
       default: "   嫦娥奔月\n" + "        版本一\n" + "        相传，远古时候天上有十日同时出现，晒得庄稼枯死，民不聊生，一个名叫后羿的英雄，力大无穷，他同情受苦的百姓，登上昆仑山顶，运足神力，拉开神弓，一气射下九个多太阳，并严令最后一个太阳按时起落，为民造福。后羿因此受到百姓的尊敬和爱戴，后羿娶了个美丽善良的妻子，名叫嫦娥。后羿除传艺狩猎外，终日和妻子在一起，人们都羡慕这对郎才女貌的恩爱夫妻。\n" + "        不少志士慕名前来投师学艺，心术不正的蓬蒙也混了进来。一天，后羿到昆仑山访友求道，巧遇由此经过的王母娘娘，便向王母求得一包不死药。据说，服下此药，能即刻升天成仙。然而，后羿舍不得撇下妻子，只好暂时把不死药交给嫦娥珍藏。嫦娥将药藏进梳妆台的百宝匣里，不料被小人蓬蒙看见了，他想偷吃不死药自己成仙。三天后，后羿率众徒外出狩猎，心怀鬼胎的蓬蒙假装生病，留了下来。待后羿率众人走后不久，蓬蒙手持宝剑闯入内宅后院，威逼嫦娥交出不死药。嫦娥知道自己不是蓬蒙的对手，危急之时她当机立断，转身打开百宝匣，拿出不死药一口吞了下去。嫦娥吞下药，身子立时飘离地面、冲出窗口，向天上飞去。由于嫦娥牵挂着丈夫，便飞落到离人间最近的月亮上成了仙。傍晚，后羿回到家，侍女们哭诉了白天发生的事。后羿既惊又怒，抽剑去杀恶徒，蓬蒙早逃走了，后羿气得捶胸顿足，悲痛欲绝，仰望着夜空呼唤爱妻的名字，这时他惊奇地发现，今天的月亮格外皎洁明亮，而且有个晃动的身影酷似嫦娥。他拼命朝月亮追去，可是他追三步，月亮退三步，他退三步，月亮进三步，无论怎样也追不到跟前。后羿无可奈何，又思念妻子，只好派人到嫦娥喜爱的后花园里，摆上香案，放上她平时最爱吃的蜜食鲜果，遥祭在月宫里眷恋着自己的嫦娥。百姓们闻知嫦娥奔月成仙的消息后，纷纷在月下摆设香案，向善良的嫦娥祈求吉祥平安。从此，中秋节拜月的风俗在民间传开了。\n" + "        版本二\n" + "        在后羿和嫦娥结合以前，后羿是王母的侍从，嫦娥是玉帝的婢女。后来，后羿遭他人陷害。玉帝一怒之下把他夫妻二人双双贬下天庭。后羿在凡间做了一名神射手。因助尧帝射日，得长生药丸一粒。尧叮嘱他说要禁食一年方可服用。后羿回到家，把不老仙丹藏在椽下，收敛心神，以待成仙。一日，后羿得尧召见。嫦娥见椽下白光闪烁，甚是可喜，就找到药丸，吞了下去。瞬时间，她的身体越变越轻，不一会儿竟飞上天去了。后羿回来，刚好看到这一幕，又急又气。他弯弓搭箭，向天射去，希望能够追回嫦娥。但是最后因为风的原因，后羿不得不折返地球，眼睁睁地看嫦娥飞到了月亮上。嫦娥到了月亮上，一阵猛咳，吐出半颗药丸。药丸变成一个玉兔，整日捣药，与她做伴。\n" + "   月饼起义\n" + "        中秋节吃月饼相传始于元代。当时，中原广大人民不堪忍受元朝统治阶级的残酷统治，纷纷起义抗元。朱元璋联合各路反抗力量准备起义。但朝廷官兵搜查的十分严密，传递消息十分困难。军师刘伯温便想出一计策，命令属下把藏有“八月十五夜起义”的纸条藏入饼子里面，再派人分头传送到各地起义军中，通知他们在八月十五日晚上起义响应。到了起义的那天，各路义军一齐响应，起义军如星火燎原。很快，徐达就攻下元大都，起义成功了。消息传来，朱元璋高兴得连忙传下口谕，在即将来临的中秋节，让全体将士与民同乐，并将当年起兵时以秘密传递信息的“月饼”，作为节令糕点赏赐群臣。此后，“月饼”制作越发精细，品种更多，大者如圆盘，成为馈赠的佳品。以后中秋节吃月饼的习俗便在民间流传开来。\n" + "   玉兔捣药\n" + "        嫦娥身边有只玉兔。据说嫦娥身体变轻，开始升空时，惶恐中抱起了一直喂养的白兔。白兔便随她一起上了月亮。玉兔在月宫有一只捣药杵，夜晚在药臼中捣制长生不老的灵药。这个神话传到日本后，变成了玉兔在捣年糕。\n" + "   玄宗故事\n" + "        相传唐玄宗与申天师及道士鸿都中秋望月，突然玄宗兴起游月宫之念，于是天师作法，三人一起步上青云，漫游月宫。但宫前有守卫森严，无法进入，只能在外俯瞰长安皇城。在此之际，忽闻仙声阵阵，唐玄宗素来熟通音律，于是默记心中。这正是“此曲只应天上有，人间能得几回闻！”日后玄宗回忆月宫仙娥的音乐歌声，自己谱曲编舞，创作了历史上有名的“霓裳羽衣曲”。"
     }
   },
+  data: function data() {
+    return {
+      defaultHost: _config2.default.defaultHost
+    };
+  },
+
   created: function created() {}
-};
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/***/ }),
+
+/***/ 79:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_mid_autumn_festival_vue__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_mid_autumn_festival_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_mid_autumn_festival_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_mid_autumn_festival_vue__) if(["default","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_mid_autumn_festival_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0982e274_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_mid_autumn_festival_vue__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
+var disposed = false
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_mid_autumn_festival_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0982e274_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_mid_autumn_festival_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_0982e274_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_mid_autumn_festival_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\views\\mid-autumn-festival.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0982e274", Component.options)
+  } else {
+    hotAPI.reload("data-v-0982e274", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
 
 /***/ }),
 
@@ -544,7 +711,7 @@ exports.default = {
 "use strict";
 
 
-var _midAutumnFestival = __webpack_require__(62);
+var _midAutumnFestival = __webpack_require__(79);
 
 var _midAutumnFestival2 = _interopRequireDefault(_midAutumnFestival);
 

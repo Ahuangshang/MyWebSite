@@ -71,28 +71,32 @@
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = normalizeComponent;
 /* globals __VUE_SSR_CONTEXT__ */
 
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
 
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
   injectStyles,
   scopeId,
-  moduleIdentifier /* server only */
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
 ) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
+  scriptExports = scriptExports || {}
 
   // ES6 modules interop
-  var type = typeof rawScriptExports.default
+  var type = typeof scriptExports.default
   if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
+    scriptExports = scriptExports.default
   }
 
   // Vue.extend constructor export interop
@@ -101,9 +105,15 @@ module.exports = function normalizeComponent (
     : scriptExports
 
   // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
   }
 
   // scopedId
@@ -136,30 +146,32 @@ module.exports = function normalizeComponent (
     // never gets called
     options._ssrRegister = hook
   } else if (injectStyles) {
-    hook = injectStyles
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
   }
 
   if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
       // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
     }
   }
 
   return {
-    esModule: esModule,
     exports: scriptExports,
     options: options
   }
@@ -190,42 +202,66 @@ exports.default = mixins;
 /***/ }),
 
 /***/ 10:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "div",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.imgw,
-      height: _vm.getImgHeight(_vm.imgh),
-      backgroundColor: _vm.bgColor
-    })),
-    on: {
-      "click": _vm.onClick
-    }
-  }, [_c('image', {
-    staticClass: "icon",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.imgw,
-      height: _vm.getImgHeight(_vm.imgh),
-      marginLeft: _vm.padding_left,
-      marginRight: _vm.padding_right
-    })),
-    attrs: {
-      "resize": _vm.resize,
-      "src": _vm.getSrc(_vm.imgUrl)
-    }
-  })])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "div",
+      staticStyle: _vm.$processStyle(undefined),
+      style: _vm.$processStyle({
+        width: _vm.imgw,
+        height: _vm.getImgHeight(_vm.imgh),
+        backgroundColor: _vm.bgColor
+      }),
+      on: { click: _vm.onClick }
+    },
+    [
+      _c("image", {
+        staticClass: "icon",
+        staticStyle: _vm.$processStyle(undefined),
+        style: _vm.$processStyle({
+          width: _vm.imgw,
+          height: _vm.getImgHeight(_vm.imgh),
+          marginLeft: _vm.padding_left,
+          marginRight: _vm.padding_right
+        }),
+        attrs: { resize: _vm.resize, src: _vm.getSrc(_vm.imgUrl) }
+      })
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-7203603b", module.exports)
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-21f21371", { render: render, staticRenderFns: staticRenderFns })
   }
 }
+
+/***/ }),
+
+/***/ 109:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+// imports
+
+
+// module
+exports.push([module.i, "\n.div[data-v-3c2a0456] {\n    height: 1300px;\n    position: absolute;\n    right: 0;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    background-color: rgba(0, 0, 0, 0.5);\n}\n.div_weixin[data-v-3c2a0456] {\n    position: absolute;\n    right: 0;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    height: 1300px;\n    background-color: rgba(0, 0, 0, 1);\n}\n.hint[data-v-3c2a0456] {\n    width: 750px;\n    position: absolute;\n    right: 0;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    align-items: center;\n}\n.hintImage[data-v-3c2a0456] {\n    width: 618.75px;\n    height: 1100px;\n}\n.bg[data-v-3c2a0456] {\n    opacity: 0.3;\n    position: absolute;\n    right: 0;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    width: 750px;\n    height: 1300px;\n}\n", ""]);
+
+// exports
+
 
 /***/ }),
 
@@ -239,13 +275,14 @@ var content = __webpack_require__(9);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("9aa8cbfa", content, false);
+var add = __webpack_require__(4).default
+var update = add("2c865b7c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7203603b\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue", function() {
-     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7203603b\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue");
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-21f21371\",\"scoped\":true,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-21f21371\",\"scoped\":true,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -256,163 +293,290 @@ if(false) {
 
 /***/ }),
 
-/***/ 113:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 125:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)();
-// imports
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      class: [_vm.div()],
+      staticStyle: _vm.$processStyle({ flex: "1" }),
+      style: _vm.$processStyle(undefined)
+    },
+    [
+      _c("image", {
+        staticClass: "bg",
+        staticStyle: _vm.$processStyle(undefined),
+        style: _vm.$processStyle(undefined),
+        attrs: { src: "image/bg.jpg" }
+      }),
+      _vm._v(" "),
+      !_vm.isweixin
+        ? _c(
+            "div",
+            {
+              staticStyle: _vm.$processStyle({
+                "align-items": "center",
+                "flex-direction": "column",
+                "margin-top": "120px"
+              }),
+              style: _vm.$processStyle(undefined)
+            },
+            [
+              _c("icon-img", {
+                staticStyle: _vm.$processStyle(undefined),
+                style: _vm.$processStyle(undefined),
+                attrs: { imgUrl: "icon.png", imgw: "100" }
+              }),
+              _vm._v(" "),
+              _c("text", {
+                staticStyle: _vm.$processStyle({
+                  "margin-top": "20px",
+                  color: "#fdfdfd",
+                  "font-weight": "bold"
+                }),
+                style: _vm.$processStyle({ fontSize: _vm.font(20) }),
+                attrs: { value: "王朝黄历" }
+              }),
+              _vm._v(" "),
+              _c("text", {
+                staticStyle: _vm.$processStyle({
+                  "margin-top": "50px",
+                  color: "#fdfdfd"
+                }),
+                style: _vm.$processStyle({ fontSize: _vm.font(16) }),
+                attrs: { value: "有趣实用的王朝黄历" }
+              }),
+              _vm._v(" "),
+              _c("text", {
+                staticStyle: _vm.$processStyle({
+                  "margin-top": "15px",
+                  color: "#fdfdfd"
+                }),
+                style: _vm.$processStyle({ fontSize: _vm.font(16) }),
+                attrs: { value: "千万人次的选择" }
+              }),
+              _vm._v(" "),
+              _c("text", {
+                staticStyle: _vm.$processStyle({
+                  "margin-top": "15px",
+                  color: "#fdfdfd"
+                }),
+                style: _vm.$processStyle({ fontSize: _vm.font(16) }),
+                attrs: { value: "你还在等什么？" }
+              }),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticStyle: _vm.$processStyle(undefined),
+                  style: _vm.$processStyle(undefined),
+                  attrs: { href: _vm.defaultHost + "apk/latest.apk" }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticStyle: _vm.$processStyle({
+                        "background-color": "#31A9A5",
+                        "border-radius": "10px",
+                        "margin-top": "25px",
+                        cursor: "pointer"
+                      }),
+                      style: _vm.$processStyle(undefined)
+                    },
+                    [
+                      _c("text", {
+                        staticStyle: _vm.$processStyle({
+                          margin: "15px",
+                          color: "#fdfdfd",
+                          cursor: "pointer"
+                        }),
+                        style: _vm.$processStyle({ fontSize: _vm.font(16) }),
+                        attrs: { value: "点我下载吧" }
+                      })
+                    ]
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isweixin
+        ? _c(
+            "div",
+            {
+              staticClass: "hint",
+              staticStyle: _vm.$processStyle(undefined),
+              style: _vm.$processStyle(undefined)
+            },
+            [
+              _c("image", {
+                staticClass: "hintImage",
+                staticStyle: _vm.$processStyle(undefined),
+                style: _vm.$processStyle(undefined),
+                attrs: { src: "image/hint.png" }
+              })
+            ]
+          )
+        : _vm._e()
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
 
-
-// module
-exports.push([module.i, "\n.div[data-v-b2e65368] {\n    height: 1300px;\n    position: absolute;\n    right: 0;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    background-color: rgba(0, 0, 0, 0.5);\n}\n.div_weixin[data-v-b2e65368] {\n    position: absolute;\n    right: 0;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    height: 1300px;\n    background-color: rgba(0, 0, 0, 1);\n}\n.hint[data-v-b2e65368] {\n    width: 750px;\n    position: absolute;\n    right: 0;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    align-items: center;\n}\n.hintImage[data-v-b2e65368] {\n    width: 618.75px;\n    height: 1100px;\n}\n.bg[data-v-b2e65368] {\n    opacity: 0.3;\n    position: absolute;\n    right: 0;\n    top: 0;\n    left: 0;\n    bottom: 0;\n    width: 750px;\n    height: 1300px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 130:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    class: [_vm.div()],
-    staticStyle: _vm.$processStyle({
-      "flex": "1"
-    }),
-    style: (_vm.$processStyle(undefined))
-  }, [_c('image', {
-    staticClass: "bg",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "src": "image/bg.jpg"
-    }
-  }), _vm._v(" "), (!_vm.isweixin) ? _c('div', {
-    staticStyle: _vm.$processStyle({
-      "align-items": "center",
-      "flex-direction": "column",
-      "margin-top": "120px"
-    }),
-    style: (_vm.$processStyle(undefined))
-  }, [_c('icon-img', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "imgUrl": "icon.png",
-      "imgw": "100"
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "20px",
-      "color": "#fdfdfd",
-      "font-weight": "bold"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(20)
-    })),
-    attrs: {
-      "value": "王朝黄历"
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "50px",
-      "color": "#fdfdfd"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(16)
-    })),
-    attrs: {
-      "value": "有趣实用的王朝黄历"
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "color": "#fdfdfd"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(16)
-    })),
-    attrs: {
-      "value": "千万人次的选择"
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin-top": "15px",
-      "color": "#fdfdfd"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(16)
-    })),
-    attrs: {
-      "value": "你还在等什么？"
-    }
-  }), _vm._v(" "), _c('a', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "href": "http://imengu.cn/Ahuangshang/apk/latest.apk"
-    }
-  }, [_c('div', {
-    staticStyle: _vm.$processStyle({
-      "background-color": "#31A9A5",
-      "border-radius": "10px",
-      "margin-top": "25px",
-      "cursor": "pointer"
-    }),
-    style: (_vm.$processStyle(undefined))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "margin": "15px",
-      "color": "#fdfdfd",
-      "cursor": "pointer"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(16)
-    })),
-    attrs: {
-      "value": "点我下载吧"
-    }
-  })])])], 1) : _vm._e(), _vm._v(" "), (_vm.isweixin) ? _c('div', {
-    staticClass: "hint",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined))
-  }, [_c('image', {
-    staticClass: "hintImage",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "src": "image/hint.png"
-    }
-  })]) : _vm._e()])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-b2e65368", module.exports)
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-3c2a0456", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 
 /***/ }),
 
-/***/ 142:
+/***/ 13:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Created by Tw93 on 2016/11/4.
+ */
+
+exports.default = {
+  channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
+  adImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
+  adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
+  newVersion: 318318,
+  updateUrl: 'https://ahuangshang.github.io/MyWebsite/html/downLoadApp.html',
+  downLoadUrl: 'https://ahuangshang.github.io/MyWebsite/apk/latest.apk',
+  HostImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/',
+  defaultHost: 'https://ahuangshang.github.io/MyWebsite/',
+  getContent: function getContent(e) {
+    var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
+    var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
+    var result = "\n" + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + "<html>" + head + style + "<body>" + this.getButtonInfo(e) + "</body></html>";
+    result = encodeURI(result);
+    return result;
+  },
+  getButtonInfo: function getButtonInfo(e) {
+    var content = e.content.replace(/(<\/?a.*?>)/g, '');
+    var title = e.title;
+    return "<h2>" + title + "</h2>" + content + "<p style='color: #88000000;font-size: 13px'>&nbsp;&nbsp;本文系第三方观点，不代表李唐科技的观点和立场</p><p  onClick='linkThird()' style='color: #33B5E5;font-size: 13px'>&nbsp;&nbsp;原文链接>></p><script>function linkThird() {ltwc.linkThird();}</script>";
+  },
+  getWeatherTypeImg: function getWeatherTypeImg(currentType) {
+    if (this.contains(currentType, '晴')) {
+      return 'qing.jpg';
+    } else if (this.contains(currentType, '阴')) {
+      return 'yin.jpg';
+    } else if (this.contains(currentType, '多云')) {
+      return 'duoyun.gif';
+    } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
+      return 'xiaoyu.gif';
+    } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
+      return 'dayu.gif';
+    } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
+      return 'daxue.gif';
+    } else if (this.contains(currentType, '雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '雨')) {
+      return 'xiaoyu.gif';
+    }
+  },
+
+  contains: function contains(str, s) {
+    return str.indexOf(s) > -1;
+  },
+  getWeatherDec: function getWeatherDec(high, low) {
+    var nhigh = high.replace("高温", "");
+    nhigh = nhigh.replace('℃', '');
+    var nlow = low.replace('低温', '');
+    return nhigh + " ~" + nlow;
+  },
+  newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
+  newsTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 160,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 160,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  },
+  jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
+  jokeTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 250,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 250,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  }
+};
+
+/***/ }),
+
+/***/ 138:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(113);
+var content = __webpack_require__(109);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("28773fe0", content, false);
+var add = __webpack_require__(4).default
+var update = add("0a7a955a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b2e65368\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./downLoadApp.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-b2e65368\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./downLoadApp.vue");
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-3c2a0456\",\"scoped\":true,\"sourceMap\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./downLoadApp.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-3c2a0456\",\"scoped\":true,\"sourceMap\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./downLoadApp.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -729,13 +893,19 @@ module.exports = function() {
 /***/ }),
 
 /***/ 4:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = addStylesClient;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__listToStyles__ = __webpack_require__(5);
 /*
   MIT License http://www.opensource.org/licenses/mit-license.php
   Author Tobias Koppers @sokra
   Modified by Evan You @yyx990803
 */
+
+
 
 var hasDocument = typeof document !== 'undefined'
 
@@ -746,8 +916,6 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
     "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
   ) }
 }
-
-var listToStyles = __webpack_require__(5)
 
 /*
 type StyleObject = {
@@ -775,15 +943,19 @@ var singletonElement = null
 var singletonCounter = 0
 var isProduction = false
 var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
 
 // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
 // tags it will allow on a page
 var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
 
-module.exports = function (parentId, list, _isProduction) {
+function addStylesClient (parentId, list, _isProduction, _options) {
   isProduction = _isProduction
 
-  var styles = listToStyles(parentId, list)
+  options = _options || {}
+
+  var styles = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__listToStyles__["a" /* default */])(parentId, list)
   addStylesToDom(styles)
 
   return function update (newList) {
@@ -795,7 +967,7 @@ module.exports = function (parentId, list, _isProduction) {
       mayRemove.push(domStyle)
     }
     if (newList) {
-      styles = listToStyles(parentId, newList)
+      styles = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__listToStyles__["a" /* default */])(parentId, newList)
       addStylesToDom(styles)
     } else {
       styles = []
@@ -846,7 +1018,7 @@ function createStyleElement () {
 
 function addStyle (obj /* StyleObjectPart */) {
   var update, remove
-  var styleElement = document.querySelector('style[data-vue-ssr-id~="' + obj.id + '"]')
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
 
   if (styleElement) {
     if (isProduction) {
@@ -928,6 +1100,9 @@ function applyToTag (styleElement, obj) {
   if (media) {
     styleElement.setAttribute('media', media)
   }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
 
   if (sourceMap) {
     // https://developer.chrome.com/devtools/docs/javascript-debugging
@@ -951,13 +1126,15 @@ function applyToTag (styleElement, obj) {
 /***/ }),
 
 /***/ 5:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = listToStyles;
 /**
  * Translates the list format produced by css-loader into something
  * easier to manipulate.
  */
-module.exports = function listToStyles (parentId, list) {
+function listToStyles (parentId, list) {
   var styles = []
   var newStyles = {}
   for (var i = 0; i < list.length; i++) {
@@ -984,97 +1161,87 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 57:
+/***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(142)
-}
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(74),
-  /* template */
-  __webpack_require__(130),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  "data-v-b2e65368",
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\downLoadApp.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] downLoadApp.vue: functional components are not supported with templates, they should use render functions.")}
+"use strict";
 
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-b2e65368", Component.options)
-  } else {
-    hotAPI.reload("data-v-b2e65368", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
 
-module.exports = Component.exports
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
+var _config = __webpack_require__(13);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var mtd = __webpack_require__(2);
+var modal = weex.requireModule('modal');
+exports.default = {
+    name: "downLoadApp",
+    props: {
+        isweixin: {
+            default: true
+        }
+    },
+    data: function data() {
+        return {
+            defaultHost: _config2.default.defaultHost
+        };
+    },
+
+    components: {
+        iconImg: __webpack_require__(7)
+    },
+    methods: {
+        div: function div() {
+            return mtd.is_weixn() ? 'div_weixin' : 'div';
+        },
+        font: function font(size) {
+            return mtd.getFontSize(size);
+        },
+        is_weixin: function is_weixin(e) {
+            this.isweixin = mtd.is_weixn();
+        }
+    },
+    created: function created() {
+        this.is_weixin();
+    }
+};
 
 /***/ }),
 
 /***/ 6:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(11)
-}
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(7),
-  /* template */
-  __webpack_require__(10),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  "data-v-7203603b",
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\customview\\icon-img.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] icon-img.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7203603b", Component.options)
-  } else {
-    hotAPI.reload("data-v-7203603b", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 7:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1160,70 +1327,125 @@ exports.default = {
 
 /***/ }),
 
-/***/ 74:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 7:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_img_vue__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_img_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_img_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_img_vue__) if(["default","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_img_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_21f21371_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_img_vue__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
+var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__(11)
+}
+/* script */
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* template */
 
-var mtd = __webpack_require__(2);
-var modal = weex.requireModule('modal');
-exports.default = {
-    name: "downLoadApp",
-    props: {
-        isweixin: {
-            default: true
-        }
-    },
-    components: {
-        iconImg: __webpack_require__(6)
-    },
-    methods: {
-        div: function div() {
-            return mtd.is_weixn() ? 'div_weixin' : 'div';
-        },
-        font: function font(size) {
-            return mtd.getFontSize(size);
-        },
-        is_weixin: function is_weixin(e) {
-            this.isweixin = mtd.is_weixn();
-        }
-    },
-    created: function created() {
-        this.is_weixin();
-    }
-};
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-21f21371"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_img_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_21f21371_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_img_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_21f21371_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_img_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\views\\customview\\icon-img.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-21f21371", Component.options)
+  } else {
+    hotAPI.reload("data-v-21f21371", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+
+/***/ 74:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_downLoadApp_vue__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_downLoadApp_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_downLoadApp_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_downLoadApp_vue__) if(["default","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_downLoadApp_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3c2a0456_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_downLoadApp_vue__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
+var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__(138)
+}
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-3c2a0456"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_downLoadApp_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3c2a0456_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_downLoadApp_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_3c2a0456_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_downLoadApp_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\views\\downLoadApp.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3c2a0456", Component.options)
+  } else {
+    hotAPI.reload("data-v-3c2a0456", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
 
 /***/ }),
 
@@ -1242,13 +1464,13 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = {
   channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-  adImgUrl: 'http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
+  adImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
   adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
   newVersion: 318318,
-  updateUrl: 'http://imengu.cn/Ahuangshang/html/downLoadApp.html',
-  downLoadUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
-  HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
-  defaultHost: 'http://imengu.cn/',
+  updateUrl: 'https://ahuangshang.github.io/MyWebsite/html/downLoadApp.html',
+  downLoadUrl: 'https://ahuangshang.github.io/MyWebsite/apk/latest.apk',
+  HostImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/',
+  defaultHost: 'https://ahuangshang.github.io/MyWebsite/',
   getContent: function getContent(e) {
     var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
     var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
@@ -1350,7 +1572,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "\n.div[data-v-7203603b] {\n    align-items: center;\n    flex-direction: column;\n}\n.icon[data-v-7203603b] {\n    width: 50px;\n    height: 50px;\n}\n", ""]);
+exports.push([module.i, "\n.div[data-v-21f21371] {\n    align-items: center;\n    flex-direction: column;\n}\n.icon[data-v-21f21371] {\n    width: 50px;\n    height: 50px;\n}\n", ""]);
 
 // exports
 
@@ -1363,7 +1585,7 @@ exports.push([module.i, "\n.div[data-v-7203603b] {\n    align-items: center;\n  
 "use strict";
 
 
-var _downLoadApp = __webpack_require__(57);
+var _downLoadApp = __webpack_require__(74);
 
 var _downLoadApp2 = _interopRequireDefault(_downLoadApp);
 

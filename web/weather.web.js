@@ -71,28 +71,32 @@
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = normalizeComponent;
 /* globals __VUE_SSR_CONTEXT__ */
 
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
 
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
   injectStyles,
   scopeId,
-  moduleIdentifier /* server only */
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
 ) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
+  scriptExports = scriptExports || {}
 
   // ES6 modules interop
-  var type = typeof rawScriptExports.default
+  var type = typeof scriptExports.default
   if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
+    scriptExports = scriptExports.default
   }
 
   // Vue.extend constructor export interop
@@ -101,9 +105,15 @@ module.exports = function normalizeComponent (
     : scriptExports
 
   // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
   }
 
   // scopedId
@@ -136,30 +146,32 @@ module.exports = function normalizeComponent (
     // never gets called
     options._ssrRegister = hook
   } else if (injectStyles) {
-    hook = injectStyles
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
   }
 
   if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
       // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
     }
   }
 
   return {
-    esModule: esModule,
     exports: scriptExports,
     options: options
   }
@@ -190,40 +202,49 @@ exports.default = mixins;
 /***/ }),
 
 /***/ 10:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "div",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.imgw,
-      height: _vm.getImgHeight(_vm.imgh),
-      backgroundColor: _vm.bgColor
-    })),
-    on: {
-      "click": _vm.onClick
-    }
-  }, [_c('image', {
-    staticClass: "icon",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.imgw,
-      height: _vm.getImgHeight(_vm.imgh),
-      marginLeft: _vm.padding_left,
-      marginRight: _vm.padding_right
-    })),
-    attrs: {
-      "resize": _vm.resize,
-      "src": _vm.getSrc(_vm.imgUrl)
-    }
-  })])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "div",
+      staticStyle: _vm.$processStyle(undefined),
+      style: _vm.$processStyle({
+        width: _vm.imgw,
+        height: _vm.getImgHeight(_vm.imgh),
+        backgroundColor: _vm.bgColor
+      }),
+      on: { click: _vm.onClick }
+    },
+    [
+      _c("image", {
+        staticClass: "icon",
+        staticStyle: _vm.$processStyle(undefined),
+        style: _vm.$processStyle({
+          width: _vm.imgw,
+          height: _vm.getImgHeight(_vm.imgh),
+          marginLeft: _vm.padding_left,
+          marginRight: _vm.padding_right
+        }),
+        attrs: { resize: _vm.resize, src: _vm.getSrc(_vm.imgUrl) }
+      })
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-7203603b", module.exports)
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-21f21371", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 
@@ -235,7 +256,7 @@ if (false) {
 "use strict";
 
 
-var _weather = __webpack_require__(68);
+var _weather = __webpack_require__(85);
 
 var _weather2 = _interopRequireDefault(_weather);
 
@@ -253,6 +274,21 @@ new Vue(_weather2.default);
 
 /***/ }),
 
+/***/ 106:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+// imports
+
+
+// module
+exports.push([module.i, "\n.root[data-v-1a039df0] {\n}\n.rootWeb[data-v-1a039df0] {\n  overflow-y: auto;\n  overflow-x: hidden;\n}\n.textWeight[data-v-1a039df0] {\n  color: white;\n}\n.weatherTop[data-v-1a039df0] {\n  height: 700px;\n  flex-direction: column;\n  padding-left: 40px;\n  padding-right: 40px;\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n  bottom: 0\n}\n.item[data-v-1a039df0] {\n  flex-direction: row;\n  align-items: center;\n  padding: 40px;\n  border-color: rgb(229, 229, 229);\n  background-color: rgb(255, 255, 255);\n  border-bottom-width: 1px;\n  justify-content: space-between;\n}\n.itemDec[data-v-1a039df0] {\n  flex: 1;\n  color: rgba(54, 67, 78, 0.67);\n  align-items: center\n}\n.empty_view[data-v-1a039df0] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n  bottom: 0;\n  background-color: rgb(255, 255, 255);\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ 11:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -263,13 +299,14 @@ var content = __webpack_require__(9);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("9aa8cbfa", content, false);
+var add = __webpack_require__(4).default
+var update = add("2c865b7c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7203603b\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue", function() {
-     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-7203603b\",\"scoped\":true,\"hasInlineConfig\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue");
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-21f21371\",\"scoped\":true,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-21f21371\",\"scoped\":true,\"sourceMap\":false}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./icon-img.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -280,31 +317,30 @@ if(false) {
 
 /***/ }),
 
-/***/ 115:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)();
-// imports
-
-
-// module
-exports.push([module.i, "\n.root[data-v-fb4b6c32] {\n}\n.rootWeb[data-v-fb4b6c32] {\n  overflow-y: auto;\n  overflow-x: hidden;\n}\n.textWeight[data-v-fb4b6c32] {\n  color: white;\n}\n.weatherTop[data-v-fb4b6c32] {\n  height: 700px;\n  flex-direction: column;\n  padding-left: 40px;\n  padding-right: 40px;\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n  bottom: 0\n}\n.item[data-v-fb4b6c32] {\n  flex-direction: row;\n  align-items: center;\n  padding: 40px;\n  border-color: rgb(229, 229, 229);\n  background-color: rgb(255, 255, 255);\n  border-bottom-width: 1px;\n  justify-content: space-between;\n}\n.itemDec[data-v-fb4b6c32] {\n  flex: 1;\n  color: rgba(54, 67, 78, 0.67);\n  align-items: center\n}\n.empty_view[data-v-fb4b6c32] {\n  position: absolute;\n  top: 0;\n  right: 0;\n  left: 0;\n  bottom: 0;\n  background-color: rgb(255, 255, 255);\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ 12:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_url_parse__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_url_parse__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_url_parse___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_url_parse__);
-/**
- * CopyRight (C) 2017-2022 Alibaba Group Holding Limited.
- * Created by Tw93 on 17/11/01
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
  */
 
 
@@ -312,19 +348,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 const Utils = {
   UrlParser: __WEBPACK_IMPORTED_MODULE_0_url_parse___default.a,
   _typeof (obj) {
-    return Object.prototype.toString.call(obj).slice(8, -1).toLowerCase();
+    return Object.prototype.toString
+      .call(obj)
+      .slice(8, -1)
+      .toLowerCase();
   },
   isPlainObject (obj) {
     return Utils._typeof(obj) === 'object';
   },
   isString (obj) {
-    return typeof (obj) === 'string';
+    return typeof obj === 'string';
   },
   isNonEmptyArray (obj = []) {
     return obj && obj.length > 0 && Array.isArray(obj) && typeof obj !== 'undefined';
   },
   isObject (item) {
-    return (item && typeof item === 'object' && !Array.isArray(item));
+    return item && typeof item === 'object' && !Array.isArray(item);
   },
   isEmptyObject (obj) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
@@ -362,9 +401,7 @@ const Utils = {
   },
   appendProtocol (url) {
     if (/^\/\//.test(url)) {
-      const {
-        bundleUrl
-      } = weex.config;
+      const { bundleUrl } = weex.config;
       return `http${/^https:/.test(bundleUrl) ? 's' : ''}:${url}`;
     }
     return url;
@@ -377,10 +414,13 @@ const Utils = {
     const Navigator = weex.requireModule('navigator');
     const jumpUrlObj = new Utils.UrlParser(jumpUrl, true);
     const url = Utils.appendProtocol(jumpUrlObj.toString());
-    Navigator.push({
-      url: Utils.encodeURLParams(url),
-      animated: animated.toString()
-    }, callback);
+    Navigator.push(
+      {
+        url: Utils.encodeURLParams(url),
+        animated: animated.toString()
+      },
+      callback
+    );
   },
   env: {
     isTaobao () {
@@ -397,7 +437,7 @@ const Utils = {
     },
     isWeb () {
       const { platform } = weex.config.env;
-      return typeof (window) === 'object' && platform.toLowerCase() === 'web';
+      return typeof window === 'object' && platform.toLowerCase() === 'web';
     },
     isIOS () {
       const { platform } = weex.config.env;
@@ -410,11 +450,19 @@ const Utils = {
     isIPhoneX () {
       const { deviceHeight } = weex.config.env;
       if (Utils.env.isWeb()) {
-        return typeof window !== undefined && window.screen && window.screen.width && window.screen.height 
-        && ((parseInt(window.screen.width, 10) === 375) && (parseInt(window.screen.height, 10) === 812)
-        || (parseInt(window.screen.width, 10) === 414) && (parseInt(window.screen.height, 10) === 896));
+        return (
+          typeof window !== undefined &&
+          window.screen &&
+          window.screen.width &&
+          window.screen.height &&
+          ((parseInt(window.screen.width, 10) === 375 && parseInt(window.screen.height, 10) === 812) ||
+            (parseInt(window.screen.width, 10) === 414 && parseInt(window.screen.height, 10) === 896))
+        );
       }
-      return Utils.env.isIOS() && (deviceHeight === 2436 || deviceHeight === 2688 || deviceHeight == 1792);
+      return (
+        Utils.env.isIOS() &&
+        (deviceHeight === 2436 || deviceHeight === 2688 || deviceHeight === 1792 || deviceHeight === 1624)
+      );
     },
     isAndroid () {
       const { platform } = weex.config.env;
@@ -437,8 +485,8 @@ const Utils = {
      */
     getPageHeight () {
       const { env } = weex.config;
-      const navHeight = Utils.env.isWeb() ? 0 : (Utils.env.isIPhoneX() ? 176 : 132);
-      return env.deviceHeight / env.deviceWidth * 750 - navHeight;
+      const navHeight = Utils.env.isWeb() ? 0 : Utils.env.isIPhoneX() ? 176 : 132;
+      return (env.deviceHeight / env.deviceWidth) * 750 - navHeight;
     },
     /**
      * 获取weex屏幕真实的设置高度
@@ -446,7 +494,7 @@ const Utils = {
      */
     getScreenHeight () {
       const { env } = weex.config;
-      return env.deviceHeight / env.deviceWidth * 750;
+      return (env.deviceHeight / env.deviceWidth) * 750;
     }
   },
 
@@ -487,11 +535,13 @@ const Utils = {
   arrayChunk (arr = [], size = 4) {
     let groups = [];
     if (arr && arr.length > 0) {
-      groups = arr.map((e, i) => {
-        return i % size === 0 ? arr.slice(i, i + size) : null;
-      }).filter(e => {
-        return e;
-      });
+      groups = arr
+        .map((e, i) => {
+          return i % size === 0 ? arr.slice(i, i + size) : null;
+        })
+        .filter(e => {
+          return e;
+        });
     }
     return groups;
   },
@@ -532,12 +582,12 @@ const Utils = {
    * @returns {String}
    */
   objToParams (obj) {
-    let str = "";
-    for (let key in obj) {
-      if (str !== "") {
-        str += "&";
+    let str = '';
+    for (const key in obj) {
+      if (str !== '') {
+        str += '&';
       }
-      str += key + "=" + encodeURIComponent(obj[key]);
+      str += key + '=' + encodeURIComponent(obj[key]);
     }
     return str;
   },
@@ -549,7 +599,14 @@ const Utils = {
   paramsToObj (str) {
     let obj = {};
     try {
-      obj = JSON.parse('{"' + decodeURI(str).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g, '":"') + '"}')
+      obj = JSON.parse(
+        '{"' +
+          decodeURI(str)
+            .replace(/"/g, '\\"')
+            .replace(/&/g, '","')
+            .replace(/=/g, '":"') +
+          '"}'
+      );
     } catch (e) {
       console.log(e);
     }
@@ -565,16 +622,20 @@ const Utils = {
      */
     pageTransitionAnimation (ref, transform, status, callback) {
       const animation = weex.requireModule('animation');
-      animation.transition(ref, {
-        styles: {
-          transform: transform
+      animation.transition(
+        ref,
+        {
+          styles: {
+            transform: transform
+          },
+          duration: status ? 250 : 300, // ms
+          timingFunction: status ? 'ease-in' : 'ease-out',
+          delay: 0 // ms
         },
-        duration: status ? 250 : 300, // ms
-        timingFunction: status ? 'ease-in' : 'ease-out',
-        delay: 0 // ms
-      }, function () {
-        callback && callback();
-      });
+        function () {
+          callback && callback();
+        }
+      );
     }
   },
   uiStyle: {
@@ -589,22 +650,236 @@ const Utils = {
         return {
           left: '750px',
           top: '0px',
-          height: (weex.config.env.deviceHeight / weex.config.env.deviceWidth * 750) + 'px'
-        }
+          height: (weex.config.env.deviceHeight / weex.config.env.deviceWidth) * 750 + 'px'
+        };
       } else if (animationType === 'model') {
         return {
-          top: (weex.config.env.deviceHeight / weex.config.env.deviceWidth * 750) + 'px',
+          top: (weex.config.env.deviceHeight / weex.config.env.deviceWidth) * 750 + 'px',
           left: '0px',
-          height: (weex.config.env.deviceHeight / weex.config.env.deviceWidth * 750) + 'px'
-        }
+          height: (weex.config.env.deviceHeight / weex.config.env.deviceWidth) * 750 + 'px'
+        };
       }
-      return {}
+      return {};
     }
   }
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Utils);
 
+
+/***/ }),
+
+/***/ 121:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      class: [_vm.rootclass()],
+      staticStyle: _vm.$processStyle(undefined),
+      style: _vm.$processStyle(undefined)
+    },
+    [
+      _vm.forecast.length === 0 && !_vm.refresh
+        ? _c(
+            "div",
+            {
+              staticClass: "empty_view",
+              staticStyle: _vm.$processStyle(undefined),
+              style: _vm.$processStyle(undefined)
+            },
+            [
+              _c("wxc-result", {
+                staticStyle: _vm.$processStyle(undefined),
+                style: _vm.$processStyle(undefined),
+                attrs: { "padding-top": "232", show: _vm.show },
+                on: { wxcResultButtonClicked: _vm.resultButtonClick }
+              })
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.forecast.length > 0 || _vm.refresh
+        ? _c(
+            "scroller",
+            {
+              staticStyle: _vm.$processStyle(undefined),
+              style: _vm.$processStyle(undefined),
+              attrs: { "show-scrollbar": "false" }
+            },
+            [
+              _vm.forecast.length > 0 || _vm.refresh
+                ? _c(
+                    "div",
+                    {
+                      staticStyle: _vm.$processStyle({
+                        "padding-bottom": "10px"
+                      }),
+                      style: _vm.$processStyle(undefined)
+                    },
+                    [
+                      _c("icon-img", {
+                        staticStyle: _vm.$processStyle(undefined),
+                        style: _vm.$processStyle(undefined),
+                        attrs: {
+                          imgw: "750px",
+                          imgh: "700px",
+                          imgUrl: _vm.getWeatherImgUrl(),
+                          imgFilePath: "weather/",
+                          resize: "stretch",
+                          "background-color": _vm.bg
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "weatherTop",
+                          staticStyle: _vm.$processStyle(undefined),
+                          style: _vm.$processStyle(undefined)
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticStyle: _vm.$processStyle({
+                                "flex-direction": "row",
+                                "margin-top": "70px"
+                              }),
+                              style: _vm.$processStyle(undefined)
+                            },
+                            [
+                              _c("text", {
+                                staticClass: "textWeight",
+                                staticStyle: _vm.$processStyle(undefined),
+                                style: _vm.$processStyle({
+                                  fontSize: _vm.font(60)
+                                }),
+                                attrs: { value: _vm.currentTemperature }
+                              }),
+                              _vm._v(" "),
+                              _c("text", {
+                                staticClass: "textWeight",
+                                staticStyle: _vm.$processStyle({
+                                  "margin-top": "14px"
+                                }),
+                                style: _vm.$processStyle({
+                                  fontSize: _vm.font(20)
+                                }),
+                                attrs: { value: "℃" }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("text", {
+                            staticClass: "textWeight",
+                            staticStyle: _vm.$processStyle({
+                              "margin-top": "10px"
+                            }),
+                            style: _vm.$processStyle({
+                              fontSize: _vm.font(22)
+                            }),
+                            attrs: { value: _vm.params.city }
+                          }),
+                          _vm._v(" "),
+                          _c("text", {
+                            staticClass: "textWeight",
+                            staticStyle: _vm.$processStyle({
+                              "margin-top": "10px"
+                            }),
+                            style: _vm.$processStyle({
+                              fontSize: _vm.font(16)
+                            }),
+                            attrs: { value: _vm.currentType }
+                          }),
+                          _vm._v(" "),
+                          _c("text", {
+                            staticClass: "textWeight",
+                            staticStyle: _vm.$processStyle({
+                              position: "absolute",
+                              bottom: "20px"
+                            }),
+                            style: _vm.$processStyle({
+                              fontSize: _vm.font(16)
+                            }),
+                            attrs: { value: _vm.quality }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm._l(_vm.forecast, function(item, index) {
+                        return _c(
+                          "div",
+                          {
+                            staticClass: "item",
+                            staticStyle: _vm.$processStyle(undefined),
+                            style: _vm.$processStyle(undefined)
+                          },
+                          [
+                            _c("text", {
+                              staticClass: "itemDec",
+                              staticStyle: _vm.$processStyle(undefined),
+                              style: _vm.$processStyle({
+                                fontSize: _vm.font(16)
+                              }),
+                              attrs: {
+                                value:
+                                  index === 0
+                                    ? "    今天"
+                                    : index === 1
+                                    ? "    明天"
+                                    : item.date
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("text", {
+                              staticClass: "itemDec",
+                              staticStyle: _vm.$processStyle(undefined),
+                              style: _vm.$processStyle({
+                                fontSize: _vm.font(16)
+                              }),
+                              attrs: { value: item.type }
+                            }),
+                            _vm._v(" "),
+                            _c("text", {
+                              staticClass: "itemDec",
+                              staticStyle: _vm.$processStyle(undefined),
+                              style: _vm.$processStyle({
+                                fontSize: _vm.font(16)
+                              }),
+                              attrs: { value: item.dec }
+                            })
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  )
+                : _vm._e()
+            ]
+          )
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-1a039df0", { render: render, staticRenderFns: staticRenderFns })
+  }
+}
 
 /***/ }),
 
@@ -623,13 +898,13 @@ Object.defineProperty(exports, "__esModule", {
 
 exports.default = {
   channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-  adImgUrl: 'http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
+  adImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
   adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
   newVersion: 318318,
-  updateUrl: 'http://imengu.cn/Ahuangshang/html/downLoadApp.html',
-  downLoadUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
-  HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
-  defaultHost: 'http://imengu.cn/',
+  updateUrl: 'https://ahuangshang.github.io/MyWebsite/html/downLoadApp.html',
+  downLoadUrl: 'https://ahuangshang.github.io/MyWebsite/apk/latest.apk',
+  HostImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/',
+  defaultHost: 'https://ahuangshang.github.io/MyWebsite/',
   getContent: function getContent(e) {
     var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
     var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
@@ -723,155 +998,30 @@ exports.default = {
 
 /***/ }),
 
-/***/ 133:
+/***/ 135:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    class: [_vm.rootclass()],
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined))
-  }, [(_vm.forecast.length === 0 && !_vm.refresh) ? _c('div', {
-    staticClass: "empty_view",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined))
-  }, [_c('wxc-result', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "padding-top": "232",
-      "show": _vm.show
-    },
-    on: {
-      "wxcResultButtonClicked": _vm.resultButtonClick
-    }
-  })], 1) : _vm._e(), _vm._v(" "), (_vm.forecast.length > 0 || _vm.refresh) ? _c('scroller', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "show-scrollbar": "false"
-    }
-  }, [(_vm.forecast.length > 0 || _vm.refresh) ? _c('div', {
-    staticStyle: _vm.$processStyle({
-      "padding-bottom": "10px"
-    }),
-    style: (_vm.$processStyle(undefined))
-  }, [_c('icon-img', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "imgw": "750px",
-      "imgh": "700px",
-      "imgUrl": _vm.getWeatherImgUrl(),
-      "imgFilePath": "weather/",
-      "resize": "stretch",
-      "background-color": _vm.bg
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "weatherTop",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined))
-  }, [_c('div', {
-    staticStyle: _vm.$processStyle({
-      "flex-direction": "row",
-      "margin-top": "70px"
-    }),
-    style: (_vm.$processStyle(undefined))
-  }, [_c('text', {
-    staticClass: "textWeight",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(60)
-    })),
-    attrs: {
-      "value": _vm.currentTemperature
-    }
-  }), _vm._v(" "), _c('text', {
-    staticClass: "textWeight",
-    staticStyle: _vm.$processStyle({
-      "margin-top": "14px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(20)
-    })),
-    attrs: {
-      "value": "℃"
-    }
-  })]), _vm._v(" "), _c('text', {
-    staticClass: "textWeight",
-    staticStyle: _vm.$processStyle({
-      "margin-top": "10px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(22)
-    })),
-    attrs: {
-      "value": _vm.params.city
-    }
-  }), _vm._v(" "), _c('text', {
-    staticClass: "textWeight",
-    staticStyle: _vm.$processStyle({
-      "margin-top": "10px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(16)
-    })),
-    attrs: {
-      "value": _vm.currentType
-    }
-  }), _vm._v(" "), _c('text', {
-    staticClass: "textWeight",
-    staticStyle: _vm.$processStyle({
-      "position": "absolute",
-      "bottom": "20px"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.font(16)
-    })),
-    attrs: {
-      "value": _vm.quality
-    }
-  })]), _vm._v(" "), _vm._l((_vm.forecast), function(item, index) {
-    return _c('div', {
-      staticClass: "item",
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle(undefined))
-    }, [_c('text', {
-      staticClass: "itemDec",
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle({
-        fontSize: _vm.font(16)
-      })),
-      attrs: {
-        "value": index === 0 ? '    今天' : index === 1 ? '    明天' : item.date
-      }
-    }), _vm._v(" "), _c('text', {
-      staticClass: "itemDec",
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle({
-        fontSize: _vm.font(16)
-      })),
-      attrs: {
-        "value": item.type
-      }
-    }), _vm._v(" "), _c('text', {
-      staticClass: "itemDec",
-      staticStyle: _vm.$processStyle(undefined),
-      style: (_vm.$processStyle({
-        fontSize: _vm.font(16)
-      })),
-      attrs: {
-        "value": item.dec
-      }
-    })])
-  })], 2) : _vm._e()]) : _vm._e()], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-fb4b6c32", module.exports)
-  }
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(106);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(4).default
+var update = add("01016105", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-1a039df0\",\"scoped\":true,\"sourceMap\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./weather.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-1a039df0\",\"scoped\":true,\"sourceMap\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./weather.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
 }
 
 /***/ }),
@@ -904,34 +1054,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 144:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(115);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(4)("5afd317a", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fb4b6c32\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./weather.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-fb4b6c32\",\"scoped\":true,\"hasInlineConfig\":false}!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./weather.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 17:
+/***/ 15:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -941,7 +1064,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _type = __webpack_require__(26);
+var _type = __webpack_require__(31);
 
 var _type2 = _interopRequireDefault(_type);
 
@@ -951,6 +1074,23 @@ var _utils2 = _interopRequireDefault(_utils);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1086,117 +1226,6 @@ exports.default = {
     }
   }
 };
-
-/***/ }),
-
-/***/ 18:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)();
-// imports
-
-
-// module
-exports.push([module.i, "\n.wrap[data-v-27e317ac] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n}\n.wxc-result[data-v-27e317ac] {\n  width: 750px;\n  flex: 1;\n  align-items: center;\n  background-color: #f2f3f4;\n}\n.result-image[data-v-27e317ac] {\n  width: 320px;\n  height: 320px;\n}\n.result-content[data-v-27e317ac] {\n  margin-top: 36px;\n  align-items: center;\n}\n.content-text[data-v-27e317ac] {\n  font-size: 30px;\n  color: #A5A5A5;\n  height: 42px;\n  line-height: 42px;\n  text-align: center;\n}\n.content-desc[data-v-27e317ac] {\n  margin-top: 10px;\n}\n.result-button[data-v-27e317ac] {\n  margin-top: 60px;\n  border-width: 1px;\n  border-color: #979797;\n  background-color: #FFFFFF;\n  border-radius: 6px;\n  width: 240px;\n  height: 72px;\n  flex-direction: row;\n  align-items: center;\n  justify-content: center;\n}\n.button-text[data-v-27e317ac] {\n  color: #666666;\n  font-size: 30px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 19:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var has = Object.prototype.hasOwnProperty
-  , undef;
-
-/**
- * Decode a URI encoded string.
- *
- * @param {String} input The URI encoded string.
- * @returns {String} The decoded string.
- * @api private
- */
-function decode(input) {
-  return decodeURIComponent(input.replace(/\+/g, ' '));
-}
-
-/**
- * Simple query string parser.
- *
- * @param {String} query The query string that needs to be parsed.
- * @returns {Object}
- * @api public
- */
-function querystring(query) {
-  var parser = /([^=?&]+)=?([^&]*)/g
-    , result = {}
-    , part;
-
-  while (part = parser.exec(query)) {
-    var key = decode(part[1])
-      , value = decode(part[2]);
-
-    //
-    // Prevent overriding of existing properties. This ensures that build-in
-    // methods like `toString` or __proto__ are not overriden by malicious
-    // querystrings.
-    //
-    if (key in result) continue;
-    result[key] = value;
-  }
-
-  return result;
-}
-
-/**
- * Transform a query string to an object.
- *
- * @param {Object} obj Object that should be transformed.
- * @param {String} prefix Optional prefix.
- * @returns {String}
- * @api public
- */
-function querystringify(obj, prefix) {
-  prefix = prefix || '';
-
-  var pairs = []
-    , value
-    , key;
-
-  //
-  // Optionally prefix with a '?' if needed
-  //
-  if ('string' !== typeof prefix) prefix = '?';
-
-  for (key in obj) {
-    if (has.call(obj, key)) {
-      value = obj[key];
-
-      //
-      // Edge cases where we actually want to encode the value to an empty
-      // string instead of the stringified value.
-      //
-      if (!value && (value === null || value === undef || isNaN(value))) {
-        value = '';
-      }
-
-      pairs.push(encodeURIComponent(key) +'='+ encodeURIComponent(value));
-    }
-  }
-
-  return pairs.length ? prefix + pairs.join('&') : '';
-}
-
-//
-// Expose the module.
-//
-exports.stringify = querystringify;
-exports.parse = querystring;
-
 
 /***/ }),
 
@@ -1448,7 +1477,148 @@ if (module.exports.isweb()) {
 
 /***/ }),
 
-/***/ 20:
+/***/ 23:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+// imports
+
+
+// module
+exports.push([module.i, "\n.wrap[data-v-9b19c5a6] {\n  position: absolute;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n}\n.wxc-result[data-v-9b19c5a6] {\n  width: 750px;\n  flex: 1;\n  align-items: center;\n  background-color: #f2f3f4;\n}\n.result-image[data-v-9b19c5a6] {\n  width: 320px;\n  height: 320px;\n}\n.result-content[data-v-9b19c5a6] {\n  margin-top: 36px;\n  align-items: center;\n}\n.content-text[data-v-9b19c5a6] {\n  font-size: 30px;\n  color: #A5A5A5;\n  height: 42px;\n  line-height: 42px;\n  text-align: center;\n}\n.content-desc[data-v-9b19c5a6] {\n  margin-top: 10px;\n}\n.result-button[data-v-9b19c5a6] {\n  margin-top: 60px;\n  border-width: 1px;\n  border-color: #979797;\n  background-color: #FFFFFF;\n  border-radius: 6px;\n  width: 240px;\n  height: 72px;\n  flex-direction: row;\n  align-items: center;\n  justify-content: center;\n}\n.button-text[data-v-9b19c5a6] {\n  color: #666666;\n  font-size: 30px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 24:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var has = Object.prototype.hasOwnProperty
+  , undef;
+
+/**
+ * Decode a URI encoded string.
+ *
+ * @param {String} input The URI encoded string.
+ * @returns {String|Null} The decoded string.
+ * @api private
+ */
+function decode(input) {
+  try {
+    return decodeURIComponent(input.replace(/\+/g, ' '));
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
+ * Attempts to encode a given input.
+ *
+ * @param {String} input The string that needs to be encoded.
+ * @returns {String|Null} The encoded string.
+ * @api private
+ */
+function encode(input) {
+  try {
+    return encodeURIComponent(input);
+  } catch (e) {
+    return null;
+  }
+}
+
+/**
+ * Simple query string parser.
+ *
+ * @param {String} query The query string that needs to be parsed.
+ * @returns {Object}
+ * @api public
+ */
+function querystring(query) {
+  var parser = /([^=?&]+)=?([^&]*)/g
+    , result = {}
+    , part;
+
+  while (part = parser.exec(query)) {
+    var key = decode(part[1])
+      , value = decode(part[2]);
+
+    //
+    // Prevent overriding of existing properties. This ensures that build-in
+    // methods like `toString` or __proto__ are not overriden by malicious
+    // querystrings.
+    //
+    // In the case if failed decoding, we want to omit the key/value pairs
+    // from the result.
+    //
+    if (key === null || value === null || key in result) continue;
+    result[key] = value;
+  }
+
+  return result;
+}
+
+/**
+ * Transform a query string to an object.
+ *
+ * @param {Object} obj Object that should be transformed.
+ * @param {String} prefix Optional prefix.
+ * @returns {String}
+ * @api public
+ */
+function querystringify(obj, prefix) {
+  prefix = prefix || '';
+
+  var pairs = []
+    , value
+    , key;
+
+  //
+  // Optionally prefix with a '?' if needed
+  //
+  if ('string' !== typeof prefix) prefix = '?';
+
+  for (key in obj) {
+    if (has.call(obj, key)) {
+      value = obj[key];
+
+      //
+      // Edge cases where we actually want to encode the value to an empty
+      // string instead of the stringified value.
+      //
+      if (!value && (value === null || value === undef || isNaN(value))) {
+        value = '';
+      }
+
+      key = encodeURIComponent(key);
+      value = encodeURIComponent(value);
+
+      //
+      // If we failed to encode the strings, we should bail out as we don't
+      // want to add invalid strings to the query.
+      //
+      if (key === null || value === null) continue;
+      pairs.push(key +'='+ value);
+    }
+  }
+
+  return pairs.length ? prefix + pairs.join('&') : '';
+}
+
+//
+// Expose the module.
+//
+exports.stringify = querystringify;
+exports.parse = querystring;
+
+
+/***/ }),
+
+/***/ 25:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1494,16 +1664,28 @@ module.exports = function required(port, protocol) {
 
 /***/ }),
 
-/***/ 21:
+/***/ 26:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global) {
 
-var required = __webpack_require__(20)
-  , qs = __webpack_require__(19)
+var required = __webpack_require__(25)
+  , qs = __webpack_require__(24)
+  , slashes = /^[A-Za-z][A-Za-z0-9+-.]*:\/\//
   , protocolre = /^([a-z][a-z0-9.+-]*:)?(\/\/)?([\S\s]*)/i
-  , slashes = /^[A-Za-z][A-Za-z0-9+-.]*:\/\//;
+  , whitespace = '[\\x09\\x0A\\x0B\\x0C\\x0D\\x20\\xA0\\u1680\\u180E\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200A\\u202F\\u205F\\u3000\\u2028\\u2029\\uFEFF]'
+  , left = new RegExp('^'+ whitespace +'+');
+
+/**
+ * Trim a given string.
+ *
+ * @param {String} str String to trim.
+ * @public
+ */
+function trimLeft(str) {
+  return (str ? str : '').toString().replace(left, '');
+}
 
 /**
  * These are the parse rules for the URL parser, it informs the parser
@@ -1602,6 +1784,7 @@ function lolcation(loc) {
  * @private
  */
 function extractProtocol(address) {
+  address = trimLeft(address);
   var match = protocolre.exec(address);
 
   return {
@@ -1620,6 +1803,8 @@ function extractProtocol(address) {
  * @private
  */
 function resolve(relative, base) {
+  if (relative === '') return base;
+
   var path = (base || '/').split('/').slice(0, -1).concat(relative.split('/'))
     , i = path.length
     , last = path[i - 1]
@@ -1660,6 +1845,8 @@ function resolve(relative, base) {
  * @private
  */
 function Url(address, location, parser) {
+  address = trimLeft(address);
+
   if (!(this instanceof Url)) {
     return new Url(address, location, parser);
   }
@@ -1927,6 +2114,7 @@ Url.prototype = { set: set, toString: toString };
 //
 Url.extractProtocol = extractProtocol;
 Url.location = lolcation;
+Url.trimLeft = trimLeft;
 Url.qs = qs;
 
 module.exports = Url;
@@ -1935,126 +2123,192 @@ module.exports = Url;
 
 /***/ }),
 
-/***/ 22:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 27:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_vue_loader_lib_selector_type_script_index_0_index_vue__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_vue_loader_lib_selector_type_script_index_0_index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_vue_loader_lib_selector_type_script_index_0_index_vue__);
+/* unused harmony namespace reexport */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vue_loader_lib_template_compiler_index_id_data_v_9b19c5a6_hasScoped_true_optionsId_0_buble_transforms_vue_loader_lib_selector_type_template_index_0_index_vue__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
 var disposed = false
-function injectStyle (ssrContext) {
+function injectStyle (context) {
   if (disposed) return
-  __webpack_require__(24)
+  __webpack_require__(29)
 }
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(17),
-  /* template */
-  __webpack_require__(23),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  "data-v-27e317ac",
-  /* moduleIdentifier (server only) */
-  null
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-9b19c5a6"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_vue_loader_lib_selector_type_script_index_0_index_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__vue_loader_lib_template_compiler_index_id_data_v_9b19c5a6_hasScoped_true_optionsId_0_buble_transforms_vue_loader_lib_selector_type_template_index_0_index_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__vue_loader_lib_template_compiler_index_id_data_v_9b19c5a6_hasScoped_true_optionsId_0_buble_transforms_vue_loader_lib_selector_type_template_index_0_index_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
 )
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\node_modules\\weex-ui\\packages\\wxc-result\\index.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] index.vue: functional components are not supported with templates, they should use render functions.")}
+Component.options.__file = "node_modules\\weex-ui\\packages\\wxc-result\\index.vue"
 
 /* hot reload */
 if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
   hotAPI.install(require("vue"), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-27e317ac", Component.options)
+    hotAPI.createRecord("data-v-9b19c5a6", Component.options)
   } else {
-    hotAPI.reload("data-v-27e317ac", Component.options)
+    hotAPI.reload("data-v-9b19c5a6", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
   })
 })()}
 
-module.exports = Component.exports
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
 
 
 /***/ }),
 
-/***/ 23:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 28:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return (_vm.show) ? _c('div', {
-    staticClass: "wrap",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(_vm.wrapStyle))
-  }, [_c('div', {
-    staticClass: "wxc-result",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      paddingTop: _vm.setPaddingTop
-    }))
-  }, [_c('image', {
-    staticClass: "result-image",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    attrs: {
-      "aria-hidden": true,
-      "src": _vm.resultType.pic
-    }
-  }), _vm._v(" "), (_vm.resultType.content) ? _c('div', {
-    staticClass: "result-content",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined))
-  }, [_c('text', {
-    staticClass: "content-text",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined))
-  }, [_vm._v(_vm._s(_vm.resultType.content))]), _vm._v(" "), (_vm.resultType.desc) ? _c('text', {
-    staticClass: "content-text content-desc",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined))
-  }, [_vm._v(_vm._s(_vm.resultType.desc))]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.resultType.button) ? _c('div', {
-    staticClass: "result-button",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined)),
-    on: {
-      "touchend": _vm.handleTouchEnd,
-      "click": _vm.onClick
-    }
-  }, [_c('text', {
-    staticClass: "button-text",
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle(undefined))
-  }, [_vm._v(_vm._s(_vm.resultType.button))])]) : _vm._e()])]) : _vm._e()
-},staticRenderFns: []}
-module.exports.render._withStripped = true
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.show
+    ? _c(
+        "div",
+        {
+          staticClass: "wrap",
+          staticStyle: _vm.$processStyle(undefined),
+          style: _vm.$processStyle(_vm.wrapStyle)
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass: "wxc-result",
+              staticStyle: _vm.$processStyle(undefined),
+              style: _vm.$processStyle({ paddingTop: _vm.setPaddingTop })
+            },
+            [
+              _c("image", {
+                staticClass: "result-image",
+                staticStyle: _vm.$processStyle(undefined),
+                style: _vm.$processStyle(undefined),
+                attrs: { "aria-hidden": true, src: _vm.resultType.pic }
+              }),
+              _vm._v(" "),
+              _vm.resultType.content
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "result-content",
+                      staticStyle: _vm.$processStyle(undefined),
+                      style: _vm.$processStyle(undefined)
+                    },
+                    [
+                      _c(
+                        "text",
+                        {
+                          staticClass: "content-text",
+                          staticStyle: _vm.$processStyle(undefined),
+                          style: _vm.$processStyle(undefined)
+                        },
+                        [_vm._v(_vm._s(_vm.resultType.content))]
+                      ),
+                      _vm._v(" "),
+                      _vm.resultType.desc
+                        ? _c(
+                            "text",
+                            {
+                              staticClass: "content-text content-desc",
+                              staticStyle: _vm.$processStyle(undefined),
+                              style: _vm.$processStyle(undefined)
+                            },
+                            [_vm._v(_vm._s(_vm.resultType.desc))]
+                          )
+                        : _vm._e()
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.resultType.button
+                ? _c(
+                    "div",
+                    {
+                      staticClass: "result-button",
+                      staticStyle: _vm.$processStyle(undefined),
+                      style: _vm.$processStyle(undefined),
+                      on: { touchend: _vm.handleTouchEnd, click: _vm.onClick }
+                    },
+                    [
+                      _c(
+                        "text",
+                        {
+                          staticClass: "button-text",
+                          staticStyle: _vm.$processStyle(undefined),
+                          style: _vm.$processStyle(undefined)
+                        },
+                        [_vm._v(_vm._s(_vm.resultType.button))]
+                      )
+                    ]
+                  )
+                : _vm._e()
+            ]
+          )
+        ]
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-27e317ac", module.exports)
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-9b19c5a6", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 
 /***/ }),
 
-/***/ 24:
+/***/ 29:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(18);
+var content = __webpack_require__(23);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("0dd204d2", content, false);
+var add = __webpack_require__(4).default
+var update = add("3211872a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../css-loader/index.js!../../../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-27e317ac\",\"scoped\":true,\"hasInlineConfig\":false}!../../../vue-loader/lib/selector.js?type=styles&index=0!./index.vue", function() {
-     var newContent = require("!!../../../css-loader/index.js!../../../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-27e317ac\",\"scoped\":true,\"hasInlineConfig\":false}!../../../vue-loader/lib/selector.js?type=styles&index=0!./index.vue");
+   module.hot.accept("!!../../../css-loader/index.js!../../../vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-9b19c5a6\",\"scoped\":true,\"sourceMap\":false}!../../../vue-loader/lib/selector.js?type=styles&index=0!./index.vue", function() {
+     var newContent = require("!!../../../css-loader/index.js!../../../vue-loader/lib/style-compiler/index.js?{\"optionsId\":\"0\",\"vue\":true,\"id\":\"data-v-9b19c5a6\",\"scoped\":true,\"sourceMap\":false}!../../../vue-loader/lib/selector.js?type=styles&index=0!./index.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -2062,59 +2316,6 @@ if(false) {
  // When the module is disposed, remove the <style> tags
  module.hot.dispose(function() { update(); });
 }
-
-/***/ }),
-
-/***/ 25:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_vue__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__index_vue__);
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "default", function() { return __WEBPACK_IMPORTED_MODULE_0__index_vue___default.a; });
-
-
-
-/***/ }),
-
-/***/ 26:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/**
- * CopyRight (C) 2017-2022 Alibaba Group Holding Limited.
- * Created by Tw93 on 2016/11/4.
- */
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  errorPage: {
-    pic: 'https://img.alicdn.com/tfs/TB17blphfDH8KJjy1XcXXcpdXXa-320-320.png',
-    content: '抱歉出错了，我们正在全力解决中',
-    button: '再试一次',
-    title: '出错啦'
-  },
-  noGoods: {
-    pic: 'https://img.alicdn.com/tfs/TB1mPWEeOqAXuNjy1XdXXaYcVXa-320-320.png',
-    content: '主人，这里什么都没有找到',
-    button: '再试一次',
-    title: '暂无商品'
-  },
-  noNetwork: {
-    pic: 'https://img.alicdn.com/tfs/TB1jkA5g9_I8KJjy0FoXXaFnVXa-320-320.png',
-    content: '哎呀，没有网络了......',
-    button: '刷新一下',
-    title: '无网络'
-  },
-  errorLocation: {
-    pic: 'https://img.alicdn.com/tfs/TB1zXXahhrI8KJjy0FpXXb5hVXa-320-320.png',
-    content: '哎呀，定位失败了......',
-    button: '刷新一下',
-    title: '定位失败'
-  }
-});
-
 
 /***/ }),
 
@@ -2175,14 +2376,86 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 4:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 30:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__index_vue__ = __webpack_require__(27);
+/* harmony reexport (binding) */ if(__webpack_require__.o(__WEBPACK_IMPORTED_MODULE_0__index_vue__, "default")) __webpack_require__.d(__webpack_exports__, "default", function() { return __WEBPACK_IMPORTED_MODULE_0__index_vue__["default"]; });
+
+
+
+/***/ }),
+
+/***/ 31:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/*
+* Licensed to the Apache Software Foundation (ASF) under one
+* or more contributor license agreements.  See the NOTICE file
+* distributed with this work for additional information
+* regarding copyright ownership.  The ASF licenses this file
+* to you under the Apache License, Version 2.0 (the
+* "License"); you may not use this file except in compliance
+* with the License.  You may obtain a copy of the License at
+*
+*   http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing,
+* software distributed under the License is distributed on an
+* "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+* KIND, either express or implied.  See the License for the
+* specific language governing permissions and limitations
+* under the License.
+*/
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  errorPage: {
+    pic: 'https://img.alicdn.com/tfs/TB17blphfDH8KJjy1XcXXcpdXXa-320-320.png',
+    content: '抱歉出错了，我们正在全力解决中',
+    button: '再试一次',
+    title: '出错啦'
+  },
+  noGoods: {
+    pic: 'https://img.alicdn.com/tfs/TB1mPWEeOqAXuNjy1XdXXaYcVXa-320-320.png',
+    content: '主人，这里什么都没有找到',
+    button: '再试一次',
+    title: '暂无商品'
+  },
+  noNetwork: {
+    pic: 'https://img.alicdn.com/tfs/TB1jkA5g9_I8KJjy0FoXXaFnVXa-320-320.png',
+    content: '哎呀，没有网络了......',
+    button: '刷新一下',
+    title: '无网络'
+  },
+  errorLocation: {
+    pic: 'https://img.alicdn.com/tfs/TB1zXXahhrI8KJjy0FpXXb5hVXa-320-320.png',
+    content: '哎呀，定位失败了......',
+    button: '刷新一下',
+    title: '定位失败'
+  }
+});
+
+
+/***/ }),
+
+/***/ 4:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["default"] = addStylesClient;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__listToStyles__ = __webpack_require__(5);
 /*
   MIT License http://www.opensource.org/licenses/mit-license.php
   Author Tobias Koppers @sokra
   Modified by Evan You @yyx990803
 */
+
+
 
 var hasDocument = typeof document !== 'undefined'
 
@@ -2193,8 +2466,6 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
     "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
   ) }
 }
-
-var listToStyles = __webpack_require__(5)
 
 /*
 type StyleObject = {
@@ -2222,15 +2493,19 @@ var singletonElement = null
 var singletonCounter = 0
 var isProduction = false
 var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
 
 // Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
 // tags it will allow on a page
 var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
 
-module.exports = function (parentId, list, _isProduction) {
+function addStylesClient (parentId, list, _isProduction, _options) {
   isProduction = _isProduction
 
-  var styles = listToStyles(parentId, list)
+  options = _options || {}
+
+  var styles = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__listToStyles__["a" /* default */])(parentId, list)
   addStylesToDom(styles)
 
   return function update (newList) {
@@ -2242,7 +2517,7 @@ module.exports = function (parentId, list, _isProduction) {
       mayRemove.push(domStyle)
     }
     if (newList) {
-      styles = listToStyles(parentId, newList)
+      styles = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__listToStyles__["a" /* default */])(parentId, newList)
       addStylesToDom(styles)
     } else {
       styles = []
@@ -2293,7 +2568,7 @@ function createStyleElement () {
 
 function addStyle (obj /* StyleObjectPart */) {
   var update, remove
-  var styleElement = document.querySelector('style[data-vue-ssr-id~="' + obj.id + '"]')
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
 
   if (styleElement) {
     if (isProduction) {
@@ -2375,6 +2650,9 @@ function applyToTag (styleElement, obj) {
   if (media) {
     styleElement.setAttribute('media', media)
   }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
 
   if (sourceMap) {
     // https://developer.chrome.com/devtools/docs/javascript-debugging
@@ -2398,13 +2676,15 @@ function applyToTag (styleElement, obj) {
 /***/ }),
 
 /***/ 5:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = listToStyles;
 /**
  * Translates the list format produced by css-loader into something
  * easier to manipulate.
  */
-module.exports = function listToStyles (parentId, list) {
+function listToStyles (parentId, list) {
   var styles = []
   var newStyles = {}
   for (var i = 0; i < list.length; i++) {
@@ -2432,96 +2712,6 @@ module.exports = function listToStyles (parentId, list) {
 /***/ }),
 
 /***/ 6:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(11)
-}
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(7),
-  /* template */
-  __webpack_require__(10),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  "data-v-7203603b",
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\customview\\icon-img.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] icon-img.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7203603b", Component.options)
-  } else {
-    hotAPI.reload("data-v-7203603b", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 68:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__(144)
-}
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(85),
-  /* template */
-  __webpack_require__(133),
-  /* styles */
-  injectStyle,
-  /* scopeId */
-  "data-v-fb4b6c32",
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\weather.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] weather.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-fb4b6c32", Component.options)
-  } else {
-    hotAPI.reload("data-v-fb4b6c32", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 7:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2607,122 +2797,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 8:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-/**
- * Created by Tw93 on 2016/11/4.
- */
-
-exports.default = {
-  channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
-  adImgUrl: 'http://imengu.cn/Ahuangshang/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
-  adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
-  newVersion: 318318,
-  updateUrl: 'http://imengu.cn/Ahuangshang/html/downLoadApp.html',
-  downLoadUrl: 'http://imengu.cn/Ahuangshang/apk/latest.apk',
-  HostImgUrl: 'http://imengu.cn/Ahuangshang/img/',
-  defaultHost: 'http://imengu.cn/',
-  getContent: function getContent(e) {
-    var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
-    var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
-    var result = "\n" + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + "<html>" + head + style + "<body>" + this.getButtonInfo(e) + "</body></html>";
-    result = encodeURI(result);
-    return result;
-  },
-  getButtonInfo: function getButtonInfo(e) {
-    var content = e.content.replace(/(<\/?a.*?>)/g, '');
-    var title = e.title;
-    return "<h2>" + title + "</h2>" + content + "<p style='color: #88000000;font-size: 13px'>&nbsp;&nbsp;本文系第三方观点，不代表李唐科技的观点和立场</p><p  onClick='linkThird()' style='color: #33B5E5;font-size: 13px'>&nbsp;&nbsp;原文链接>></p><script>function linkThird() {ltwc.linkThird();}</script>";
-  },
-  getWeatherTypeImg: function getWeatherTypeImg(currentType) {
-    if (this.contains(currentType, '晴')) {
-      return 'qing.jpg';
-    } else if (this.contains(currentType, '阴')) {
-      return 'yin.jpg';
-    } else if (this.contains(currentType, '多云')) {
-      return 'duoyun.gif';
-    } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
-      return 'xiaoyu.gif';
-    } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
-      return 'dayu.gif';
-    } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
-      return 'xiaoxue.gif';
-    } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
-      return 'daxue.gif';
-    } else if (this.contains(currentType, '雪')) {
-      return 'xiaoxue.gif';
-    } else if (this.contains(currentType, '雨')) {
-      return 'xiaoyu.gif';
-    }
-  },
-
-  contains: function contains(str, s) {
-    return str.indexOf(s) > -1;
-  },
-  getWeatherDec: function getWeatherDec(high, low) {
-    var nhigh = high.replace("高温", "");
-    nhigh = nhigh.replace('℃', '');
-    var nlow = low.replace('低温', '');
-    return nhigh + " ~" + nlow;
-  },
-  newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
-  newsTabStyles: {
-    bgColor: '#ffffff',
-    titleColor: '#dd000000',
-    activeTitleColor: '#31A9A5',
-    activeBgColor: '#ffffff',
-    isActiveTitleBold: true,
-    iconWidth: 70,
-    iconHeight: 70,
-    width: 160,
-    height: 75,
-    fontSize: 28,
-    hasActiveBottom: true,
-    activeBottomColor: '#31A9A5',
-    activeBottomHeight: 1,
-    activeBottomWidth: 160,
-    textPaddingLeft: 10,
-    textPaddingRight: 10,
-    normalBottomColor: 'rgba(0,0,0,0.4)',
-    normalBottomHeight: 1,
-    hasRightIcon: true,
-    rightOffset: 100
-  },
-  jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
-  jokeTabStyles: {
-    bgColor: '#ffffff',
-    titleColor: '#dd000000',
-    activeTitleColor: '#31A9A5',
-    activeBgColor: '#ffffff',
-    isActiveTitleBold: true,
-    iconWidth: 70,
-    iconHeight: 70,
-    width: 250,
-    height: 75,
-    fontSize: 28,
-    hasActiveBottom: true,
-    activeBottomColor: '#31A9A5',
-    activeBottomHeight: 1,
-    activeBottomWidth: 250,
-    textPaddingLeft: 10,
-    textPaddingRight: 10,
-    normalBottomColor: 'rgba(0,0,0,0.4)',
-    normalBottomHeight: 1,
-    hasRightIcon: true,
-    rightOffset: 100
-  }
-};
-
-/***/ }),
-
-/***/ 85:
+/***/ 69:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2732,7 +2807,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _wxcResult = __webpack_require__(25);
+var _wxcResult = __webpack_require__(30);
 
 var _wxcResult2 = _interopRequireDefault(_wxcResult);
 
@@ -2796,7 +2871,7 @@ if (_methods2.default.isweb()) {
 exports.default = {
   components: {
     WxcResult: _wxcResult2.default,
-    iconImg: __webpack_require__(6)
+    iconImg: __webpack_require__(7)
   },
   props: {
     show: {
@@ -2930,6 +3005,243 @@ exports.default = {
 
 /***/ }),
 
+/***/ 7:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_img_vue__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_img_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_img_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_img_vue__) if(["default","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_img_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_21f21371_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_img_vue__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
+var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__(11)
+}
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-21f21371"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_icon_img_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_21f21371_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_img_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_21f21371_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_icon_img_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\views\\customview\\icon-img.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-21f21371", Component.options)
+  } else {
+    hotAPI.reload("data-v-21f21371", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+
+/***/ 8:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Created by Tw93 on 2016/11/4.
+ */
+
+exports.default = {
+  channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
+  adImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
+  adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
+  newVersion: 318318,
+  updateUrl: 'https://ahuangshang.github.io/MyWebsite/html/downLoadApp.html',
+  downLoadUrl: 'https://ahuangshang.github.io/MyWebsite/apk/latest.apk',
+  HostImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/',
+  defaultHost: 'https://ahuangshang.github.io/MyWebsite/',
+  getContent: function getContent(e) {
+    var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
+    var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
+    var result = "\n" + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + "<html>" + head + style + "<body>" + this.getButtonInfo(e) + "</body></html>";
+    result = encodeURI(result);
+    return result;
+  },
+  getButtonInfo: function getButtonInfo(e) {
+    var content = e.content.replace(/(<\/?a.*?>)/g, '');
+    var title = e.title;
+    return "<h2>" + title + "</h2>" + content + "<p style='color: #88000000;font-size: 13px'>&nbsp;&nbsp;本文系第三方观点，不代表李唐科技的观点和立场</p><p  onClick='linkThird()' style='color: #33B5E5;font-size: 13px'>&nbsp;&nbsp;原文链接>></p><script>function linkThird() {ltwc.linkThird();}</script>";
+  },
+  getWeatherTypeImg: function getWeatherTypeImg(currentType) {
+    if (this.contains(currentType, '晴')) {
+      return 'qing.jpg';
+    } else if (this.contains(currentType, '阴')) {
+      return 'yin.jpg';
+    } else if (this.contains(currentType, '多云')) {
+      return 'duoyun.gif';
+    } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
+      return 'xiaoyu.gif';
+    } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
+      return 'dayu.gif';
+    } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
+      return 'daxue.gif';
+    } else if (this.contains(currentType, '雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '雨')) {
+      return 'xiaoyu.gif';
+    }
+  },
+
+  contains: function contains(str, s) {
+    return str.indexOf(s) > -1;
+  },
+  getWeatherDec: function getWeatherDec(high, low) {
+    var nhigh = high.replace("高温", "");
+    nhigh = nhigh.replace('℃', '');
+    var nlow = low.replace('低温', '');
+    return nhigh + " ~" + nlow;
+  },
+  newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
+  newsTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 160,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 160,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  },
+  jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
+  jokeTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 250,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 250,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  }
+};
+
+/***/ }),
+
+/***/ 85:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_weather_vue__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_weather_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_weather_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_weather_vue__) if(["default","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_weather_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1a039df0_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_weather_vue__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
+var disposed = false
+function injectStyle (context) {
+  if (disposed) return
+  __webpack_require__(135)
+}
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-1a039df0"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_weather_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1a039df0_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_weather_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_1a039df0_hasScoped_true_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_weather_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\views\\weather.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1a039df0", Component.options)
+  } else {
+    hotAPI.reload("data-v-1a039df0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+
 /***/ 9:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2938,7 +3250,7 @@ exports = module.exports = __webpack_require__(3)();
 
 
 // module
-exports.push([module.i, "\n.div[data-v-7203603b] {\n    align-items: center;\n    flex-direction: column;\n}\n.icon[data-v-7203603b] {\n    width: 50px;\n    height: 50px;\n}\n", ""]);
+exports.push([module.i, "\n.div[data-v-21f21371] {\n    align-items: center;\n    flex-direction: column;\n}\n.icon[data-v-21f21371] {\n    width: 50px;\n    height: 50px;\n}\n", ""]);
 
 // exports
 

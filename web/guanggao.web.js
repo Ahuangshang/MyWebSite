@@ -71,28 +71,32 @@
 /******/ ({
 
 /***/ 0:
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = normalizeComponent;
 /* globals __VUE_SSR_CONTEXT__ */
 
-// this module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
 
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
   injectStyles,
   scopeId,
-  moduleIdentifier /* server only */
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
 ) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
+  scriptExports = scriptExports || {}
 
   // ES6 modules interop
-  var type = typeof rawScriptExports.default
+  var type = typeof scriptExports.default
   if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
+    scriptExports = scriptExports.default
   }
 
   // Vue.extend constructor export interop
@@ -101,9 +105,15 @@ module.exports = function normalizeComponent (
     : scriptExports
 
   // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
   }
 
   // scopedId
@@ -136,30 +146,32 @@ module.exports = function normalizeComponent (
     // never gets called
     options._ssrRegister = hook
   } else if (injectStyles) {
-    hook = injectStyles
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
   }
 
   if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-    if (!functional) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
       // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
       options.beforeCreate = existing
         ? [].concat(existing, hook)
         : [hook]
-    } else {
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
     }
   }
 
   return {
-    esModule: esModule,
     exports: scriptExports,
     options: options
   }
@@ -189,633 +201,628 @@ exports.default = mixins;
 
 /***/ }),
 
-/***/ 119:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 127:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('scroller', [_c('div', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      marginLeft: _vm.contentMargin,
-      marginRight: _vm.contentMargin
-    }))
-  }, [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#000000",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.title_size,
-      marginTop: _vm.contentMargin,
-      marginBottom: _vm.contentMargin,
-      lineHeight: _vm.line_height2
-    })),
-    attrs: {
-      "value": _vm.title
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_2,
-      marginTop: _vm.contentMargin
-    }))
-  }, [_vm._v(" 2017-10-01 李唐科技")]), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_1_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('div', [_c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_1
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_2
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_3
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_2_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad2.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_4
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_5
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_6
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_3_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad4.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_7
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_8
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_9
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_10
-    }
-  }, [_vm._v("}\n      ")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_10
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_10
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_10
-    }
-  }, [_vm._v("}\n      ")]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_10
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_10
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_11
-    }
-  }), _vm._v(" "), _c('div', {
-    staticStyle: _vm.$processStyle({
-      "align-items": "center"
-    }),
-    style: (_vm.$processStyle({
-      width: _vm.img_w
-    }))
-  }, [_c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_4_h,
-      height: _vm.img_4_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad5.jpg",
-      "placeholder": ""
-    }
-  })]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_12
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_13
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402",
-      "justify-content": "center",
-      "text-align": "center"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    })),
-    attrs: {
-      "value": _vm.content_14
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      height: _vm.img_5_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad1.jpg",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height2
-    })),
-    attrs: {
-      "value": _vm.content_15
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height2
-    })),
-    attrs: {
-      "value": _vm.content_16
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    }))
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height2
-    })),
-    attrs: {
-      "value": _vm.content_17
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height2
-    })),
-    attrs: {
-      "value": _vm.content_18
-    }
-  }), _vm._v(" "), _c('div', {
-    staticStyle: _vm.$processStyle({
-      "justify-content": "center",
-      "flex-direction": "row"
-    }),
-    style: (_vm.$processStyle({
-      width: _vm.img_w
-    }))
-  }, [_c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_4_h,
-      height: _vm.img_6_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad_qq.png",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_4_h,
-      height: _vm.img_6_h,
-      marginLeft: _vm.contentMargin
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad_aqy.png",
-      "placeholder": ""
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticStyle: _vm.$processStyle({
-      "justify-content": "center",
-      "flex-direction": "row"
-    }),
-    style: (_vm.$processStyle({
-      width: _vm.img_w,
-      marginTop: _vm.contentMargin
-    }))
-  }, [_c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_4_h,
-      height: _vm.img_6_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad_yk.png",
-      "placeholder": ""
-    }
-  }), _vm._v(" "), _c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_4_h,
-      height: _vm.img_6_h,
-      marginLeft: _vm.contentMargin
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad_hy.png",
-      "placeholder": ""
-    }
-  })]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height
-    }))
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height2
-    })),
-    attrs: {
-      "value": _vm.content_19
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#f45531"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height2
-    })),
-    attrs: {
-      "value": _vm.content_20
-    }
-  }), _vm._v(" "), _c('div', {
-    staticStyle: _vm.$processStyle({
-      "align-items": "center"
-    }),
-    style: (_vm.$processStyle({
-      width: _vm.img_w
-    }))
-  }, [_c('image', {
-    staticStyle: _vm.$processStyle(undefined),
-    style: (_vm.$processStyle({
-      width: _vm.img_4_h,
-      height: _vm.img_4_h
-    })),
-    attrs: {
-      "src": "http://imengu.cn/Ahuangshang/img/advertisement/ad3.jpg",
-      "placeholder": ""
-    }
-  })]), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#1D67F4"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_1,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.line_height2
-    })),
-    attrs: {
-      "value": _vm.content_21
-    }
-  }), _vm._v(" "), _c('text', {
-    staticStyle: _vm.$processStyle({
-      "color": "#020402"
-    }),
-    style: (_vm.$processStyle({
-      fontSize: _vm.tex_size_3,
-      marginTop: _vm.topMargin,
-      margin: _vm.contentMargin,
-      lineHeight: _vm.tex_size_2
-    })),
-    attrs: {
-      "value": _vm.content_22
-    }
-  })])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("scroller", [
+    _c(
+      "div",
+      {
+        staticStyle: _vm.$processStyle(undefined),
+        style: _vm.$processStyle({
+          marginLeft: _vm.contentMargin,
+          marginRight: _vm.contentMargin
+        })
+      },
+      [
+        _c("text", {
+          staticStyle: _vm.$processStyle({
+            color: "#000000",
+            "justify-content": "center",
+            "text-align": "center"
+          }),
+          style: _vm.$processStyle({
+            fontSize: _vm.title_size,
+            marginTop: _vm.contentMargin,
+            marginBottom: _vm.contentMargin,
+            lineHeight: _vm.line_height2
+          }),
+          attrs: { value: _vm.title }
+        }),
+        _vm._v(" "),
+        _c(
+          "text",
+          {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_2,
+              marginTop: _vm.contentMargin
+            })
+          },
+          [_vm._v(" 2017-10-01 李唐科技")]
+        ),
+        _vm._v(" "),
+        _c("image", {
+          staticStyle: _vm.$processStyle(undefined),
+          style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_1_h }),
+          attrs: {
+            src: _vm.defaultHost + "img/advertisement/ad.jpg",
+            placeholder: ""
+          }
+        }),
+        _vm._v(" "),
+        _c("div", [
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_1 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_2 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_3 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_2_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/advertisement/ad2.jpg",
+              placeholder: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_4 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_5 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_6 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_3_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/advertisement/ad4.jpg",
+              placeholder: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_7 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_8 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_9 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                color: "#020402",
+                "justify-content": "center",
+                "text-align": "center"
+              }),
+              style: _vm.$processStyle({
+                fontSize: _vm.tex_size_1,
+                marginTop: _vm.topMargin,
+                margin: _vm.contentMargin,
+                lineHeight: _vm.line_height
+              }),
+              attrs: { value: _vm.content_10 }
+            },
+            [_vm._v("}\n      ")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_10 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_10 }
+          }),
+          _vm._v(" "),
+          _c(
+            "text",
+            {
+              staticStyle: _vm.$processStyle({
+                color: "#020402",
+                "justify-content": "center",
+                "text-align": "center"
+              }),
+              style: _vm.$processStyle({
+                fontSize: _vm.tex_size_1,
+                marginTop: _vm.topMargin,
+                margin: _vm.contentMargin,
+                lineHeight: _vm.line_height
+              }),
+              attrs: { value: _vm.content_10 }
+            },
+            [_vm._v("}\n      ")]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_10 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_10 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_11 }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticStyle: _vm.$processStyle({ "align-items": "center" }),
+              style: _vm.$processStyle({ width: _vm.img_w })
+            },
+            [
+              _c("image", {
+                staticStyle: _vm.$processStyle(undefined),
+                style: _vm.$processStyle({
+                  width: _vm.img_4_h,
+                  height: _vm.img_4_h
+                }),
+                attrs: {
+                  src: _vm.defaultHost + "img/advertisement/ad5.jpg",
+                  placeholder: ""
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_12 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_13 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({
+              color: "#020402",
+              "justify-content": "center",
+              "text-align": "center"
+            }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            }),
+            attrs: { value: _vm.content_14 }
+          }),
+          _vm._v(" "),
+          _c("image", {
+            staticStyle: _vm.$processStyle(undefined),
+            style: _vm.$processStyle({ width: _vm.img_w, height: _vm.img_5_h }),
+            attrs: {
+              src: _vm.defaultHost + "img/advertisement/ad1.jpg",
+              placeholder: ""
+            }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#f45531" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height2
+            }),
+            attrs: { value: _vm.content_15 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#f45531" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height2
+            }),
+            attrs: { value: _vm.content_16 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#f45531" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            })
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#f45531" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height2
+            }),
+            attrs: { value: _vm.content_17 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#f45531" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height2
+            }),
+            attrs: { value: _vm.content_18 }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticStyle: _vm.$processStyle({
+                "justify-content": "center",
+                "flex-direction": "row"
+              }),
+              style: _vm.$processStyle({ width: _vm.img_w })
+            },
+            [
+              _c("image", {
+                staticStyle: _vm.$processStyle(undefined),
+                style: _vm.$processStyle({
+                  width: _vm.img_4_h,
+                  height: _vm.img_6_h
+                }),
+                attrs: {
+                  src: _vm.defaultHost + "img/advertisement/ad_qq.png",
+                  placeholder: ""
+                }
+              }),
+              _vm._v(" "),
+              _c("image", {
+                staticStyle: _vm.$processStyle(undefined),
+                style: _vm.$processStyle({
+                  width: _vm.img_4_h,
+                  height: _vm.img_6_h,
+                  marginLeft: _vm.contentMargin
+                }),
+                attrs: {
+                  src: _vm.defaultHost + "img/advertisement/ad_aqy.png",
+                  placeholder: ""
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticStyle: _vm.$processStyle({
+                "justify-content": "center",
+                "flex-direction": "row"
+              }),
+              style: _vm.$processStyle({
+                width: _vm.img_w,
+                marginTop: _vm.contentMargin
+              })
+            },
+            [
+              _c("image", {
+                staticStyle: _vm.$processStyle(undefined),
+                style: _vm.$processStyle({
+                  width: _vm.img_4_h,
+                  height: _vm.img_6_h
+                }),
+                attrs: {
+                  src: _vm.defaultHost + "img/advertisement/ad_yk.png",
+                  placeholder: ""
+                }
+              }),
+              _vm._v(" "),
+              _c("image", {
+                staticStyle: _vm.$processStyle(undefined),
+                style: _vm.$processStyle({
+                  width: _vm.img_4_h,
+                  height: _vm.img_6_h,
+                  marginLeft: _vm.contentMargin
+                }),
+                attrs: {
+                  src: _vm.defaultHost + "img/advertisement/ad_hy.png",
+                  placeholder: ""
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#f45531" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height
+            })
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#f45531" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height2
+            }),
+            attrs: { value: _vm.content_19 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#f45531" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height2
+            }),
+            attrs: { value: _vm.content_20 }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticStyle: _vm.$processStyle({ "align-items": "center" }),
+              style: _vm.$processStyle({ width: _vm.img_w })
+            },
+            [
+              _c("image", {
+                staticStyle: _vm.$processStyle(undefined),
+                style: _vm.$processStyle({
+                  width: _vm.img_4_h,
+                  height: _vm.img_4_h
+                }),
+                attrs: {
+                  src: _vm.defaultHost + "img/advertisement/ad3.jpg",
+                  placeholder: ""
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#1D67F4" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_1,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.line_height2
+            }),
+            attrs: { value: _vm.content_21 }
+          }),
+          _vm._v(" "),
+          _c("text", {
+            staticStyle: _vm.$processStyle({ color: "#020402" }),
+            style: _vm.$processStyle({
+              fontSize: _vm.tex_size_3,
+              marginTop: _vm.topMargin,
+              margin: _vm.contentMargin,
+              lineHeight: _vm.tex_size_2
+            }),
+            attrs: { value: _vm.content_22 }
+          })
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-0ae15946", module.exports)
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-6862865d", { render: render, staticRenderFns: staticRenderFns })
   }
 }
 
 /***/ }),
 
-/***/ 59:
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(76),
-  /* template */
-  __webpack_require__(119),
-  /* styles */
-  null,
-  /* scopeId */
-  null,
-  /* moduleIdentifier (server only) */
-  null
-)
-Component.options.__file = "E:\\workSpace\\workSpace\\oldWork\\rili_weex\\src\\views\\guanggao.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key.substr(0, 2) !== "__"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] guanggao.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0ae15946", Component.options)
-  } else {
-    hotAPI.reload("data-v-0ae15946", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 76:
+/***/ 13:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -824,121 +831,127 @@ module.exports = Component.exports
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/**
+ * Created by Tw93 on 2016/11/4.
+ */
+
+exports.default = {
+  channels: '头条&新闻&财经&体育&娱乐&军事&教育&科技&NBA&股票&星座&女性&健康&育儿',
+  adImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/dragonBoatFestival/dragonBoatFestival.jpg', //图片尺寸1080*1800
+  adImgSchemeUrl: 'className=cn.ltwc.cft.weex.WeexActivity&ltkj&jsName=dragonBoatFestival&ltkj&webTitle=端午节&ltkj&shareUrl=http://imengu.cn/Ahuangshang/html/dragonBoatFestival.html',
+  newVersion: 318318,
+  updateUrl: 'https://ahuangshang.github.io/MyWebsite/html/downLoadApp.html',
+  downLoadUrl: 'https://ahuangshang.github.io/MyWebsite/apk/latest.apk',
+  HostImgUrl: 'https://ahuangshang.github.io/MyWebsite/img/',
+  defaultHost: 'https://ahuangshang.github.io/MyWebsite/',
+  getContent: function getContent(e) {
+    var head = "<head>" + "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " + "<style>img{width: 100%;height:auto;}</style>" + "<style>video{width:100%; height:auto;max-height: 320px; position: static; margin: 0}</style>" + "<style type='text/css'>" + "body{color:rgba(28,28,28,0.95);font-size: 16px}" + "</style>" + "</head>";
+    var style = "<style>" + "  body{" + "    -webkit-user-select: none;" + "    -webkit-tap-highlight-color: transparent;" + "  }" + "</style>";
+    var result = "\n" + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">" + "<html>" + head + style + "<body>" + this.getButtonInfo(e) + "</body></html>";
+    result = encodeURI(result);
+    return result;
+  },
+  getButtonInfo: function getButtonInfo(e) {
+    var content = e.content.replace(/(<\/?a.*?>)/g, '');
+    var title = e.title;
+    return "<h2>" + title + "</h2>" + content + "<p style='color: #88000000;font-size: 13px'>&nbsp;&nbsp;本文系第三方观点，不代表李唐科技的观点和立场</p><p  onClick='linkThird()' style='color: #33B5E5;font-size: 13px'>&nbsp;&nbsp;原文链接>></p><script>function linkThird() {ltwc.linkThird();}</script>";
+  },
+  getWeatherTypeImg: function getWeatherTypeImg(currentType) {
+    if (this.contains(currentType, '晴')) {
+      return 'qing.jpg';
+    } else if (this.contains(currentType, '阴')) {
+      return 'yin.jpg';
+    } else if (this.contains(currentType, '多云')) {
+      return 'duoyun.gif';
+    } else if (this.contains(currentType, '小雨') || this.contains(currentType, '中雨')) {
+      return 'xiaoyu.gif';
+    } else if (this.contains(currentType, '大雨') || this.contains(currentType, '暴雨')) {
+      return 'dayu.gif';
+    } else if (this.contains(currentType, '小雪') || this.contains(currentType, '中雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '大雪') || this.contains(currentType, '暴雪')) {
+      return 'daxue.gif';
+    } else if (this.contains(currentType, '雪')) {
+      return 'xiaoxue.gif';
+    } else if (this.contains(currentType, '雨')) {
+      return 'xiaoyu.gif';
+    }
+  },
+
+  contains: function contains(str, s) {
+    return str.indexOf(s) > -1;
+  },
+  getWeatherDec: function getWeatherDec(high, low) {
+    var nhigh = high.replace("高温", "");
+    nhigh = nhigh.replace('℃', '');
+    var nlow = low.replace('低温', '');
+    return nhigh + " ~" + nlow;
+  },
+  newsTabTitles: [{ title: '头条' }, { title: '新闻' }, { title: '财经' }, { title: '体育' }, { title: '娱乐' }, { title: '军事' }, { title: '教育' }, { title: '科技' }, { title: 'NBA' }, { title: '股票' }, { title: '星座' }, { title: '女性' }, { title: '健康' }, { title: '育儿' }],
+  newsTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 160,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 160,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  },
+  jokeTabTitles: [{ title: '脑筋急转弯', netUrl: 'https://api.bmob.cn/1/classes/funny_iq/' }, { title: '时尚物语', netUrl: 'https://api.bmob.cn/1/classes/funny_ganwu/' }, { title: '节日祝福', netUrl: 'https://api.bmob.cn/1/classes/funny_zhufu/' }],
+  jokeTabStyles: {
+    bgColor: '#ffffff',
+    titleColor: '#dd000000',
+    activeTitleColor: '#31A9A5',
+    activeBgColor: '#ffffff',
+    isActiveTitleBold: true,
+    iconWidth: 70,
+    iconHeight: 70,
+    width: 250,
+    height: 75,
+    fontSize: 28,
+    hasActiveBottom: true,
+    activeBottomColor: '#31A9A5',
+    activeBottomHeight: 1,
+    activeBottomWidth: 250,
+    textPaddingLeft: 10,
+    textPaddingRight: 10,
+    normalBottomColor: 'rgba(0,0,0,0.4)',
+    normalBottomHeight: 1,
+    hasRightIcon: true,
+    rightOffset: 100
+  }
+};
+
+/***/ }),
+
+/***/ 60:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _config = __webpack_require__(13);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   props: {
@@ -1060,8 +1073,185 @@ exports.default = {
       default: "特别说明：\n        奖品照片仅供参考，一切以实际发放为准；\n        获得奖品的用户，我们会在两个工作日内联系您的微信，请保持微信正常联系，逾期未回复我们将视为自动放弃；\n       本活动最终解释权归李唐科技所有。"
     }
   },
+  data: function data() {
+    return {
+      defaultHost: _config2.default.defaultHost
+    };
+  },
+
   created: function created() {}
-};
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/***/ }),
+
+/***/ 76:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_guanggao_vue__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_guanggao_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_guanggao_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_guanggao_vue__) if(["default","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_guanggao_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6862865d_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_guanggao_vue__ = __webpack_require__(127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__ = __webpack_require__(0);
+var disposed = false
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+
+var Component = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__node_modules_vue_loader_lib_runtime_component_normalizer__["a" /* default */])(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_guanggao_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6862865d_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_guanggao_vue__["a" /* render */],
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_6862865d_hasScoped_false_optionsId_0_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_guanggao_vue__["b" /* staticRenderFns */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src\\views\\guanggao.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-loader/node_modules/vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6862865d", Component.options)
+  } else {
+    hotAPI.reload("data-v-6862865d", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
 
 /***/ }),
 
@@ -1071,7 +1261,7 @@ exports.default = {
 "use strict";
 
 
-var _guanggao = __webpack_require__(59);
+var _guanggao = __webpack_require__(76);
 
 var _guanggao2 = _interopRequireDefault(_guanggao);
 
